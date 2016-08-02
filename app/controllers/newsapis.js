@@ -4,8 +4,7 @@
 var express = require('express'),
     router = express.Router(),
     moment = require('moment'),
-    mongoose = require('mongoose'),
-    Device = mongoose.model('device');
+    mongoose = require('mongoose')
 var cors = require('cors');
 var config = require('../../config/config.js');
 var fs = require('fs');
