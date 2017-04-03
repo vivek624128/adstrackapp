@@ -1,0 +1,58 @@
+<div class="workspace">
+    <div class="tabs">
+        <a class="bold">New Invoice</a>
+        <span class="clear"></span>
+    </div>
+</div>
+
+<div class="paddingFull">
+    <ul class="form flow">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Invoice Date : </span>
+                <input type="text" ng-model="uploadData.invoice_date" placeholder="" class="midBlock datePicker" b-datepicker>
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Customer :</div>
+                    <div class="headTitle midBlock normalColor">
+                        <!--<input type="text" ng-model="uploadData.cust_id" placeholder="" class="midBlock">-->
+                        Select Customer
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-click="selectCustomer(customer.cust_id,customer.srl_no)" ng-repeat="customer in customers" ng-show="customer.cust_id">{{customer.cust_id}}</li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Contact No: </span>
+                <input type="text" ng-model="uploadData.cust_no" placeholder="" class="midBlock" disabled>
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Address : </span>
+                <input type="text" ng-model="uploadData.cust_address" placeholder="" class="midBlock" disabled>
+            </div>
+        </li>
+    </ul>
+    <ul class="form flow">
+        <li>
+        </li>
+
+        <li>
+            <button class="btn floatRight" ng-disabled="uploadData.cust_id=='Select Customer'">CONTINUE</button>
+        </li>
+    </ul>
+    <ul class="form ">
+        <li>
+            <span class="error" ng-show="msg">{{msg}}</span>
+        </li>
+    </ul>
+
+
+</div>

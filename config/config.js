@@ -11,7 +11,7 @@ var config = {
     },
     port: server_port,
     server_ip_address: server_ip_address,
-    db: 'mongodb://foodieadmin:foodie@ds031975.mlab.com:31975/foodieapp',
+    db: 'mongodb://myadsadmin:myadsadmin@ds147900.mlab.com:47900/adstrackapp',
     // db: 'mongodb://localhost/foodie',
     REFRESH_THRESHOLD:1000*60*1
   },
@@ -23,7 +23,7 @@ var config = {
     },
     port: server_port,
     server_ip_address: server_ip_address,
-    db: 'mongodb://foodieadmin:foodie@ds031975.mlab.com:31975/foodieapp',
+    db: 'mongodb://myadsadmin:myadsadmin@ds147900.mlab.com:47900/adstrackapp',
     REFRESH_THRESHOLD:1000*60*10
   },
 
@@ -34,7 +34,7 @@ var config = {
     },
     port: server_port,
     server_ip_address: server_ip_address,
-    db: 'mongodb://foodieadmin:foodie@ds031975.mlab.com:31975/foodieapp',
+    db: 'mongodb://myadsadmin:myadsadmin@ds147900.mlab.com:47900/adstrackapp',
     REFRESH_THRESHOLD:1000*60*10
   }
 };

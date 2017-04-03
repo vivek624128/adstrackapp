@@ -1,0 +1,98 @@
+[
+  {
+    "OfferDescription": "20% Discount",
+    "Brand": "Pantaloons",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Clipped",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "Clothing",
+    "ExpirationStatus":"Active"
+  },
+  {
+    "OfferDescription": "10% Discount on SBI Card",
+    "Brand": "KFC",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Known Issue",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "food",
+    "ExpirationStatus":"Active"
+  },
+  {
+    "OfferDescription": "10% Discount on SBI Card",
+    "Brand": "KFC",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Redeemed",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "food",
+    "ExpirationStatus":"Active"
+  },
+  {
+    "OfferDescription": "10% Discount on SBI Card",
+    "Brand": "KFC",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Outage",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "food",
+    "ExpirationStatus":"Active"
+  },
+  {
+    "OfferDescription": "Buy 2 Get 1",
+    "Brand": "Syska",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Redeemed",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "Electronic",
+    "ExpirationStatus":"Active"
+  },
+  {
+    "OfferDescription": "5% Discount on SBI Card",
+    "Brand": "Samsung",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Clipped",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "Electronic",
+    "ExpirationStatus":"Active"
+  },
+  {
+    "OfferDescription": "By 1 Get 1",
+    "Brand": "LEVIES",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Known Issue",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "food",
+    "ExpirationStatus":"Expired"
+  },
+  {
+    "OfferDescription": "10% Discount on SBI Card",
+    "Brand": "Mc Donald",
+    "ActivationDate": "12/10/2014",
+    "ExpirationDate": "12/10/2017",
+    "Status": "Outage",
+    "RedemptionDate": "12/10/2014",
+    "Value": "1.00",
+    "Quantity": 0,
+    "Category": "food",
+    "ExpirationStatus":"Active"
+  }
+]

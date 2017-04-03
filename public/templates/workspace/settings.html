@@ -1,0 +1,77 @@
+<div class="galleryContent">
+    <div class="uploadImage paddingTB">
+
+        <from class="quotientForm">
+            <ul class="form paddingFull">
+                <li>
+                    <div class="input-group">
+                        <span class="inputLabel midBlock">Description : </span>
+                        <input type="text" ng-model="uploadData.desc" placeholder="" class="midBlock fullWidth"
+                        >
+                    </div>
+                </li>
+                <li>
+                    <div class="upload addImage  halfWidth marginRgtSml floatRight ">
+                        <!--<input type="file" name="myImages" ng-model="myImages" multiple base-sixty-four-input>-->
+                        <input id="inputImage" type="file" accept="image/*" ng-model="myImages" image="imageList" resize-max-height="2500" resize-max-width="1800" resize-quality="0.6" resize-type="image/jpg" multiple="multiple" ng-image-compress/>
+
+                        <div class="imgUploadMask lightBack small centerTxt">
+                            <div class="btn">Add Image</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="subNormal paddingSml">Upload images</div>
+                </li>
+                <li>
+                    <div class="imageSec">
+                        <div class="subNormal" ng-show="loading">Uploading........</div>
+                        <ul>
+                            <!--<li ng-repeat="image in Dimages track by $index" ng-repeat="item in imageList">-->
+                            <li ng-repeat="item in imageList">
+                                <!--<img ng-src="{{image}}" alt="">-->
+                                <img ng-src="{{item.compressed.dataURL}}" />
+                            </li>
+                            <span class="clear"></span>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn" ng-click="uploadImages()">Upload Image</div>
+                </li>
+                <li>
+                    Note : Add max 8 image at a time...
+                </li>
+                <li ng-show="msg!=''" class="error">
+                    {{msg}}
+                </li>
+            </ul>
+
+        </from>
+        <div class="loading" ng-show="uploading">
+            <img src="images/giphy.gif">
+        </div>
+
+    </div>
+    <div class="imageGallery">
+        <ul class="form flow paddingTB borderBtm marginBtm bold">
+            <li>Image Upload Allowed = 250</li>
+            <li>Image Uploaded = {{galleryImages.length}}</li>
+        </ul>
+
+        <div class="paddingFull">
+            <div class="gallery">
+                <ul>
+                    <li ng-repeat="image in galleryImages | orderBy : '-img_id'">
+                        <img ng-src="http://stjosephsschoolmokama.com/{{image.image_path}}" alt="">
+                        <div class="delete" ng-click="deleteImage(image.img_id,image.image_path)"><img
+                                src="images/delete.png"></div>
+                    </li>
+                    <span class="clear"></span>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+

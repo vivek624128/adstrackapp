@@ -1,0 +1,37 @@
+<div class="galleryContent">
+    <div class="uploadImage paddingTB">
+        <from class="quotientForm">
+            <ul class="form paddingFull">
+                <li>
+                    <div class="input-group">
+                        <span class="inputLabel midBlock">User Type : </span>
+                        <input type="text" ng-model="uploadData.userType" placeholder="" class="midBlock fullWidth"
+                        >
+                    </div>
+                </li>
+                <li>
+                    <div class="btn" ng-click="saveNotice()">Save</div>
+                </li>
+            </ul>
+
+        </from>
+    </div>
+    <div class="imageGallery">
+        <div class="dataTable campaignTable full subNormal  borderBtm">
+            <div class="dataRow header">
+                <ul class="rowCont">
+                    <li class="smallCol">User Type</li>
+                    <li  class="smallCol"></li>
+                </ul>
+            </div>
+            <div class="dataRow noBack" ng-repeat="news in noticeList | orderBy : '-noticeid'">
+                <ul class="rowCont">
+                    <li class="smallCol"><a href="#">{{news.noticedate}}</a></li>
+                    <li class="smallCol"><a class="btnLink" ng-click="removeNews(news.noticeid)">Delete</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,53 @@
+<div class="paddingLR paddingTBSml borderBtm">
+    <div class="floatLeft searchBar">
+            <ul class="form flow">
+                <li class="noMargin midBlock">
+                    <div class="input-group fullWidth">
+                        <span class="inputLabel midBlock">Search : </span>
+                        <input type="text" ng-model="search" placeholder="" class="midBlock fullWidth"
+                        >
+                    </div>
+                </li>
+                <li class="noMargin paddingTBSml">
+                    <a class="btnLink midBlock">Advance Search</a>
+
+                </li>
+            </ul>
+    </div>
+    <div class="floatRight">
+        <a class="btn small marginTopSrt" href="#/app/transaction/newTransaction">NEW INVOICE</a>
+    </div>
+    <span class="clear"></span>
+</div>
+<div class="galleryContent">
+    <div class="">
+        <div class="dataTable campaignTable full subNormal  borderBtm">
+            <div class="dataRow header">
+                <ul class="rowCont">
+                    <!--<li class="smallCol">Srl No.</li>-->
+                    <li class="smallCol">Invoice Id</li>
+                    <li class="startDate">Invoice Date</li>
+                    <li class="">Customer Id</li>
+                    <li  class="smallCol">Total</li>
+                    <li  class="smallCol">Vat</li>
+                    <li  class="smallCol">Net Amount</li>
+                    <li  class="smallCol"></li>
+                </ul>
+            </div>
+            <div class="dataRow pageBreak" ng-repeat="trans in transaction | filter : search">
+                <ul class="rowCont">
+                    <!--<li class="smallCol"><a href="#">{{$index+1}}</a></li>-->
+                    <li class="smallCol">{{trans.invoice_no}}</li>
+                    <li class="startDate">{{trans.invoice_date}}</li>
+                    <li class="">{{trans.cust_id}}</li>
+                    <li class="smallCol">&#8377; {{trans.total}}</li>
+                    <li class="smallCol">&#8377; {{trans.total_vat}}</li>
+                    <li class="smallCol">&#8377; {{trans.net_pay_amount}}</li>
+                    <li class="smallCol"><a class="btnLink paddingLR" ng-click="removeNews(news.noticeid)">View </a> <a class="btnLink" ng-click="removeNews(news.noticeid)"> Edit</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+

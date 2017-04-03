@@ -1,0 +1,180 @@
+<div class="paddingLR paddingTBSml borderBtm">
+    <div class="floatLeft searchBar">
+
+            <ul class="form flow">
+                <li class="noMargin">
+                    <div class="input-group fullWidth">
+                        <span class="inputLabel midBlock">Search : </span>
+                        <input type="text" ng-model="search" placeholder="" class="midBlock fullWidth"
+                        >
+                    </div>
+                </li>
+            </ul>
+    </div>
+    <div class="floatRight">
+        <div class="btn small marginTopSrt addCustomer">NEW USER</div>
+    </div>
+    <span class="clear"></span>
+</div>
+<div class="galleryContent">
+    <div class="">
+        <div class="dataTable campaignTable full subNormal  borderBtm">
+            <div class="dataRow header">
+                <ul class="rowCont">
+                    <!--<li class="smallCol">Srl No.</li>-->
+                    <li class="smallCol">Code</li>
+                    <li class="">Company Name</li>
+                    <!--<li class="startDate">Date Of Creation</li>-->
+                    <li  class="">Address</li>
+                    <li  class="">Phone Number</li>
+                    <li  class="emailId">Email Id</li>
+                    <li  class="smallCol"></li>
+                </ul>
+            </div>
+            <!--<div class="dataRow " ng-repeat="customer in customers | filter : search">
+                <ul class="rowCont">
+                    &lt;!&ndash;<li class="smallCol"><a href="#">{{$index+1}}</a></li>&ndash;&gt;
+                    <li class="smallCol">{{customer.cust_id}}</li>
+                    <li class="">{{customer.cust_name}}</li>
+                    &lt;!&ndash;<li class="startDate">{{customer.doj}}</li>&ndash;&gt;
+                    <li class="">{{customer.cust_address}}</li>
+                    <li class="">{{customer.cust_no}}</li>
+                    <li class="emailId">{{customer.email_id}}</li>
+                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer" ng-click="getCustomerById(customer.srl_no)">Edit</a></li>
+                </ul>
+            </div>-->
+        </div>
+
+    </div>
+</div>
+
+
+<div class="popup customer ">
+    <div class="x close paddingLR">x</div>
+    <div class="subTitle borderBtm paddingBtmSml">
+        New User
+    </div>
+    <ul class="form paddingTop flow">
+        <li>
+            <div class="input-group">
+                <div class="dropDown midBlock full subNormal">
+                    <div class="head " data-init="0">
+                        <div class="midBlock inputLabel">User Type :</div>
+                        <div class="headTitle midBlock normalColor">
+                            <!--<input type="text" ng-model="uploadData.cust_id" placeholder="" class="midBlock">-->
+                            Select Customer
+                        </div>
+                    </div>
+                    <ul class="list">
+                        <li ng-click="selectCustomer(customer.cust_id,customer.srl_no)" ng-repeat="customer in customers" ng-show="customer.cust_id">{{customer.cust_id}}</li>
+                    </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Full Name : </span>
+                <input type="text" ng-model="uploadData.cust_name" placeholder="" class="midBlock">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">E-Mail Id: </span>
+                <input type="text" ng-model="uploadData.email_id" placeholder="" class="midBlock">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Contact No : </span>
+                <input type="text" ng-model="uploadData.cust_no" placeholder="" class="midBlock">
+            </div>
+        </li>
+    </ul>
+    <ul class="form">
+        <li>
+            Address
+        </li>
+
+        <li>
+                <textarea ng-model="uploadData.cust_address"></textarea>
+
+        </li>
+    </ul>
+    <ul class="form flow">
+        <li>
+            <div class="btn" ng-click="addCustomer()">SAVE</div>
+        </li>
+
+        <li>
+            <div class="btn floatRight close">CANCEL</div>
+        </li>
+    </ul>
+    <ul class="form ">
+        <li>
+            <span class="error" ng-show="msg">{{msg}}</span>
+        </li>
+    </ul>
+
+
+</div>
+
+<div class="popup editCustomer ">
+    <div class="x close paddingLR">x</div>
+    <div class="subTitle borderBtm paddingBtmSml">
+        Customer Detail
+    </div>
+    <ul class="form paddingTop flow">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Customer Code : </span>
+                <input type="text" ng-model="customerDetail.cust_id" placeholder="" class="midBlock" value="{{offerData.startDate}}">
+                <input type="hidden" ng-model="customerDetail.srl_no" placeholder="">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Full Name : </span>
+                <input type="text" ng-model="customerDetail.cust_name" placeholder="" class="midBlock">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">E-Mail Id: </span>
+                <input type="text" ng-model="customerDetail.email_id" placeholder="" class="midBlock">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Contact No : </span>
+                <input type="text" ng-model="customerDetail.cust_no" placeholder="" class="midBlock">
+            </div>
+        </li>
+    </ul>
+    <ul class="form">
+        <li>
+            Address
+        </li>
+
+        <li>
+                <textarea ng-model="customerDetail.cust_address"></textarea>
+
+        </li>
+    </ul>
+    <ul class="form flow">
+        <li>
+            <div class="btn" ng-click="updateCustomer(customerDetail.srl_no)">UPDATE</div>
+        </li>
+
+        <li>
+            <div class="btn floatRight close">CANCEL</div>
+        </li>
+    </ul>
+
+    <ul class="form ">
+        <li>
+            <span class="error" ng-show="msg">{{msg}}</span>
+        </li>
+    </ul>
+
+
+</div>

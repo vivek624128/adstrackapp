@@ -1,0 +1,186 @@
+<div id="appHeader">
+    <div class="leftCont floatLeft">
+        <div class="logo">
+            <img src="images/logo_white.png">
+        </div>
+    </div>
+    <div class="rightCont floatRight roboLight">
+        <!--<div class="notificationBtn midBlock small " data-init=1 >
+            <div class="txt midBlock normal">Notifications</div>
+            <div class="num midBlock">{{noti.length}}</div>
+        </div>-->
+    </div>
+    <span class="clear"></span>
+</div>
+
+
+<div id="contWrapper">
+
+    <!--........ Side navigation bar ......-->
+    <div class="sideNavMain">
+        <ul class="sideNav roboLight smallest">
+            <li ng-class="{active: currentRout('app/dashboard')}" class="rippleEle">
+                <a href="#/app/dashboard">
+                    <img src="images/workspace.png" alt="" class="icon">
+                    <div class="name">Dashboard</div>
+                </a>
+            </li>
+            <li ng-class="{active: currentRout('app/transaction')}" class="rippleEle">
+                <a href="#/app/transaction">
+                    <img src="images/transaction.png" alt="" class="icon">
+                    <div class="name">Projects</div>
+                </a>
+            </li>
+            <li ng-class="{active: currentRout('app/transaction')}" class="rippleEle">
+                <a href="#/app/transaction">
+                    <img src="images/transaction.png" alt="" class="icon">
+                    <div class="name">Advertisement</div>
+                </a>
+            </li>
+            <li ng-class="{active: currentRout('app/customer')}" class="rippleEle">
+                <a href="#/app/customer">
+                    <img src="images/customer.png" alt="" class="icon">
+                    <div class="name">Users</div>
+                </a>
+            </li>
+            <li class="rippleEle"  ng-class="{active: currentRout('app/setting')}" ng-click="logout()">
+                <a href="#/app/setting"><!-- -->
+                    <img src="images/setting.png" alt="" class="icon">
+                    <div class="name">Setting</div>
+                </a>
+            </li>
+            <li class="rippleEle"  ng-click="logout()">
+                <a><!-- href="#/app/settings"-->
+                    <img src="images/logout.png" alt="" class="icon">
+                    <div class="name">Logout</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!--......... app contents .........-->
+    <div id="pageCont" class=" " ui-view></div>
+
+
+
+</div>
+
+
+<!--...... transparent background for popups .........-->
+<div class="background"></div>
+
+<!--<div class="popup createTicket">
+    <div class="x close paddingLR">x</div>
+    <div class="">
+        Create New Ticket
+    </div>
+    <ul class="form paddingTop flow">
+        <li>
+            <div class="dropDown midBlock trans subNormal helvLight">
+                <div class="head" data-init="0">
+                    <div class="midBlock inputLabel">Ticket Type : </div>
+                    <div class="headTitle midBlock normalColor">{{ticketData.ticketType}}</div>
+                </div>
+                <ul class="list">
+                    <li ng-click="ticketData.ticketType='Internal User'">Internal User</li>
+                    <li>External User</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock trans subNormal helvLight">
+                <div class="head" data-init="0">
+                    <div class="midBlock inputLabel">Status : </div>
+                    <div class="headTitle midBlock normalColor">{{ticketData.status}}</div>
+                </div>
+                <ul class="list">
+                    <li ng-click="ticketData.status='New'">New</li>
+                    <li ng-click="ticketData.status='Open'">Open</li>
+                    <li ng-click="ticketData.status='Hold'">Hold</li>
+                    <li ng-click="ticketData.status='Waiting'">Waiting</li>
+                    <li ng-click="ticketData.status='In-Progress'">In-Progress</li>
+                    <li ng-click="ticketData.status='Monitor'">Monitor</li>
+                    <li ng-click="ticketData.status='Resolved'">Resolved</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock trans subNormal helvLight">
+                <div class="head" data-init="0">
+                    <div class="midBlock inputLabel">Ticket Reason : </div>
+                    <div class="headTitle midBlock normalColor">{{ticketData.ticketReason}}</div>
+                </div>
+                <ul class="list">
+                    <li ng-click="ticketData.ticketReason='Issue'">Issue</li>
+                    <li ng-click="ticketData.ticketReason='Suggestion'">Suggestion</li>
+                    <li ng-click="ticketData.ticketReason='Technical'">Technical</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock trans subNormal helvLight">
+                <div class="head" data-init="0">
+                    <div class="midBlock inputLabel">Priority : </div>
+                    <div class="headTitle midBlock normalColor">{{ticketData.priority}}</div>
+                </div>
+                <ul class="list">
+                    <li ng-click="ticketData.priority='Low'">Low</li>
+                    <li ng-click="ticketData.priority='High'">High</li>
+                    <li ng-click="ticketData.priority='Medium'">Medium</li>
+                    <li ng-click="ticketData.priority='Rush'">Rush</li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <ul class="form">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel">Subject</span>
+                <input type="text" ng-model="ticketData.subject" placeholder="" class="midBlock"
+                       ng-init="desc=''">
+            </div>
+
+        </li>
+        <li>Description</li>
+        <li>
+            <textarea class="" ng-model="ticketData.description"></textarea>
+        </li>
+    </ul>
+
+    <ul class="form flow">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Account : </span>
+                <input type="text" ng-model="ticketData.account" placeholder="" class="midBlock" ng-init="value='John Woody'">
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock trans subNormal helvLight">
+                <div class="head" data-init="0">
+                    <div class="midBlock inputLabel">Contact : </div>
+                    <div class="headTitle midBlock normalColor">{{ticketData.contact}}</div>
+                </div>
+                <ul class="list">
+                    <li ng-click="ticketData.contact='John Woody'">John Woody</li>
+                    <li ng-click="ticketData.contact='Tom Tyler'">Tom Tyler</li>
+                    <li ng-click="ticketData.contact='Mark Woody'">Mark Woody</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <div class="btn" ng-click="saveTicket()">SAVE</div>
+            &lt;!&ndash;<div class="btn close marginLeft">CANCEL</div>&ndash;&gt;
+        </li>
+        <li>
+            <div class="btn close floatRight">CANCEL</div>
+        </li>
+    </ul>
+
+    <ul class="form">
+        <li>* . Required Information</li>
+    </ul>
+
+</div>-->
+
+
