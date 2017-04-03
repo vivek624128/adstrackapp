@@ -20,13 +20,17 @@ module.exports = function (app) {
 
 router.post('/newUser', function (req, res) {
     var newUser = new users(req.body);
+    newUser.dateTime =moment().format();
     newUser.save(function
         (err) {
         if (err) throw err;
         res.send(responseMsg.response('success', 'New User created !..'))
     })
-
-
+})
+router.get('/userList', function (req, res) {
+    users.find({}, function (err, data) {
+        res.send(data)
+    })
 })
 
 router.post('/newUserType', function (req, res) {

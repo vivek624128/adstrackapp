@@ -5,6 +5,12 @@ NEC.service('apiService', function ($http, apiPath) {
     return {
         selectUserType : function () {
             return $http.get(apiPath.baseUrl+'selectUserType')
+        },
+        saveUser : function (data) {
+            return $http.post(apiPath.baseUrl+'newUser', data)
+        },
+        userList : function () {
+            return $http.get(apiPath.baseUrl+'userList')
         }
     }
 })
@@ -32,9 +38,9 @@ NEC.provider('apiPath', function () {
     return {
         $get: function () {
             return {
-                // baseUrl: 'http://localhost:8080/'
+                baseUrl: 'http://localhost:8080/'
 
-               baseUrl: 'http://newsapp-myflash.rhcloud.com/'
+               // baseUrl: 'http://newsapp-myflash.rhcloud.com/'
             }
         }
     }

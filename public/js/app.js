@@ -30,10 +30,10 @@ NEC.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/workspace/gallery.html',
             controller: 'galleryCtrl'
         })
-        .state('app.news', {
-            url: "/news",
-            templateUrl: 'templates/workspace/news.html',
-            controller: 'newsCtrl'
+        .state('app.projects', {
+            url: "/projects",
+            templateUrl: 'templates/workspace/projects.html',
+            controller: 'projectsCtrl'
         })
         .state('app.workspace', {
             url: "/workspace",
@@ -44,10 +44,10 @@ NEC.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/workspace/dashboard.html',
             controller: 'dashboardCtrl'
         })
-        .state('app.customer', {
-            url: "/customer",
-            templateUrl: 'templates/workspace/customer.html',
-            controller: 'customerCtrl'
+        .state('app.user', {
+            url: "/user",
+            templateUrl: 'templates/workspace/users.html',
+            controller: 'userCtrl'
         })
         .state('app.transaction', {
             url: "/transaction",
@@ -84,20 +84,8 @@ NEC.directive('repeatDone', function () {
             scope.$eval(attrs.repeatDone);
         }
     }
-});
-
-
-NEC.provider('apiPath', function () {
-
-    return {
-        $get: function () {
-            return {
-                // baseUrl: 'http://programmervivek.co.in/mahaboudh/webSupport/api/'
-                baseUrl: 'http://localhost/trackerWebSupport/api/'
-            }
-        }
-    }
 })
+
 
 .directive('bDatepicker', function () {
     return {

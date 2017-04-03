@@ -10,7 +10,7 @@ NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $locati
         if (user.userId == 'services' && user.password == 'QHash3' ){
             localStorage.setItem('user','services');
             $scope.loginLoader = false;
-            $state.go('app.customer');
+            $state.go('app.user');
         }
         else{
             $scope.error = 'Error: Invalid user or password';

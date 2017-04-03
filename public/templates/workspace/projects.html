@@ -12,7 +12,7 @@
         </ul>
     </div>
     <div class="floatRight">
-        <div class="btn small marginTopSrt addCustomer">NEW USER</div>
+        <div class="btn small marginTopSrt addCustomer">NEW PROJECT</div>
     </div>
     <span class="clear"></span>
 </div>
@@ -21,26 +21,26 @@
         <div class="dataTable campaignTable full subNormal  borderBtm">
             <div class="dataRow header">
                 <ul class="rowCont">
-                    <!--<li class="smallCol">Srl No.</li>-->
-                    <li class="smallCol">User Name</li>
-                    <li class="">Full Name</li>
-                    <li class="startDate">Date Of Creation</li>
-                    <li class="">Address</li>
-                    <li class="">Phone Number</li>
-                    <li class="emailId">Email Id</li>
+                    <li class="">Project Name</li>
+                    <li class="">Types</li>
+                    <li class="">Locations</li>
+                    <li class="startDate">Start Date</li>
+                    <li class="startDate">End Date</li>
+                    <li class="emailId">Manager</li>
+                    <li class="smallCol">Status</li>
                     <li class="smallCol"></li>
                 </ul>
             </div>
-            <div class="dataRow " ng-repeat="user in userList | filter : search">
+            <div class="dataRow " ng-repeat="project in projects | filter : search">
                 <ul class="rowCont">
-                    <!--<li class="smallCol"><a href="#">{{$index+1}}</a></li>-->
-                    <li class="smallCol">{{user.username}}</li>
-                    <li class="">{{user.fullName}}</li>
-                    <li class="startDate">{{user.dateTime | date : 'dd, MMM yyyy'}}</li>
-                    <li class="">{{user.Address}}</li>
-                    <li class="">{{user.contactNo}}</li>
-                    <li class="emailId">{{user.emailId}}</li>
-                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer" ng-click="getCustomerById(user._id)">Edit</a></li>
+                    <li class="">{{project.projectName}}</li>
+                    <li class="">{{project.advertiseCategory}}</li>
+                    <li class="">{{project.advertiseLocations}}</li>
+                    <li class="startDate">{{project.startDate}}</li>
+                    <li class="startDate">{{project.EndDate}}</li>
+                    <li class="">{{project.projectManager}}</li>
+                    <li class="">{{project.projectStatus}}</li>
+                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer" ng-click="getCustomerById(project._id)">Edit</a></li>
                 </ul>
             </div>
         </div>
