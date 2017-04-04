@@ -6,7 +6,7 @@ var projectsSchema = new schema({
     advertiseCategory :Object,
     advertiseLocations :Object,
     startDate :Date,
-    EndDate :Date,
+    endDate :Date,
     projectManager :String,
     creationDate :Date,
     projectStatus :String

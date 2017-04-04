@@ -11,25 +11,24 @@ var express = require('express'),
     cors = require('cors'),
     config = require('../../config/config.js'),
     ads = mongoose.model('users'),
-    users = mongoose.model('ads'),
-    adsCategory = mongoose.model('adsCategory'),
-    userType = mongoose.model('usersType');
+    vehicles = mongoose.model('vehicles')
 
 module.exports = function (app) {
     app.use('/', router);
     app.use(cors());
 };
 
-router.post('/newAdsCategory', function (req, res) {
-    var newAdsCategory = new adsCategory(req.body);
-    newAdsCategory.save(function
+router.post('/newVehicles', function (req, res) {
+    var newVehicles = new vehicles(req.body);
+    newVehicles.save(function
         (err) {
         if (err) throw err;
-        res.send(responseMsg.response('success', 'New Ads Category created !..'))
+        res.send(responseMsg.response('success', 'New Vehicles created !..'))
     })
 })
-router.get('/listAdsCategory', function (req, res) {
-    adsCategory.find({}, function (err, data) {
+
+router.get('/listVehicles', function (req, res) {
+    vehicles.find({}, function (err, data) {
         res.send(data)
     })
 })

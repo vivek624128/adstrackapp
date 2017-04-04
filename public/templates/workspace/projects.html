@@ -31,7 +31,7 @@
                     <li class="smallCol"></li>
                 </ul>
             </div>
-            <div class="dataRow " ng-repeat="project in projects | filter : search">
+            <div class="dataRow " ng-repeat="project in projectList | filter : search">
                 <ul class="rowCont">
                     <li class="">{{project.projectName}}</li>
                     <li class="">{{project.advertiseCategory}}</li>
@@ -50,62 +50,65 @@
 </div>
 
 
-<div class="popup customer " ng-init="pageNo=0">
+<div class="popup customer ">
     <div class="x close paddingLR">x</div>
     <div class="subTitle borderBtm paddingBtmSml">
         Project Detail
     </div>
-    <ul class="form paddingTop flow">
+    <ul class="form paddingTop">
+
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Project Name : </span>
+                <input type="text" ng-model="projectData.projectName" placeholder="" class="midBlock">
+            </div>
+        </li>
         <li>
             <div class="dropDown midBlock full subNormal">
                 <div class="head " data-init="0">
                     <div class="midBlock inputLabel">Project Category :</div>
                     <div class="headTitle midBlock normalColor">
-                        {{uploadData.userType}}
+                        {{adsCategory[0].advertiseMode}}
                     </div>
                 </div>
                 <ul class="list">
-                    <li ng-repeat="type in userType" ng-click="uploadData.userType=type.userType">{{type.userType}}</li>
+                    <li ng-repeat="category in adsCategory" ng-click="projectData.advertiseCategory=category._id">{{category.advertiseMode}}</li>
                 </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
             </div>
         </li>
         <li>
             <div class="input-group">
-                <span class="inputLabel midBlock">User Name : </span>
-                <input type="text" ng-model="uploadData.username" placeholder="" class="midBlock">
-            </div>
-        </li>
-    </ul>
-    <ul class="form">
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">Full Name : </span>
-                <input type="text" ng-model="uploadData.fullName" placeholder="" class="midBlock">
-            </div>
-        </li>
-    </ul>
-
-    <ul class="form paddingTop  flow">
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">Contact No : </span>
-                <input type="text" ng-model="uploadData.contactNo" placeholder="" class="midBlock">
+                <span class="inputLabel midBlock">Start Date: </span>
+                <input type="text" ng-model="projectData.startDate" placeholder="" class="midBlock datePicker" b-datepicker>
             </div>
         </li>
         <li>
             <div class="input-group">
-                <span class="inputLabel midBlock">E-Mail Id: </span>
-                <input type="text" ng-model="uploadData.emailId" placeholder="" class="midBlock">
+                <span class="inputLabel midBlock">End Date: </span>
+                <input type="text" ng-model="projectData.endDate" placeholder="" class="midBlock datePicker" b-datepicker>
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Project Manager :</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{userList[0].fullName}}
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="user in userList" ng-click="projectData.projectManager=user._id">{{user.fullName}}</li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
             </div>
         </li>
     </ul>
     <ul class="form flow">
         <li>
-            <div class="btn" ng-click="saveUser()">SAVE</div>
+            <div class="btn" ng-click="addProject()">SAVE</div>
         </li>
 
         <li>
-            <div class="btn floatRight close" ng-click="pageNo=0">CANCEL</div>
+            <div class="btn floatRight close" ng-click="">CANCEL</div>
         </li>
     </ul>
     <ul class="form ">

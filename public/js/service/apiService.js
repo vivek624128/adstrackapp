@@ -17,6 +17,18 @@ NEC.service('apiService', function ($http, apiPath) {
         },
         adsCategory : function () {
             return $http.get(apiPath.baseUrl+'listAdsCategory')
+        },
+        addVehicle : function (data) {
+            return $http.post(apiPath.baseUrl+'newVehicles')
+        },
+        vehicleList : function () {
+            return $http.get(apiPath.baseUrl+'listVehicles')
+        },
+        addProject : function (data) {
+            return $http.post(apiPath.baseUrl+'newProject')
+        },
+        projectList : function () {
+            return $http.get(apiPath.baseUrl+'projectList')
         }
     }
 })

@@ -22,20 +22,35 @@
         <from class="quotientForm">
             <ul class="form paddingFull">
                 <li>
-                   <h3 class="whiteFont">NEW CATEGORY</h3>
+                   <h3 class="whiteFont">NEW VEHICLES</h3>
                 </li>
                 <li>
                     <div class="input-group">
-                        <span class="inputLabel midBlock">Advertisement Mode : </span>
-                        <input type="text" ng-model="uploadData.advertiseMode" placeholder="" class="midBlock fullWidth"
+                        <span class="inputLabel midBlock">Vehicle No : </span>
+                        <input type="text" ng-model="vehicleData.vehicleNo" placeholder="" class="midBlock fullWidth"
                         >
                     </div>
                 </li>
                 <li>
                     <div class="input-group">
-                        <span class="inputLabel midBlock">Advertisement Name : </span>
-                        <input type="text" ng-model="uploadData.advertiseName" placeholder="" class="midBlock fullWidth"
+                        <span class="inputLabel midBlock">Registration No : </span>
+                        <input type="text" ng-model="vehicleData.registrationNo" placeholder="" class="midBlock fullWidth"
                         >
+                    </div>
+                </li>
+                <li>
+                    <div class="dropDown midBlock full subNormal">
+                        <div class="head " data-init="0">
+                            <div class="midBlock inputLabel">Authorise User :</div>
+                            <div class="headTitle midBlock normalColor">
+                                Select User
+                            </div>
+                        </div>
+                        <ul class="list">
+                            <li ng-repeat="users in userList" ng-click="vehicleData.authoriseId=users._id">
+                                {{user.fullName}}
+                            </li>
+                        </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
                     </div>
                 </li>
                 <li>

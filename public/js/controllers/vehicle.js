@@ -3,18 +3,23 @@
  */
 NEC.controller('vehicleCtrl', function ($scope, $rootScope, $http, apiService) {
     $scope.uploadData = {};
-    $scope.addNewAds = function () {
-        apiService.newAdsCat($scope.uploadData).then(function (data) {
+    $scope.vehicleData = function () {
+        apiService.addVehicle($scope.vehicleData).then(function (data) {
             console.log(data.data);
-            $scope.listAdsCategory();
+            $scope.listVehicle();
         })
     }
 
-    $scope.listAdsCategory = function () {
-        apiService.adsCategory().then(function (data) {
-            $scope.adsCategoryList = data.data;
+    $scope.listVehicle = function () {
+        apiService.vehicleList().then(function (data) {
+            $scope.vehicleList = data.data;
         })
     }
-    $scope.listAdsCategory();
+    $scope.listUsers = function () {
+        apiService.userList().then(function (data) {
+            $scope.userList = data.data;
+        })
+    }
+    $scope.listVehicle();
 });
 
