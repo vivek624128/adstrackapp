@@ -1,0 +1,48 @@
+<div class="galleryContent">
+    <div class="imageGallery">
+        <div class="dataTable campaignTable full subNormal  borderBtm">
+            <div class="dataRow header">
+                <ul class="rowCont">
+                    <li class="">Advertisement Category</li>
+                    <li  class="">Advertisement Name</li>
+                    <li  class="smallCol"></li>
+                </ul>
+            </div>
+            <div class="dataRow noBack" ng-repeat="item in adsCategoryList | orderBy : '-_id'">
+                <ul class="rowCont">
+                    <li class=""><a href="#">{{item.advertiseMode}}</a></li>
+                    <li class=""><a href="#">{{item.advertiseName}}</a></li>
+                    <li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="uploadImage paddingTB">
+        <from class="quotientForm">
+            <ul class="form paddingFull">
+                <li>
+                   <h3 class="whiteFont">NEW CATEGORY</h3>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <span class="inputLabel midBlock">Advertisement Mode : </span>
+                        <input type="text" ng-model="uploadData.advertiseMode" placeholder="" class="midBlock fullWidth"
+                        >
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <span class="inputLabel midBlock">Advertisement Name : </span>
+                        <input type="text" ng-model="uploadData.advertiseName" placeholder="" class="midBlock fullWidth"
+                        >
+                    </div>
+                </li>
+                <li>
+                    <div class="btn" ng-click="addNewAds()">Save</div>
+                </li>
+            </ul>
+        </from>
+    </div>
+</div>
+

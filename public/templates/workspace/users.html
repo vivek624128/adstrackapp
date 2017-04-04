@@ -40,7 +40,8 @@
                     <li class="">{{user.Address}}</li>
                     <li class="">{{user.contactNo}}</li>
                     <li class="emailId">{{user.emailId}}</li>
-                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer" ng-click="getCustomerById(user._id)">Edit</a></li>
+                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer"
+                                            ng-click="getCustomerById(user._id)">Edit</a></li>
                 </ul>
             </div>
         </div>
@@ -65,7 +66,33 @@
                         </div>
                     </div>
                     <ul class="list">
-                        <li ng-repeat="type in userType" ng-click="uploadData.userType=type.userType">{{type.userType}}</li>
+                        <li ng-repeat="type in userType" ng-click="uploadData.userType=type.userType">
+                            {{type.userType}}
+                        </li>
+                    </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+                </div>
+            </li>
+            <li>
+                <div class="dropDown midBlock full subNormal">
+                    <div class="head " data-init="0">
+                        <div class="midBlock inputLabel">Permission :</div>
+                        <div class="headTitle midBlock normalColor">
+                            {{uploadData.permission}}
+                        </div>
+                    </div>
+                    <ul class="list">
+                        <li ng-click="uploadData.permission='Web'">
+                            Web
+                        </li>
+                        <li ng-click="uploadData.permission='App'">
+                            App
+                        </li>
+                        <li ng-click="uploadData.permission='Both'">
+                            Both
+                        </li>
+                        <li ng-click="uploadData.permission='None'">
+                            None
+                        </li>
                     </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
                 </div>
             </li>
@@ -75,8 +102,6 @@
                     <input type="text" ng-model="uploadData.username" placeholder="" class="midBlock">
                 </div>
             </li>
-        </ul>
-        <ul class="form">
             <li>
                 <div class="input-group">
                     <span class="inputLabel midBlock">Full Name : </span>
@@ -104,7 +129,7 @@
         <div class="subTitle borderBtm paddingBtmSml">
             User Contact Detail
         </div>
-        <ul class="form">
+        <ul class="form paddingTop">
             <li>
                 Address
             </li>
@@ -170,11 +195,10 @@
 
     <ul class="form flow" ng-show="pageNo==2">
         <li>
-            <div class="btn" ng-click="saveUser()">SAVE</div>
+            <div class="btn floatLeft close" ng-click="pageNo=0">CANCEL</div>
         </li>
-
         <li>
-            <div class="btn floatRight close" ng-click="pageNo=0">CANCEL</div>
+            <div class="btn floatRight" ng-click="saveUser()">SAVE</div>
         </li>
     </ul>
     <ul class="form flow" ng-show="pageNo<2">

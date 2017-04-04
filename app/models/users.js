@@ -20,7 +20,8 @@ var usersSchema = new schema({
     aadharCopy : String,
     advertiseId : String,
     driverLicense : String,
-    driverLicenseDoc : String
+    driverLicenseDoc : String,
+    permission: String
 })
 
 mongoose.model('users', usersSchema);

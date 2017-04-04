@@ -445,19 +445,26 @@ body {
 /*----------------Gallery Content---------------------*/
 .galleryContent{
     width:100%;
-    display: table;
+    /*height:100%;*/
 }
 
 .galleryContent .imageGallery{
     width:55%;
-    display: table-cell;
-    vertical-align: top;
+    display: block;
 }
 .galleryContent .uploadImage{
-    width:40%;
-    display: table-cell;
-    vertical-align: top;
-    position: relative;
+    background: #5c6377;
+    bottom: 0;
+    box-shadow: 2px -3px 3px #4b5161 inset;
+    box-sizing: border-box;
+    font-family: robotoregular;
+    overflow: auto;
+    padding: 25px 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 35%;
+    z-index: 100;
 }
 
 .galleryContent .uploadImage .loading {

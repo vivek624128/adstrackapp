@@ -40,7 +40,8 @@
                     <li class="startDate">{{project.EndDate}}</li>
                     <li class="">{{project.projectManager}}</li>
                     <li class="">{{project.projectStatus}}</li>
-                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer" ng-click="getCustomerById(project._id)">Edit</a></li>
+                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer"
+                                            ng-click="getCustomerById(project._id)">Edit</a></li>
                 </ul>
             </div>
         </div>
@@ -51,139 +52,60 @@
 
 <div class="popup customer " ng-init="pageNo=0">
     <div class="x close paddingLR">x</div>
-    <div class="page1" ng-show="pageNo==0">
-        <div class="subTitle borderBtm paddingBtmSml">
-            User Credentials
-        </div>
-        <ul class="form paddingTop flow">
-            <li>
-                <div class="dropDown midBlock full subNormal">
-                    <div class="head " data-init="0">
-                        <div class="midBlock inputLabel">User Type :</div>
-                        <div class="headTitle midBlock normalColor">
-                            {{uploadData.userType}}
-                        </div>
+    <div class="subTitle borderBtm paddingBtmSml">
+        Project Detail
+    </div>
+    <ul class="form paddingTop flow">
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Project Category :</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{uploadData.userType}}
                     </div>
-                    <ul class="list">
-                        <li ng-repeat="type in userType" ng-click="uploadData.userType=type.userType">{{type.userType}}</li>
-                    </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
                 </div>
-            </li>
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">User Name : </span>
-                    <input type="text" ng-model="uploadData.username" placeholder="" class="midBlock">
-                </div>
-            </li>
-        </ul>
-        <ul class="form">
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">Full Name : </span>
-                    <input type="text" ng-model="uploadData.fullName" placeholder="" class="midBlock">
-                </div>
-            </li>
-        </ul>
+                <ul class="list">
+                    <li ng-repeat="type in userType" ng-click="uploadData.userType=type.userType">{{type.userType}}</li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">User Name : </span>
+                <input type="text" ng-model="uploadData.username" placeholder="" class="midBlock">
+            </div>
+        </li>
+    </ul>
+    <ul class="form">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Full Name : </span>
+                <input type="text" ng-model="uploadData.fullName" placeholder="" class="midBlock">
+            </div>
+        </li>
+    </ul>
 
-        <ul class="form paddingTop  flow">
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">Contact No : </span>
-                    <input type="text" ng-model="uploadData.contactNo" placeholder="" class="midBlock">
-                </div>
-            </li>
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">E-Mail Id: </span>
-                    <input type="text" ng-model="uploadData.emailId" placeholder="" class="midBlock">
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="page2" ng-show="pageNo==1">
-        <div class="subTitle borderBtm paddingBtmSml">
-            User Contact Detail
-        </div>
-        <ul class="form">
-            <li>
-                Address
-            </li>
-
-            <li>
-                <textarea ng-model="uploadData.Address"></textarea>
-
-            </li>
-        </ul>
-        <ul class="form flow">
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">Block : </span>
-                    <input type="text" ng-model="uploadData.block" placeholder="" class="midBlock">
-                </div>
-            </li>
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">District : </span>
-                    <input type="text" ng-model="uploadData.district" placeholder="" class="midBlock">
-                </div>
-            </li>
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">State : </span>
-                    <input type="text" ng-model="uploadData.state" placeholder="" class="midBlock">
-                </div>
-            </li>
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">postalCode : </span>
-                    <input type="text" ng-model="uploadData.postalCode" placeholder="" class="midBlock">
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="page3" ng-show="pageNo==2">
-        <div class="subTitle borderBtm paddingBtmSml">
-            Identity Detail
-        </div>
-        <ul class="form paddingTop  flow">
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">Aadhar Card No : </span>
-                    <input type="text" ng-model="uploadData.aadharNo" placeholder="" class="midBlock">
-                </div>
-            </li>
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">Pan No : </span>
-                    <input type="text" ng-model="uploadData.panNo" placeholder="" class="midBlock">
-                </div>
-            </li><!--
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">Driver`s License No : </span>
-                    <input type="text" ng-model="uploadData.driverLicense" placeholder="" class="midBlock">
-                </div>
-            </li>-->
-        </ul>
-    </div>
-
-
-    <ul class="form flow" ng-show="pageNo==2">
+    <ul class="form paddingTop  flow">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Contact No : </span>
+                <input type="text" ng-model="uploadData.contactNo" placeholder="" class="midBlock">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">E-Mail Id: </span>
+                <input type="text" ng-model="uploadData.emailId" placeholder="" class="midBlock">
+            </div>
+        </li>
+    </ul>
+    <ul class="form flow">
         <li>
             <div class="btn" ng-click="saveUser()">SAVE</div>
         </li>
 
         <li>
             <div class="btn floatRight close" ng-click="pageNo=0">CANCEL</div>
-        </li>
-    </ul>
-    <ul class="form flow" ng-show="pageNo<2">
-        <li>
-            <div class="btn" ng-click="pageNo=pageNo-1" ng-show="pageNo>0">PREVIOUS</div>
-        </li>
-
-        <li>
-            <div class="btn floatRight" ng-click="pageNo=pageNo+1" ng-show="pageNo<2">NEXT</div>
         </li>
     </ul>
     <ul class="form ">

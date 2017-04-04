@@ -5,6 +5,7 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
 
     $scope.uploadData = {};
     $scope.uploadData.userType = '';
+    $scope.uploadData.permission = 'Web';
 
 
     apiService.selectUserType().then(function (data) {

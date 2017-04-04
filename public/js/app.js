@@ -67,10 +67,21 @@ NEC.config(function ($stateProvider, $urlRouterProvider) {
 
         .state('app.setting', {
             url: "/setting",
-            templateUrl: 'templates/setting.html'
+            templateUrl: 'templates/setting.html',
+            controller:'settingsCtrl'
+        })
+        .state('app.setting.adsCategory', {
+            url: "/adsCategory",
+            templateUrl: 'templates/settings/adsCategory.html',
+            controller: 'adsCategoryCtrl'
+        })
+        .state('app.setting.vehicle', {
+            url: "/vehicle",
+            templateUrl: 'templates/settings/vehicle.html',
+            controller: 'vehicleCtrl'
         })
         .state('app.setting.userType', {
-            url: "/setting/userType",
+            url: "/userType",
             templateUrl: 'templates/settings/userType.html'
         });
 

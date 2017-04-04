@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 schema = mongoose.Schema;
 
-var usersSchema = new schema({
+var projectsSchema = new schema({
     projectName :String,
     advertiseCategory :Object,
     advertiseLocations :Object,
@@ -12,4 +12,4 @@ var usersSchema = new schema({
     projectStatus :String
 })
 
-mongoose.model('users', usersSchema);
+mongoose.model('projects', projectsSchema);
