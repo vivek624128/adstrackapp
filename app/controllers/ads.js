@@ -56,7 +56,7 @@ router.post('/linkVehicle', function (req, res) {
 })
 
 router.post('/addCampaignFeeds', function (req, res) {
-    var data = req.body;
+    var data = req.body();
     campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
         res.jsonp(data)
     })
