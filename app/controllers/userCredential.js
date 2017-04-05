@@ -30,7 +30,7 @@ router.post('/newUser', function (req, res) {
     newUser.save(function
         (err) {
         if (err) throw err;
-        sendMail.sendMail(newUser, password);
+        // sendMail.sendMail(newUser, password);
         res.send(responseMsg.response('success', 'New User created !..'))
     })
 })

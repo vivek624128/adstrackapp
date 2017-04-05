@@ -1,29 +1,30 @@
-/**
+/*
+/!**
  * Created by Flashbox on 6/30/2016.
- */
-const email  = require("smpt-mail");
+ *!/
+const email = require("smpt-mail");
 
 // var sendmail = require('sendmail')();
 
 function sendMail(data, password) {
 
-    /*const config = {
-        smtpHost: 'smtp.programmervivek.co.in',
-        smtpUser: 'info@programmervivek.co.in',
-        smtpPass: 'info@123',
-        from: 'info@programmervivek.co.in',
-        to: [data.emailId],
-        subject: 'Password for Mahaboudh Tracking App',
-        htmlStr: 'Hello '+ data.username +', <br/>' +
-        'You have successfully registered on Mahaboudhi Tracking App. For Login with following are the credentials : ' +
-        '<br /> User Name : '+data.username+'<br/> Password : ' +password +'<br/>' +
-        'Thanks & Regards <br/> Mahaboudhi Team',
-        htmlContext: {
-            user: {
-                name: 'tsq'
-            }
-        }
-    };*/
+    /!*const config = {
+     smtpHost: 'smtp.programmervivek.co.in',
+     smtpUser: 'info@programmervivek.co.in',
+     smtpPass: 'info@123',
+     from: 'info@programmervivek.co.in',
+     to: [data.emailId],
+     subject: 'Password for Mahaboudh Tracking App',
+     htmlStr: 'Hello '+ data.username +', <br/>' +
+     'You have successfully registered on Mahaboudhi Tracking App. For Login with following are the credentials : ' +
+     '<br /> User Name : '+data.username+'<br/> Password : ' +password +'<br/>' +
+     'Thanks & Regards <br/> Mahaboudhi Team',
+     htmlContext: {
+     user: {
+     name: 'tsq'
+     }
+     }
+     };*!/
 
     console.log(data.emailId)
     const config = {
@@ -33,9 +34,9 @@ function sendMail(data, password) {
         from: 'info@programmervivek.co.in',
         to: [data.emailId,],
         subject: 'Password for Mahaboudh Tracking App',
-        htmlStr: 'Hello '+ data.username +', <br/>' +
+        htmlStr: 'Hello ' + data.username + ', <br/>' +
         'You have successfully registered on Mahaboudhi Tracking App. For Login with following are the credentials : ' +
-        '<br /> User Name : '+data.username+'<br/> Password : ' +password +'<br/><br/><br/>' +
+        '<br /> User Name : ' + data.username + '<br/> Password : ' + password + '<br/><br/><br/>' +
         'Thanks & Regards <br/> Mahaboudhi Team',
         htmlContext: {
             user: {
@@ -44,23 +45,24 @@ function sendMail(data, password) {
         }
     };
 
-    email(config, function(err, result) {
+    email(config, function (err, result) {
         console.log(err, result);
     });
-    /*sendmail({
-        from: 'info@programmervivek.co.in',
-        to: data.emailId,
-        subject: 'Password for Mahaboudh Tracking App',
-        html: 'Hello '+ data.username +', <br/>' +
-        'You have successfully registered on Mahaboudhi Tracking App. For Login with following are the credentials : ' +
-        '<br /> User Name : '+data.username+'<br/> Password : ' +password +'<br/>' +
-        'Thanks & Regards <br/> Mahaboudhi Team'
-    }, function(err, reply) {
-        console.log(err && err.stack);
-        console.dir(reply);
-    });*/
+    /!*sendmail({
+     from: 'info@programmervivek.co.in',
+     to: data.emailId,
+     subject: 'Password for Mahaboudh Tracking App',
+     html: 'Hello '+ data.username +', <br/>' +
+     'You have successfully registered on Mahaboudhi Tracking App. For Login with following are the credentials : ' +
+     '<br /> User Name : '+data.username+'<br/> Password : ' +password +'<br/>' +
+     'Thanks & Regards <br/> Mahaboudhi Team'
+     }, function(err, reply) {
+     console.log(err && err.stack);
+     console.dir(reply);
+     });*!/
 }
 
 module.exports = {
     sendMail: sendMail
 }
+*/
