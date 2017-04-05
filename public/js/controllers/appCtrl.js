@@ -10,7 +10,7 @@ NEC.controller('appCtrl', function ($scope, $rootScope, $http, $window, $locatio
     }
 
     $scope.user = localStorage.getItem('user');
-    if($scope.user !='services'){
+    if($scope.user ==''){
         $state.go('admin.signIn');
     }
 
