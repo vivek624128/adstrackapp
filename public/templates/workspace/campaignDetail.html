@@ -1,0 +1,216 @@
+<div class="paddingLR paddingTBSml borderBtm">
+    <div class="floatLeft searchBar">
+
+        <ul class="form flow">
+            <li class="noMargin">
+                <div class="input-group fullWidth">
+                    <span class="inputLabel midBlock">Search : </span>
+                    <input type="text" ng-model="search" placeholder="" class="midBlock fullWidth"
+                    >
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="floatRight">
+        <div class="btn small marginTopSrt addNewLInk">ADD VEHICLE</div>
+    </div>
+    <span class="clear"></span>
+</div>
+<div class="galleryContent">
+    <div class="">
+        <div class="dataTable campaignTable full subNormal  borderBtm">
+            <div class="dataRow header">
+                <ul class="rowCont">
+                    <li class="">Campaign Name</li>
+                    <li class="">Project Id</li>
+                    <li class="">Types</li>
+                    <li class="startDate">Created On</li>
+                    <li class="startDate">Start Date</li>
+                    <li class="">Status</li>
+                    <li class=""></li>
+                </ul>
+            </div>
+            <div class="dataRow " ng-repeat="campaign in campaignList | filter : search">
+                <ul class="rowCont">
+                    <li class="">{{campaign.campaignName}}</li>
+                    <li class="">{{campaign.projectId[0].projectName}}</li>
+                    <li class="">{{campaign.campaignType[0].advertiseMode}}</li>
+                    <li class="startDate">{{campaign.creationDate | date : 'MMM dd, yyyy'}}</li>
+                    <li class="startDate">{{campaign.startDate | date : 'MMM dd, yyyy'}}</li>
+                    <li class="">{{campaign.status}}</li>
+                    <li class=""><a href="" class="btnLink">View Feeds</a> </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="paddingTB">
+    <div class="tabs smallTabs bold borderBtm" ng-init="page=1">
+        <a href="" ng-click="page=1" ng-class="{active : page ==1}">View Feeds</a>
+        <a href="" ng-click="page=2" ng-class="{active : page ==2}">Vehicle List</a>
+        <span class="clear"></span>
+    </div>
+</div>
+
+<div ng-show="page == 1">
+    <div class="dataTable campaignTable full subNormal  borderBtm">
+        <div class="dataRow header">
+            <ul class="rowCont">
+                <li  class="">Update Date</li>
+                <li  class="">Latitude</li>
+                <li  class="">Longitude</li>
+                <li  class="">Address</li>
+                <li  class="">Image</li>
+                <!--<li  class="smallCol"></li>-->
+            </ul>
+        </div>
+        <div class="dataRow noBack" ng-repeat="item in campaignList[0].campaign[0].updates">
+            <ul class="rowCont">
+                <li  class="">{{item.updatedOn}}</li>
+                <li  class="">{{item.location[0].latitude}}</li>
+                <li  class="">{{item.location[0].longitude}}</li>
+                <li  class="">{{item.location[0].address}}</li>
+                <li  class=""><img ng-src="{{item.updateStatus}}" height="50px" width="100px"></li>
+                <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+<div ng-show="page == 2">
+    <div class="dataTable campaignTable full subNormal  borderBtm">
+        <div class="dataRow header">
+            <ul class="rowCont">
+                <li  class="">Vehicle No</li>
+                <li  class="">Registration No</li>
+                <li  class="">Vehicle Type</li>
+                <li  class="">Driver Name</li>
+                <li  class="">Contact No</li>
+                <!--<li  class="smallCol"></li>-->
+            </ul>
+        </div>
+        <div class="dataRow noBack" ng-repeat="item in campaignList[0].campaign">
+            <ul class="rowCont">
+                <li  class="">{{item.vehicleId[0].vehicleNo}}</li>
+                <li  class="">{{item.vehicleId[0].registrationNo}}</li>
+                <li  class="">{{item.vehicleId[0].vehicleType}}</li>
+                <li  class="">{{item.user[0].fullName}}</li>
+                <li  class="">{{item.user[0].contactNo}}</li>
+                <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="loader centerTxt" ng-show="loader">
+    <p>Loading</p>
+    <img src="images/spinner.gif">
+</div>
+
+<div class="popup linkVehicle ">
+    <div class="x close paddingLR">x</div>
+    <div class="subTitle borderBtm paddingBtmSml">
+        Link New Vehicle
+    </div>
+    <ul class="form paddingTop">
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Vehicle No :</div>
+                    <div class="headTitle midBlock normalColor">
+                        ------Select Vehicel---------
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="vehicle in vehicleList" ng-click="selectVehicle(vehicle._id)">
+                        {{vehicle.vehicleNo}}
+                    </li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Driver Name: </span>
+                <input type="text" ng-model="vehicleDriver" placeholder="" class="midBlock" disabled>
+            </div>
+        </li>
+    </ul>
+    <ul class="form flow">
+        <li>
+            <div class="btn" ng-click="linkVehicle()">ADD</div>
+        </li>
+
+        <li>
+            <div class="btn floatRight close" ng-click="">CANCEL</div>
+        </li>
+    </ul>
+    <ul class="form ">
+        <li>
+            <span class="error" ng-show="msg">{{msg}}</span>
+        </li>
+    </ul>
+
+
+</div>
+<!--
+<div class="popup editCustomer ">
+    <div class="x close paddingLR">x</div>
+    <div class="subTitle borderBtm paddingBtmSml">
+        Customer Detail
+    </div>
+    <ul class="form paddingTop flow">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Customer Code : </span>
+                <input type="text" ng-model="customerDetail.cust_id" placeholder="" class="midBlock"
+                       value="{{offerData.startDate}}">
+                <input type="hidden" ng-model="customerDetail.srl_no" placeholder="">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Full Name : </span>
+                <input type="text" ng-model="customerDetail.cust_name" placeholder="" class="midBlock">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">E-Mail Id: </span>
+                <input type="text" ng-model="customerDetail.email_id" placeholder="" class="midBlock">
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Contact No : </span>
+                <input type="text" ng-model="customerDetail.cust_no" placeholder="" class="midBlock">
+            </div>
+        </li>
+    </ul>
+    <ul class="form">
+        <li>
+            Address
+        </li>
+
+        <li>
+            <textarea ng-model="customerDetail.cust_address"></textarea>
+
+        </li>
+    </ul>
+    <ul class="form flow">
+        <li>
+            <div class="btn" ng-click="updateCustomer(customerDetail.srl_no)">UPDATE</div>
+        </li>
+
+        <li>
+            <div class="btn floatRight close">CANCEL</div>
+        </li>
+    </ul>
+
+    <ul class="form ">
+        <li>
+            <span class="error" ng-show="msg">{{msg}}</span>
+        </li>
+    </ul>
+
+
+</div>-->

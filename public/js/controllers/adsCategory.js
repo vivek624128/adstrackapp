@@ -9,9 +9,10 @@ NEC.controller('adsCategoryCtrl', function ($scope, $rootScope, $http, apiServic
             $scope.listAdsCategory();
         })
     }
-
+$scope.loader = true;
     $scope.listAdsCategory = function () {
         apiService.adsCategory().then(function (data) {
+            $scope.loader = false;
             $scope.adsCategoryList = data.data;
         })
     }

@@ -7,7 +7,7 @@ var vehiclesSchema = new schema({
     authoriseId:[{ type: String, ref: 'users' }],
     driverId:[{ type: String, ref: 'users' }],
     vehicleType:String,
-    projectId:String,
+    projectId:[{ type: String, ref: 'projects' }],
     assistantId:[{ type: String, ref: 'users' }],
     attachDate:String,
     vehicleDoc:String

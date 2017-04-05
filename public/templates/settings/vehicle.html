@@ -1,63 +1,142 @@
+<div class="paddingLR paddingTBSml borderBtm">
+    <div class="floatLeft searchBar">
+
+        <ul class="form flow">
+            <li class="noMargin">
+                <div class="input-group fullWidth">
+                    <span class="inputLabel midBlock">Search : </span>
+                    <input type="text" ng-model="search" placeholder="" class="midBlock fullWidth"
+                    >
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="floatRight">
+        <div class="btn small marginTopSrt addVehicle">NEW VEHICLE</div>
+    </div>
+    <span class="clear"></span>
+</div>
 <div class="galleryContent">
-    <div class="imageGallery">
+    <div class="">
         <div class="dataTable campaignTable full subNormal  borderBtm">
             <div class="dataRow header">
                 <ul class="rowCont">
-                    <li class="">Advertisement Category</li>
-                    <li  class="">Advertisement Name</li>
+                    <li class="">Project</li>
+                    <li  class="">Vehicle No</li>
+                    <li  class="smallCol">Registration No</li>
+                    <li  class="smallCol">Vehicle Type</li>
+                    <li  class="smallCol">Driver Name</li>
+                    <li  class="smallCol">Contact No</li>
                     <li  class="smallCol"></li>
                 </ul>
             </div>
-            <div class="dataRow noBack" ng-repeat="item in adsCategoryList | orderBy : '-_id'">
+            <div class="dataRow noBack" ng-repeat="item in vehicleList | orderBy : '-_id'">
                 <ul class="rowCont">
-                    <li class=""><a href="#">{{item.advertiseMode}}</a></li>
-                    <li class=""><a href="#">{{item.advertiseName}}</a></li>
+                    <li class="">{{item.projectId[0].projectName}}</li>
+                    <li  class="">{{item.vehicleNo}}</li>
+                    <li  class="smallCol">{{item.registrationNo}}</li>
+                    <li  class="smallCol">{{item.vehicleType}}</li>
+                    <li  class="smallCol">{{item.driverId[0].fullName}}</li>
+                    <li  class="smallCol">{{item.driverId[0].contactNo}}</li>
                     <li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>
                 </ul>
             </div>
         </div>
 
     </div>
-    <div class="uploadImage paddingTB">
-        <from class="quotientForm">
-            <ul class="form paddingFull">
-                <li>
-                   <h3 class="whiteFont">NEW VEHICLES</h3>
-                </li>
-                <li>
-                    <div class="input-group">
-                        <span class="inputLabel midBlock">Vehicle No : </span>
-                        <input type="text" ng-model="vehicleData.vehicleNo" placeholder="" class="midBlock fullWidth"
-                        >
-                    </div>
-                </li>
-                <li>
-                    <div class="input-group">
-                        <span class="inputLabel midBlock">Registration No : </span>
-                        <input type="text" ng-model="vehicleData.registrationNo" placeholder="" class="midBlock fullWidth"
-                        >
-                    </div>
-                </li>
-                <li>
-                    <div class="dropDown midBlock full subNormal">
-                        <div class="head " data-init="0">
-                            <div class="midBlock inputLabel">Authorise User :</div>
-                            <div class="headTitle midBlock normalColor">
-                                Select User
-                            </div>
-                        </div>
-                        <ul class="list">
-                            <li ng-repeat="users in userList" ng-click="vehicleData.authoriseId=users._id">
-                                {{user.fullName}}
-                            </li>
-                        </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
-                    </div>
-                </li>
-                <li>
-                    <div class="btn" ng-click="addNewAds()">Save</div>
-                </li>
-            </ul>
-        </from>
-    </div>
 </div>
 
+
+
+<div class="popup vehicle " ng-init="pageNo=0">
+    <div class="x close paddingLR">x</div>
+
+    <div class="subTitle borderBtm paddingBtmSml">
+        New Vehicle
+    </div>
+    <ul class="form flow paddingTop">
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Project :</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{projectList[0].projectName}}
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="project in projectList" ng-click="vehicleData.projectId=project._id">
+                        {{project.projectName}}
+                    </li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Vehicle Type:</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{vehicleData.vehicleType}}
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-click="vehicleData.vehicleType='Mini Truck'">Mini Truck</li>
+                    <li ng-click="vehicleData.vehicleType='Auto'">Auto</li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Vehicle No : </span>
+                <input type="text" ng-model="vehicleData.vehicleNo" placeholder="" class="midBlock fullWidth"
+                >
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Registration No : </span>
+                <input type="text" ng-model="vehicleData.registrationNo" placeholder="" class="midBlock fullWidth"
+                >
+            </div>
+        </li><!--
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Authorise User :</div>
+                    <div class="headTitle midBlock normalColor">
+                        Select User
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="users in userList" ng-click="vehicleData.authoriseId=users._id">
+                        {{users.fullName}}
+                    </li>
+                </ul>&lt;!&ndash; | filter : { 'cust_id': uploadData.cust_id }&ndash;&gt;
+            </div>
+        </li>-->
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Driver Name:</div>
+                    <div class="headTitle midBlock normalColor">
+                        Select Driver
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="users in userList | filter : {'userType':'Driver'}" ng-click="vehicleData.driverId=users._id">
+                        {{users.fullName}}
+                    </li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li></li>
+
+        <li>
+            <div class="btn floatLeft close" >CANCEL</div>
+        </li>
+        <li>
+            <div class="btn floatRight" ng-click="addVehicle()">SAVE</div>
+        </li>
+    </ul>
+
+
+</div>

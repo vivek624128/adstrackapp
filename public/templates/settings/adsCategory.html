@@ -8,7 +8,7 @@
                     <li  class="smallCol"></li>
                 </ul>
             </div>
-            <div class="dataRow noBack" ng-repeat="item in adsCategoryList | orderBy : '-_id'">
+            <div class="dataRow borderBtm" ng-repeat="item in adsCategoryList | orderBy : '-_id'">
                 <ul class="rowCont">
                     <li class=""><a href="#">{{item.advertiseMode}}</a></li>
                     <li class=""><a href="#">{{item.advertiseName}}</a></li>
@@ -18,6 +18,13 @@
         </div>
 
     </div>
+
+
+    <div class="loader halfWindow" ng-show="loader">
+        <p>Loading</p>
+        <img src="images/spinner.gif">
+    </div>
+
     <div class="uploadImage paddingTB">
         <from class="quotientForm">
             <ul class="form paddingFull">

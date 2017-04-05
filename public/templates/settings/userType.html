@@ -10,27 +10,29 @@
                     </div>
                 </li>
                 <li>
-                    <div class="btn" ng-click="saveNotice()">Save</div>
+                    <div class="btn" ng-click="addNewUserType()">Save</div>
                 </li>
             </ul>
         </from>
     </div>
-    <div class="imageGallery">
-        <div class="dataTable campaignTable full subNormal  borderBtm">
-            <div class="dataRow header">
-                <ul class="rowCont">
-                    <li class="smallCol">User Type</li>
-                    <li  class="smallCol"></li>
-                </ul>
+    <div class="">
+            <div class="dataTable campaignTable full subNormal">
+                <div class="dataRow header">
+                    <ul class="rowCont">
+                        <li class="smallCol">User Type</li>
+                    </ul>
+                </div>
+                <div class="dataRow borderBtm" ng-repeat="type in userTypeList">
+                    <ul class="rowCont">
+                        <li class="smallCol"><a href="#">{{type.userType}}</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="dataRow noBack" ng-repeat="news in noticeList | orderBy : '-noticeid'">
-                <ul class="rowCont">
-                    <li class="smallCol"><a href="#">{{news.noticedate}}</a></li>
-                    <li class="smallCol"><a class="btnLink" ng-click="removeNews(news.noticeid)">Delete</a></li>
-                </ul>
-            </div>
-        </div>
 
+        <div class="loader halfWindow " ng-show="loader">
+            <p>Loading</p>
+            <img src="images/spinner.gif">
+        </div>
     </div>
 </div>
 

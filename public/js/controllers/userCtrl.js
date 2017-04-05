@@ -24,18 +24,21 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
         })
     }
 
-
+    $scope.loader=true;
     $scope.getUserList = function () {
-        apiService.userList().then(function (data) {
+        apiService.userListFull().then(function (data) {
+            $scope.loader = false;
             $scope.userList = data.data;
         })
         console.log($scope.uploadData)
     }
     $scope.getUserList();
 
+
     $scope.closePopup =function () {
         setTimeout(function () {
-            $('.popUp.customer').hide(100)
+            $('.popup.user').fadeOut(100)
+            $('.background').fadeOut(100)
         },100)
     }
 });

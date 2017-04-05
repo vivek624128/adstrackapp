@@ -28,7 +28,12 @@ router.post('/newVehicles', function (req, res) {
 })
 
 router.get('/listVehicles', function (req, res) {
-    vehicles.find({}, function (err, data) {
-        res.send(data)
+    vehicles.find({}).populate([{path:'projectId'},{path:'driverId'}]).exec(function (err, data) {
+        res.jsonp(data)
+    })
+})
+router.get('/vehicleDetail/:id', function (req, res) {
+    vehicles.find({_id:req.params.id}).populate([{path:'projectId'},{path:'driverId'}]).exec(function (err, data) {
+        res.jsonp(data)
     })
 })

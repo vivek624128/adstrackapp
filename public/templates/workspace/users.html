@@ -12,7 +12,7 @@
         </ul>
     </div>
     <div class="floatRight">
-        <div class="btn small marginTopSrt addCustomer">NEW USER</div>
+        <div class="btn small marginTopSrt addUser">NEW USER</div>
     </div>
     <span class="clear"></span>
 </div>
@@ -28,6 +28,7 @@
                     <li class="">Address</li>
                     <li class="">Phone Number</li>
                     <li class="emailId">Email Id</li>
+                    <li class="emailId">Access</li>
                     <li class="smallCol"></li>
                 </ul>
             </div>
@@ -40,7 +41,8 @@
                     <li class="">{{user.Address}}</li>
                     <li class="">{{user.contactNo}}</li>
                     <li class="emailId">{{user.emailId}}</li>
-                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer"
+                    <li class="emailId">{{user.permission}}</li>
+                    <li class="smallCol"><a class="btnLink paddingLR "
                                             ng-click="getCustomerById(user._id)">Edit</a></li>
                 </ul>
             </div>
@@ -49,8 +51,12 @@
     </div>
 </div>
 
+<div class="loader centerTxt" ng-show="loader">
+    <p>Loading</p>
+    <img src="images/spinner.gif">
+</div>
 
-<div class="popup customer " ng-init="pageNo=0">
+<div class="popup user " ng-init="pageNo=0">
     <div class="x close paddingLR">x</div>
     <div class="page1" ng-show="pageNo==0">
         <div class="subTitle borderBtm paddingBtmSml">

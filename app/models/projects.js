@@ -3,11 +3,11 @@ schema = mongoose.Schema;
 
 var projectsSchema = new schema({
     projectName :String,
-    advertiseCategory :Object,
-    advertiseLocations :Object,
+    advertiseCategory :[{ type: String, ref: 'adsCategory' }],
+    advertiseLocations :String,
     startDate :Date,
     endDate :Date,
-    projectManager :String,
+    projectManager :[{ type: String, ref: 'users' }],
     creationDate :Date,
     projectStatus :String
 })

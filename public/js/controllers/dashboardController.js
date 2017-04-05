@@ -6,12 +6,12 @@
 NEC.controller('dashboardCtrl', function ($scope) {
     var map;
     var locations = [
-        ['Kankarbag, Patna, Bihar -800020', 25.6038596, 85.1049313, 'http://www.destination360.com/australia-south-pacific/australia/images/s/australia-bondi-beach.jpg', 'Vivek Kumar'],
-        ['Flashbox', 25.183516, 85.5124163, 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
-        ['Flashbox', 25.4178353, 86.1075368, 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
-        ['Flashbox', 26.1506267, 85.8681585, 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
-        ['Flashbox', 26.5885131, 85.4910526, 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
-        ['Flashbox', 26.5142822, 85.2900411, 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar']
+        ['Kankarbag, Patna, Bihar -800020', 25.6038596, 85.1049313,'https://organicthemes.com/demo/profile/files/2012/12/profile_img.png', 'http://www.destination360.com/australia-south-pacific/australia/images/s/australia-bondi-beach.jpg', 'Vivek Kumar'],
+        ['Flashbox', 25.183516, 85.5124163, 'http://wallpaper-gallery.net/images/profile-pics/profile-pics-18.jpg', 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
+        ['Flashbox', 25.4178353, 86.1075368, 'http://www.threepullpa.com/data/uploads/53/466487-profile-pictures-cute-girl.jpg', 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
+        ['Flashbox', 26.1506267, 85.8681585, 'http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg', 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
+        ['Flashbox', 26.5885131, 85.4910526, 'http://www.celebbra.com/wp-content/uploads/2016/01/Nayantara-Height-Weight-Bra-Pics-Profile.jpg', 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
+        ['Flashbox', 26.5142822, 85.2900411, 'https://organicthemes.com/demo/profile/files/2012/12/profile_img.png', 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar']
     ];
     function initialize() {
         // map = new google.maps.Map(document.getElementById('dashboardMap'), mapOptions);
@@ -104,18 +104,25 @@ NEC.controller('dashboardCtrl', function ($scope) {
 
         var infowindow = new google.maps.InfoWindow();
         var marker, i;
+
         for (i=0;i<locations.length;i++){
             var mark=locations[i];
+            var icon = {
+                url:mark[3] , // url
+                scaledSize: new google.maps.Size(30, 30), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
             // $scope.addMarkers(marker[1], marker[2], marker[3], marker[4], marker[0]);
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(mark[1], mark[2]),
-                icon:"http://programmervivek.co.in/mapIcon.png",
+                icon:icon,
                 map: map
             });
 
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
-                    var content='<img src="'+mark[3]+'" style="width:300px;"><br><strong>Posted By: </strong> '+mark[4]+' <br><strong>Location : </strong> '+mark[0];
+                    var content='<img src="'+mark[4]+'" style="width:300px;"><br><strong>Posted By: </strong> '+mark[5]+' <br><strong>Location : </strong> '+mark[0];
                     infowindow.setContent(content);
                     infowindow.open(map, marker);
                 }

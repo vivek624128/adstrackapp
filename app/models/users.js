@@ -21,7 +21,12 @@ var usersSchema = new schema({
     advertiseId : String,
     driverLicense : String,
     driverLicenseDoc : String,
-    permission: String
+    permission: String,
+    campaign:[
+        {
+            campaignAlotted:[{ type: String, ref: 'campaign' }]
+        }
+    ]
 })
 
 mongoose.model('users', usersSchema);

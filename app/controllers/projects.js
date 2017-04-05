@@ -24,11 +24,11 @@ router.post('/newProject', function (req, res) {
     newProject.save(function
         (err) {
         if (err) throw err;
-        res.send(responseMsg.response('success', 'New User created !..'))
+        res.send(responseMsg.response('success', 'New project Created !..'))
     })
 })
 router.get('/projectList', function (req, res) {
-    projects.find({}, function (err, data) {
-        res.send(data)
+    projects.find({}).populate([{path:'advertiseCategory'},{path:'projectManager'}]).exec( function (err, data) {
+        res.jsonp(data)
     })
 })

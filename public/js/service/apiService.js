@@ -3,14 +3,20 @@
  */
 NEC.service('apiService', function ($http, apiPath) {
     return {
+        authenticate : function (data) {
+            return $http.post(apiPath.baseUrl+'login/authenticate', data)
+        },
         selectUserType : function () {
-            return $http.get(apiPath.baseUrl+'selectUserType')
+            return $http.get(apiPath.baseUrl+'listUserType')
         },
         saveUser : function (data) {
             return $http.post(apiPath.baseUrl+'newUser', data)
         },
+        userListFull : function () {
+            return $http.jsonp(apiPath.baseUrl+'userList?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
         userList : function () {
-            return $http.get(apiPath.baseUrl+'userList')
+            return $http.jsonp(apiPath.baseUrl+'userList/select?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
         newAdsCat : function (data) {
             return $http.post(apiPath.baseUrl+'newAdsCategory', data)
@@ -18,17 +24,38 @@ NEC.service('apiService', function ($http, apiPath) {
         adsCategory : function () {
             return $http.get(apiPath.baseUrl+'listAdsCategory')
         },
+        newUserType : function (data) {
+            return $http.post(apiPath.baseUrl+'newUserType', data)
+        },
+        listUserType : function () {
+            return $http.get(apiPath.baseUrl+'listUserType')
+        },
         addVehicle : function (data) {
-            return $http.post(apiPath.baseUrl+'newVehicles')
+            return $http.post(apiPath.baseUrl+'newVehicles', data)
         },
         vehicleList : function () {
-            return $http.get(apiPath.baseUrl+'listVehicles')
+            return $http.jsonp(apiPath.baseUrl+'listVehicles?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
+        vehicleDetailById : function (id) {
+            return $http.jsonp(apiPath.baseUrl+'vehicleDetail/'+id+'?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
         addProject : function (data) {
-            return $http.post(apiPath.baseUrl+'newProject')
+            return $http.post(apiPath.baseUrl+'newProject', data)
         },
         projectList : function () {
-            return $http.get(apiPath.baseUrl+'projectList')
+            return $http.jsonp(apiPath.baseUrl+'projectList?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
+        newCampaign : function (data) {
+            return $http.post(apiPath.baseUrl+'newCampaign', data)
+        },
+        campaignList : function () {
+            return $http.jsonp(apiPath.baseUrl+'listCampaign?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
+        campaignListById : function (id) {
+            return $http.jsonp(apiPath.baseUrl+'listCampaignById?id='+id+'&callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
+        linkVehicle : function (data) {
+            return $http.post(apiPath.baseUrl+'linkVehicle', data)
         }
     }
 })

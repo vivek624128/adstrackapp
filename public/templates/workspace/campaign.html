@@ -12,7 +12,7 @@
         </ul>
     </div>
     <div class="floatRight">
-        <div class="btn small marginTopSrt addProject">NEW PROJECT</div>
+        <div class="btn small marginTopSrt addCampaign">NEW CAMPAIGN</div>
     </div>
     <span class="clear"></span>
 </div>
@@ -21,27 +21,24 @@
         <div class="dataTable campaignTable full subNormal  borderBtm">
             <div class="dataRow header">
                 <ul class="rowCont">
-                    <li class="">Project Name</li>
+                    <li class="">Campaign Name</li>
+                    <li class="">Project Id</li>
                     <li class="">Types</li>
-                    <!--<li class="">Locations</li>-->
+                    <li class="startDate">Created On</li>
                     <li class="startDate">Start Date</li>
-                    <li class="startDate">End Date</li>
-                    <li class="">Manager</li>
                     <li class="">Status</li>
-                    <li class="smallCol"></li>
+                    <li class=""></li>
                 </ul>
             </div>
-            <div class="dataRow " ng-repeat="project in projectList | filter : search">
+            <div class="dataRow " ng-repeat="campaign in campaignList | filter : search">
                 <ul class="rowCont">
-                    <li class="">{{project.projectName}}</li>
-                    <li class="">{{project.advertiseCategory[0].advertiseName}}</li>
-                    <!--<li class="">{{ project.advertiseLocations}}</li>-->
-                    <li class="startDate">{{project.startDate | date : 'MMM dd, yyyy'}}</li>
-                    <li class="startDate">{{project.endDate | date : 'MMM dd, yyyy'}}</li>
-                    <li class="">{{project.projectManager[0].fullName}}</li>
-                    <li class="">{{project.projectStatus}}</li>
-                    <li class="smallCol"><a class="btnLink paddingLR openEditCustomer"
-                                            ng-click="getCustomerById(project._id)">Edit</a></li>
+                    <li class="">{{campaign.campaignName}}</li>
+                    <li class="">{{campaign.projectId[0].projectName}}</li>
+                    <li class="">{{campaign.campaignType[0].advertiseMode}}</li>
+                    <li class="startDate">{{campaign.creationDate | date : 'MMM dd, yyyy'}}</li>
+                    <li class="startDate">{{campaign.startDate | date : 'MMM dd, yyyy'}}</li>
+                    <li class="">{{campaign.status}}</li>
+                    <li class=""><a href="#/app/campaignDetail/{{campaign._id}}" class="btnLink">View Details</a> </li>
                 </ul>
             </div>
         </div>
@@ -53,7 +50,7 @@
     <img src="images/spinner.gif">
 </div>
 
-<div class="popup project ">
+<div class="popup campaign ">
     <div class="x close paddingLR">x</div>
     <div class="subTitle borderBtm paddingBtmSml">
         Project Detail
@@ -62,52 +59,48 @@
 
         <li>
             <div class="input-group">
-                <span class="inputLabel midBlock">Project Name : </span>
-                <input type="text" ng-model="projectData.projectName" placeholder="" class="midBlock">
+                <span class="inputLabel midBlock">Campaign Name : </span>
+                <input type="text" ng-model="campaignData.campaignName" placeholder="" class="midBlock">
             </div>
         </li>
         <li>
             <div class="dropDown midBlock full subNormal">
                 <div class="head " data-init="0">
-                    <div class="midBlock inputLabel">Project Category :</div>
+                    <div class="midBlock inputLabel">Project :</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{projectList[0].projectName}}
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="project in projectList" ng-click="campaignData.projectId=project._id">
+                        {{project.projectName}}
+                    </li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Category :</div>
                     <div class="headTitle midBlock normalColor">
                         --------Select-------
                     </div>
                 </div>
                 <ul class="list">
-                    <li ng-repeat="category in adsCategory" ng-click="projectData.advertiseCategory=category._id">{{category.advertiseMode}}</li>
+                    <li ng-repeat="category in adsCategory" ng-click="campaignData.campaignType=category._id">{{category.advertiseMode}}</li>
                 </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
             </div>
         </li>
         <li>
             <div class="input-group">
                 <span class="inputLabel midBlock">Start Date: </span>
-                <input type="text" ng-model="projectData.startDate" placeholder="" class="midBlock datePicker" b-datepicker>
-            </div>
-        </li>
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">End Date: </span>
-                <input type="text" ng-model="projectData.endDate" placeholder="" class="midBlock datePicker" b-datepicker>
-            </div>
-        </li>
-        <li>
-            <div class="dropDown midBlock full subNormal">
-                <div class="head " data-init="0">
-                    <div class="midBlock inputLabel">Project Manager :</div>
-                    <div class="headTitle midBlock normalColor">
-                        -------Select------
-                    </div>
-                </div>
-                <ul class="list">
-                    <li ng-repeat="user in userList" ng-click="projectData.projectManager=user._id">{{user.fullName}}</li>
-                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+                <input type="text" ng-model="campaignData.startDate" placeholder="" class="midBlock datePicker" b-datepicker>
             </div>
         </li>
     </ul>
     <ul class="form flow">
         <li>
-            <div class="btn" ng-click="addProject()">SAVE</div>
+            <div class="btn" ng-click="addCampaign()">SAVE</div>
         </li>
 
         <li>

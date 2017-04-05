@@ -392,5 +392,10 @@ $(document).ready(function () {
     fun.defaultClick();
     fun.preventDefaultClicks();
     fun.popup('.btn.addCustomer','.popup.customer');
+    fun.popup('.btn.addProject','.popup.project');
+    fun.popup('.btn.addUser','.popup.user');
+    fun.popup('.btn.addVehicle','.popup.vehicle');
+    fun.popup('.btn.addCampaign','.popup.campaign');
+    fun.popup('.btn.addNewLInk','.popup.linkVehicle');
     fun.popup('a.openEditCustomer','.popup.editCustomer');
 });

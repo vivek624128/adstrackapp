@@ -3,11 +3,12 @@
  */
 
 
-NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $location, $state) {
+NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $location, $state, apiService) {
 
     $scope.user={};
     $scope.checkValidation = function (user) {
-        if (user.userId == 'services' && user.password == 'QHash3' ){
+        $scope.user.permission = 'Web';
+        /*if (user.userId == 'services' && user.password == 'QHash3' ){
             localStorage.setItem('user','services');
             $scope.loginLoader = false;
             $state.go('app.user');
@@ -17,38 +18,21 @@ NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $locati
             $scope.welcome = '';
             $scope.loginLoader = false;
         }
-
-    }
-    /*$scope.checkValidation = function (user) {
-        $scope.loginLoader = true;
-
-        $http
-            .post($rootScope.baseUrl+'/user/validateLogin', user)
-            .success(function (data, status, headers, config) {
-                console.log(data[0].statusCode)
-                if(data[0].statusCode==200){
-                    localStorage.setItem('user',user.userId);
-                    $scope.loginLoader = false;
-                    $state.go('app.workspace.dashboard')
-                }
-                else{
-                    $scope.error = 'Error: Invalid user or password';
-                    $scope.welcome = '';
-                    $scope.loginLoader = false;
-                }
+*/
+        apiService.authenticate($scope.user).then(function (data) {
+            console.log(data.data)
+            var result = data.data[0];
+            if(result.statusCode == 200){
+                $scope.loginLoader = false;
+                $state.go('app.user');
+            }
+            else{
+                $scope.error = result.Description;
+            }
+        })
 
 
-            })
-            .error(function (data, status, headers, config) {
-                // Erase the token if the user fails to log in
-                /!*delete $window.sessionStorage.token;
-                $scope.isAuthenticated = false;
-                // Handle login errors here
-                $scope.error = 'Error: Invalid user or password';
-                $scope.welcome = '';
-                $scope.loginLoader = false;*!/
-            });
-    };*/
+    };
 
     $scope.logout = function () {
         delete $window.sessionStorage.token;

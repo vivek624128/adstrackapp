@@ -49,10 +49,15 @@ NEC.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/workspace/users.html',
             controller: 'userCtrl'
         })
-        .state('app.transaction', {
-            url: "/transaction",
-            templateUrl: 'templates/workspace/transactions.html',
-            controller: 'transactionsCtrl'
+        .state('app.campaign', {
+            url: "/campaign",
+            templateUrl: 'templates/workspace/campaign.html',
+            controller: 'campaignCtrl'
+        })
+        .state('app.campaignDetail', {
+            url: "/campaignDetail/:id",
+            templateUrl: 'templates/workspace/campaignDetail.html',
+            controller: 'campaignDetailCtrl'
         })
         .state('app.newTransaction', {
             url: "/transaction/newTransaction",
@@ -82,7 +87,8 @@ NEC.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('app.setting.userType', {
             url: "/userType",
-            templateUrl: 'templates/settings/userType.html'
+            templateUrl: 'templates/settings/userType.html',
+            controller:'userTypeCtrl'
         });
 
     $urlRouterProvider.otherwise("/admin/signIn");
