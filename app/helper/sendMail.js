@@ -3,9 +3,9 @@
  */
 // const email = require("smpt-mail");
 
-// var sendmail = require('sendmail')();
+var sendmail = require('sendmail')();
 
-function sendMail(data, password) {
+function sendEMail(data, password) {
 
     /*const config = {
      smtpHost: 'smtp.programmervivek.co.in',
@@ -62,5 +62,5 @@ function sendMail(data, password) {
 }
 
 module.exports = {
-    sendMail: sendMail
+    sendMail: sendEMail
 }
