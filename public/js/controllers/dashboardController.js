@@ -138,7 +138,7 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
         var mapOptions = {
             center: mapLatLng,
             scrollwheel: true,
-            zoom: 15,
+            zoom: 10,
             zoomControl: true,
             zoomControlOptions: {
                 position: google.maps.ControlPosition.LEFT_TOP
