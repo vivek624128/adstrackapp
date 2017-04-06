@@ -3,8 +3,8 @@
  */
 
 
-NEC.controller('dashboardCtrl', function ($scope) {
-    var map;
+NEC.controller('dashboardCtrl', function ($scope, apiService) {
+   /* var map;
     var locations = [
         ['Kankarbag, Patna, Bihar -800020', 25.6038596, 85.1049313,'https://organicthemes.com/demo/profile/files/2012/12/profile_img.png', 'http://www.destination360.com/australia-south-pacific/australia/images/s/australia-bondi-beach.jpg', 'Vivek Kumar'],
         ['Flashbox', 25.183516, 85.5124163, 'http://wallpaper-gallery.net/images/profile-pics/profile-pics-18.jpg', 'http://flashbox.in/Images/portfolio_Thumb/Invaria1.jpg', 'Vivek Kumar'],
@@ -19,7 +19,7 @@ NEC.controller('dashboardCtrl', function ($scope) {
             zoom:7,
             center: new google.maps.LatLng(25.6126998,85.0619425),
             mapTypeId: google.maps.MapTypeId.SATELITE
-            /*,
+            /!*,
             styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -99,7 +99,7 @@ NEC.controller('dashboardCtrl', function ($scope) {
                 elementType: 'labels.text.stroke',
                 stylers: [{color: '#17263c'}]
             }
-        ]*/
+        ]*!/
         });
 
         var infowindow = new google.maps.InfoWindow();
@@ -129,9 +129,133 @@ NEC.controller('dashboardCtrl', function ($scope) {
             })(marker, i));
         }
     }
-    google.maps.event.addDomListener(window, 'load', initialize);
+    google.maps.event.addDomListener(window, 'load', initialize);*/
+
+    var map;
+
+    function initMap() {
+        var mapLatLng = {lat: 13.0076792, lng: 77.5649896};
+        var mapOptions = {
+            center: mapLatLng,
+            scrollwheel: true,
+            zoom: 14,
+            zoomControl: true,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.LEFT_TOP
+            },
+            backgroundColor: '#ffffff',
+            mapTypeControlOptions: {
+                mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+            }
+        };
+
+        map = new google.maps.Map(document.getElementById('dashboardMap'), mapOptions);
+    }
+
+    var infowindow = new google.maps.InfoWindow();
+    initMap();
+
+ /*   var markerObj = [
+        {
+            lat: 37.502421,
+            lng: -120.957551,
+            num: 1459
+        },
+        {
+            lat: 37.518571,
+            lng: -120.914605,
+            num: 152
+        },
+        {
+            lat: 37.480209,
+            lng: -120.914605,
+            num: 252
+        },
+        {
+            lat: 37.498191,
+            lng: -120.851702,
+            num: 456
+        },
+        {
+            lat: 37.497229,
+            lng: -120.811824,
+            num: 98
+        },
+        {
+            lat: 37.486591,
+            lng: -120.773836,
+            num: 722
+        },
+        {
+            lat: 37.496976,
+            lng: -120.741914,
+            num: 290
+        }
+    ];
+
+    for (i=0;i<markerObj.length;i++){
+        var marker=markerObj[i];
+        var markerSize="";
+
+        if (marker.num<200){
+            markerSize="one";
+        }
+        else if (marker.num<400){
+            markerSize="two";
+        }
+        else if (marker.num<700){
+            markerSize="three";
+        }
+        else if (marker.num<1000){
+            markerSize="four";
+        }
+        else {
+            markerSize="five";
+        }
 
 
+        $scope.addMarkers(marker.lat, marker.lng, marker.num);
+    }*/
+
+
+    apiService.campaignList().then(function (data) {
+        var marker, i;
+        $scope.campaign = data.data[0];
+        var feeds = $scope.campaign.campaign[0].updates;
+        var selectedCampaign =$scope.campaign.campaign[0];
+        console.log(feeds.length)
+        $scope.locations= [];
+        for(var i=0; i<feeds.length; i++){
+            var locData = {
+                latitude: feeds[i].location[0].latitude,
+                longitude: feeds[i].location[0].longitude,
+                title: $scope.campaign.campaign[0].user[0].fullName,
+                id:i
+            }
+            $scope.locations.push(locData);
+            var icon = {
+                url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' , // url
+                scaledSize: new google.maps.Size(30, 30), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(feeds[i].location[0].latitude, feeds[i].location[0].longitude),
+                icon:icon,
+                map: map
+            });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    var content='<img src="'+feeds[i].updateStatus+'" style="width:300px; height: 250px;"><br><strong>Posted By: </strong> '+selectedCampaign.user[0].fullName+' <br><div class="mapItemLocation"> <strong>Location : </strong> '+feeds[i].location[0].address+'</div>';
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+            // $scope.addMarkers( feeds[i].updateStatus );
+        }
+        console.log($scope.locations)
+        // $scope.randomMarkers = $scope.locations;
+    })
 
 
 });

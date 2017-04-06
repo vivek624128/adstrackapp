@@ -337,6 +337,14 @@ body {
     line-height: 75px;
     font-size: 16px;
 }
+
+.mapItemLocation {
+    flex-wrap: wrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    width:300px;
+    overflow: visible;
+}
 /*......... campaign .........*/
 .dataTable.campaignTable .rowCont li.name {
     width: 20%;
@@ -545,4 +553,14 @@ body {
 }
 .pageBreak {
     page-break-after: always;
+}
+
+#map {
+    height: 700px;
+    width: 100%;
+}
+
+.angular-google-map-container {
+    height: 450px;
+    width:100%;
 }
