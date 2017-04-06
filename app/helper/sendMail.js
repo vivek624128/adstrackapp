@@ -1,14 +1,13 @@
-/*
-/!**
+/**
  * Created by Flashbox on 6/30/2016.
- *!/
-const email = require("smpt-mail");
+ */
+// const email = require("smpt-mail");
 
 // var sendmail = require('sendmail')();
 
 function sendMail(data, password) {
 
-    /!*const config = {
+    /*const config = {
      smtpHost: 'smtp.programmervivek.co.in',
      smtpUser: 'info@programmervivek.co.in',
      smtpPass: 'info@123',
@@ -24,9 +23,9 @@ function sendMail(data, password) {
      name: 'tsq'
      }
      }
-     };*!/
+     };*/
 
-    console.log(data.emailId)
+/*    console.log(data.emailId)
     const config = {
         smtpHost: 'unlimited.cms500.com',
         smtpUser: 'info@programmervivek.co.in',
@@ -47,8 +46,8 @@ function sendMail(data, password) {
 
     email(config, function (err, result) {
         console.log(err, result);
-    });
-    /!*sendmail({
+    });*/
+    sendmail({
      from: 'info@programmervivek.co.in',
      to: data.emailId,
      subject: 'Password for Mahaboudh Tracking App',
@@ -59,10 +58,9 @@ function sendMail(data, password) {
      }, function(err, reply) {
      console.log(err && err.stack);
      console.dir(reply);
-     });*!/
+     });
 }
 
 module.exports = {
     sendMail: sendMail
 }
-*/
