@@ -66,7 +66,11 @@ router.get('/listUserType', function (req, res) {
 
 
 router.get('/sendMail', function (req, res) {
-    sendMail.sendMail();
+    var data = {
+        emailId:'viveksmart5@gmail.com',
+        username:'vivekKumar'
+    }
+    sendMail.sendMail(data,'abcdef');
     res.send("sent")
 })
 
