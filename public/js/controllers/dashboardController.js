@@ -134,11 +134,11 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
     var map;
 
     function initMap() {
-        var mapLatLng = {lat: 13.0076792, lng: 77.5649896};
+        var mapLatLng = {lat: 25.5860366, lng: 84.7635882};
         var mapOptions = {
             center: mapLatLng,
             scrollwheel: true,
-            zoom: 14,
+            zoom: 15,
             zoomControl: true,
             zoomControlOptions: {
                 position: google.maps.ControlPosition.LEFT_TOP
