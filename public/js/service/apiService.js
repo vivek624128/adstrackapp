@@ -52,7 +52,7 @@ NEC.service('apiService', function ($http, apiPath) {
             return $http.jsonp(apiPath.baseUrl+'listCampaign?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
         campaignListById : function (id) {
-            return $http.jsonp(apiPath.baseUrl+'listCampaignById?id='+id+'&callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+            return $http.jsonp(apiPath.baseUrl+'listCampaignById/'+id+'&callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
         linkVehicle : function (data) {
             return $http.post(apiPath.baseUrl+'linkVehicle', data)
