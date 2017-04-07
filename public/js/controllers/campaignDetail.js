@@ -12,7 +12,7 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     $scope.loader = true;
     $scope.listCampaign = function () {
 
-        apiService.campaignList($scope.id).then(function (data) {
+        apiService.campaignListById($scope.id).then(function (data) {
             $scope.loader = false;
             $scope.campaignList = data.data;
         })
