@@ -24,7 +24,7 @@ NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $locati
             var result = data.data[0];
             if(result.statusCode == 200){
                 $scope.loginLoader = false;
-                $state.go('app.user');
+                $state.go('app.campaign');
             }
             else{
                 $scope.error = result.Description;
