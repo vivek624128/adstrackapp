@@ -9,6 +9,14 @@
             <li>Last 6 Months</li>
         </ul>
     </div>
+    <div class="dropDown midBlock norm trans floatLeft subNormal helvLight">
+        <div class="head" data-init="0">
+            <div class="headTitle">Select Campaign</div>
+        </div>
+        <ul class="list">
+            <li ng-repeat="item in campaign" ng-click="selectedCampaign = item._id">{{item.campaignName}}</li>
+        </ul>
+    </div>
     <span class="clear"></span>
 </div>
 

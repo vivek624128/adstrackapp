@@ -43,7 +43,9 @@
                     <li class="emailId">{{user.emailId}}</li>
                     <li class="emailId">{{user.permission}}</li>
                     <li class="smallCol"><a class="btnLink paddingLR "
-                                            ng-click="getCustomerById(user._id)">Edit</a></li>
+                                            ng-click="getCustomerById(user._id)">Edit</a>
+                        <a class="btnLink paddingLR "
+                                            ng-click="deleteUser(user._id)">Delete</a></li>
                 </ul>
             </div>
         </div>

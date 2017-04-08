@@ -18,6 +18,9 @@ NEC.service('apiService', function ($http, apiPath) {
         userList : function () {
             return $http.jsonp(apiPath.baseUrl+'userList/select?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
+        deleteUser : function (id) {
+            return $http.jsonp(apiPath.baseUrl+'removeUser/'+id+'?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
         newAdsCat : function (data) {
             return $http.post(apiPath.baseUrl+'newAdsCategory', data)
         },
@@ -56,6 +59,9 @@ NEC.service('apiService', function ($http, apiPath) {
         },
         linkVehicle : function (data) {
             return $http.post(apiPath.baseUrl+'linkVehicle', data)
+        },
+        feeds : function (data) {
+            return $http.post(apiPath.baseUrl+'feeds', data)
         }
     }
 })

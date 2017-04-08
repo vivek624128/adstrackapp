@@ -41,5 +41,11 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
             $('.background').fadeOut(100)
         },100)
     }
+
+    $scope.deleteUser = function (id) {
+        apiService.deleteUser(id).then(function (data) {
+            $scope.getUserList();
+        })
+    }
 });
 

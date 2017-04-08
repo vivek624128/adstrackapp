@@ -220,8 +220,9 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
 
     apiService.campaignList().then(function (data) {
         var marker, i;
-        $scope.campaign = data.data[0];
-        var feeds = $scope.campaign.campaign[0].updates;
+        $scope.campaign = data.data;
+        console.log($scope.campaign)
+        var feeds = $scope.campaign.campaign[1].updates;
         var selectedCampaign =$scope.campaign.campaign[0];
         console.log(feeds.length)
         $scope.locations= [];
@@ -256,6 +257,8 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
         console.log($scope.locations)
         // $scope.randomMarkers = $scope.locations;
     })
+
+
 
 
 });
