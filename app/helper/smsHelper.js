@@ -4,7 +4,7 @@
 
 var request = require("request");
 
-function sendOTP(mobileNo, password, userid, res) {
+function sendOTP(mobileNo, userid, password, res) {
     var options = { method: 'GET',
         url: 'http://sms2.websupport.co.in/api/sendhttp.php',
         qs:

@@ -30,14 +30,21 @@ router.post('/newUser', function (req, res) {
     newUser.save(function
         (err) {
         if (err) throw err;
-        sendMail.sendMail(newUser, password);
+        // sendMail.sendMail(newUser, password);
         smaHelper.sendOTP(newUser.contactNo, newUser.username, password);
         res.send(responseMsg.response('success', 'New User created !..'))
     })
 })
+
 router.get('/userList', function (req, res) {
     users.find({}, function (err, data) {
         res.jsonp(data)
+    })
+})
+
+router.get('/removeUser/:id', function (req, res) {
+    users.remove({_id: req.params.id}, function (err, data) {
+        res.jsonp("data deleted")
     })
 })
 

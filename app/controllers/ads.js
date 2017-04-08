@@ -14,6 +14,9 @@ var express = require('express'),
     campaign = mongoose.model('campaign'),
     adsCategory = mongoose.model('adsCategory'),
     userType = mongoose.model('usersType');
+var request = require("request");
+
+var ObjectID = require("mongodb").ObjectID;
 
 module.exports = function (app) {
     app.use('/', router);
@@ -34,6 +37,7 @@ router.get('/listCampaign', function (req, res) {
     })
 })
 router.get('/listCampaignById/:id', function (req, res) {
+    console.log(req.params)
     campaign.find({_id: req.params.id}).populate([{path: 'projectId'}, {path: 'campaignType'}]).exec(function (err, data) {
         res.jsonp(data)
     })
@@ -75,3 +79,58 @@ router.get('/listAdsCategory', function (req, res) {
         res.send(data)
     })
 })
+
+
+
+router.post('/feeds', function (req, res) {
+    var data = req.body;
+    var startDate=new Date(moment(data.startDate).startOf('day').utc());
+    var endDate=new Date(moment(data.endDate).endOf('day').utc());
+    campaign.aggregate(
+        [
+            {$unwind: "$campaign"},{$unwind: "$campaign.updates"},{$unwind: "$campaign.updates.location"},
+            {$match: {'campaign.updates.updatedOn':{$gte : startDate, $lt: endDate}}},
+            {
+                $group: {
+                    _id: {
+                        'campaignId': "$campaign._id",
+                        'vehicleId': '$campaign.vehicleId',
+                        'updateOn':'$campaign.updates.updatedOn',
+                        'locationData':{
+                            'latitude':'$campaign.updates.location.latitude',
+                            'longitude':'$campaign.updates.location.longitude',
+                            'address':'$campaign.updates.location.address'
+                        }
+                    }
+                }
+            }
+        ]).exec( function (err, orders) {
+            res.send(orders)
+        })
+
+})
+
+
+router.post('/saveImage', function (req, res) {
+var url ='http://mahaboudhilocation.com/trackapp/saveImage.php';
+    var postData={
+        a:1,
+        b:2
+    };
+    require('request').post({
+        uri:url,
+        headers:{'content-type': 'application/json'},
+        body:JSON.stringify(postData)
+    },function(err,response,body){
+        console.log(body);
+        res.send(body);
+        console.log(response.statusCode);
+    });
+})
+
+function saveFeedsImage(imageData) {
+
+}
+
+
+

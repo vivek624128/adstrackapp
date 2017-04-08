@@ -89,9 +89,9 @@ NEC.provider('apiPath', function () {
     return {
         $get: function () {
             return {
-                // baseUrl: 'http://localhost:8080/'
+                baseUrl: 'http://localhost:8080/'
 
-               baseUrl: 'http://newsapp-myflash.rhcloud.com/'
+               // baseUrl: 'http://newsapp-myflash.rhcloud.com/'
             }
         }
     }
