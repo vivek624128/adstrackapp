@@ -4,14 +4,14 @@
 
 var request = require("request");
 
-function sendOTP(mobileNo, otp, res) {
+function sendOTP(mobileNo, password, userid, res) {
     var options = { method: 'GET',
         url: 'http://sms2.websupport.co.in/api/sendhttp.php',
         qs:
         { authkey: '2600ASSa9lSu57d380ef',
             mobiles: mobileNo,
-            message: 'Dear User, Your verification code is '+otp+' . Please enter the code to proceed. Thank You, %0a Quotient ',
-            sender: 'QUOTNT',
+            message: 'Dear User, Your Username: '+userid+' and Password : '+password+', Thanks Mahabodhi ',
+            sender: 'MAHALO',
             route: '4',
             country: '0' },
         headers:
