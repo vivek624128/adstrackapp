@@ -38,7 +38,14 @@ router.get('/listCampaign', function (req, res) {
 })
 router.get('/listCampaignById/:id', function (req, res) {
     console.log(req.params)
-    campaign.find({_id: req.params.id}).populate([{path: 'projectId'}, {path: 'campaignType'}]).exec(function (err, data) {
+    campaign.find({_id: req.params.id}).populate([{path: 'projectId'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+        res.jsonp(data)
+    })
+})
+
+router.get('/removeCampaign/:id', function (req, res) {
+    console.log(req.params)
+    campaign.remove({_id: req.params.id}, function (err, data) {
         res.jsonp(data)
     })
 })

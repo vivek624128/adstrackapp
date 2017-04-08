@@ -564,3 +564,7 @@ body {
     height: 450px;
     width:100%;
 }
+
+.showFeedImage{
+    cursor: pointer;
+}

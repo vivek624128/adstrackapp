@@ -10,11 +10,19 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     $scope.newLink.data = {};
     $scope.newLink.data.assignDate = moment().format();
     $scope.loader = true;
-    $scope.listCampaign = function () {
 
+    $scope.selectedImage='';
+    $scope.listCampaign = function () {
         apiService.campaignListById($scope.id).then(function (data) {
             $scope.loader = false;
-            $scope.campaignList = data.data;
+            $scope.campaignList = data.data[0];
+            $scope.vehicleList = data.data[0].campaign[0].vehicleId;
+            $scope.attachedVehicles = data.data[0].campaign
+
+            console.log('vehicleList')
+            console.log($scope.vehicleList[0])
+            console.log('driverData')
+            console.log($scope.attachedVehicles)
         })
     }
     $scope.listCampaign();
@@ -47,5 +55,9 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
         }, 100)
     }
 
+    $scope.showImage = function (image, address) {
+        $scope.selectedImage = image;
+        $scope.feedAddress = address;
+    }
 });
 

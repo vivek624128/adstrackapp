@@ -396,6 +396,7 @@ $(document).ready(function () {
     fun.popup('.btn.addUser','.popup.user');
     fun.popup('.btn.addVehicle','.popup.vehicle');
     fun.popup('.btn.addCampaign','.popup.campaign');
+    fun.popup('.showFeedImage','.popup.feedImage');
     fun.popup('.btn.addNewLInk','.popup.linkVehicle');
     fun.popup('a.openEditCustomer','.popup.editCustomer');
 });

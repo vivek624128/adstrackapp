@@ -30,14 +30,14 @@
                     <li class=""></li>
                 </ul>
             </div>
-            <div class="dataRow " ng-repeat="campaign in campaignList | filter : search">
+            <div class="dataRow ">
                 <ul class="rowCont">
-                    <li class="">{{campaign.campaignName}}</li>
-                    <li class="">{{campaign.projectId[0].projectName}}</li>
-                    <li class="">{{campaign.campaignType[0].advertiseMode}}</li>
-                    <li class="startDate">{{campaign.creationDate | date : 'MMM dd, yyyy'}}</li>
-                    <li class="startDate">{{campaign.startDate | date : 'MMM dd, yyyy'}}</li>
-                    <li class="">{{campaign.status}}</li>
+                    <li class="">{{campaignList.campaignName}}</li>
+                    <li class="">{{campaignList.projectId[0].projectName}}</li>
+                    <li class="">{{campaignList.campaignType[0].advertiseMode}}</li>
+                    <li class="startDate">{{campaignList.creationDate | date : 'MMM dd, yyyy'}}</li>
+                    <li class="startDate">{{campaignList.startDate | date : 'MMM dd, yyyy'}}</li>
+                    <li class="">{{campaignList.status}}</li>
                     <li class=""><a href="" class="btnLink">View Feeds</a> </li>
                 </ul>
             </div>
@@ -58,21 +58,21 @@
     <div class="dataTable campaignTable full subNormal  borderBtm">
         <div class="dataRow header">
             <ul class="rowCont">
+                <li  class="">Vehicle No</li>
                 <li  class="">Update Date</li>
                 <li  class="">Latitude</li>
                 <li  class="">Longitude</li>
-                <li  class="">Address</li>
                 <li  class="">Image</li>
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="item in campaignList[0].campaign[0].updates">
-            <ul class="rowCont">
-                <li  class="">{{item.updatedOn}}</li>
-                <li  class="">{{item.location[0].latitude}}</li>
-                <li  class="">{{item.location[0].longitude}}</li>
-                <li  class="">{{item.location[0].address}}</li>
-                <li  class=""><img ng-src="{{item.updateStatus}}" height="50px" width="100px"></li>
+        <div class="dataRow noBack" ng-repeat="vehicle in attachedVehicles">
+            <ul class="rowCont" ng-repeat="updates in vehicle.updates">
+                <li  class="">{{vehicle.vehicleId[0].vehicleNo}}</li>
+                <li  class="">{{updates.updatedOn}}</li>
+                <li  class="">{{updates.location[0].latitude}}</li>
+                <li  class="">{{updates.location[0].longitude}}</li>
+                <li  class="showFeedImage" ng-click="showImage(updates.updateStatus, updates.location[0].address)"><img ng-src="{{updates.updateStatus}}" height="50px" width="100px"></li>
                 <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
             </ul>
         </div>
@@ -90,15 +90,16 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="item in campaignList[0].campaign">
-            <ul class="rowCont">
-                <li  class="">{{item.vehicleId[0].vehicleNo}}</li>
-                <li  class="">{{item.vehicleId[0].registrationNo}}</li>
-                <li  class="">{{item.vehicleId[0].vehicleType}}</li>
-                <li  class="">{{item.user[0].fullName}}</li>
-                <li  class="">{{item.user[0].contactNo}}</li>
-                <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
-            </ul>
+        <div class="dataRow noBack" ng-repeat="item in campaignList.campaign">
+                <ul class="rowCont">
+                    <li  class="">{{item.vehicleId[0].vehicleNo}}</li>
+                    <li  class="">{{item.vehicleId[0].registrationNo}}</li>
+                    <li  class="">{{item.vehicleId[0].vehicleType}}</li>
+                    <li  class="">{{item.user[0].fullName}}</li>
+                    <li  class="">{{item.user[0].contactNo}}</li>
+                    <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -152,65 +153,14 @@
 
 
 </div>
-<!--
-<div class="popup editCustomer ">
+<div class="popup feedImage " style="width: 400px;">
     <div class="x close paddingLR">x</div>
-    <div class="subTitle borderBtm paddingBtmSml">
-        Customer Detail
+    <div class=" paddingBtmSml">
+        <img ng-src="{{selectedImage}}" width="340px" height="400px">
     </div>
-    <ul class="form paddingTop flow">
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">Customer Code : </span>
-                <input type="text" ng-model="customerDetail.cust_id" placeholder="" class="midBlock"
-                       value="{{offerData.startDate}}">
-                <input type="hidden" ng-model="customerDetail.srl_no" placeholder="">
-            </div>
-        </li>
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">Full Name : </span>
-                <input type="text" ng-model="customerDetail.cust_name" placeholder="" class="midBlock">
-            </div>
-        </li>
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">E-Mail Id: </span>
-                <input type="text" ng-model="customerDetail.email_id" placeholder="" class="midBlock">
-            </div>
-        </li>
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">Contact No : </span>
-                <input type="text" ng-model="customerDetail.cust_no" placeholder="" class="midBlock">
-            </div>
-        </li>
-    </ul>
-    <ul class="form">
-        <li>
-            Address
-        </li>
-
-        <li>
-            <textarea ng-model="customerDetail.cust_address"></textarea>
-
-        </li>
-    </ul>
-    <ul class="form flow">
-        <li>
-            <div class="btn" ng-click="updateCustomer(customerDetail.srl_no)">UPDATE</div>
-        </li>
-
-        <li>
-            <div class="btn floatRight close">CANCEL</div>
-        </li>
-    </ul>
-
-    <ul class="form ">
-        <li>
-            <span class="error" ng-show="msg">{{msg}}</span>
-        </li>
-    </ul>
+    <div class="  paddingBtmSml">
+       <strong> Location:  </strong> {{feedAddress}}
+    </div>
 
 
-</div>-->
+</div>
