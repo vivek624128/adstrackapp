@@ -75,7 +75,8 @@ router.post('/linkVehicle', function (req, res) {
 router.post('/addCampaignFeeds', function (req, res) {
     var data = req.body;
     console.log(data);
-    data.updates.updateOn = moment().utcOffset("+05:30").format();
+    data.updates.updatedOn = moment().utcOffset("+05:30").format();
+    console.log("Updated On ----------- "+data.updates.updatedOn)
     campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
         res.jsonp(data)
     })
