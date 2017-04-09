@@ -8,6 +8,8 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     $scope.newLink = {};
     $scope.newLink.data = {};
     $scope.loader = true;
+    $scope.loaderVehicle = true;
+    $scope.loaderFeed = true;
 
     $scope.searchVehicle='';
     $scope.searchFeed='';
@@ -17,8 +19,8 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
         apiService.campaignListById($scope.id).then(function (data) {
             $scope.loader = false;
             $scope.campaignList = data.data[0];
-            $scope.vehicleList = data.data[0].campaign[0].vehicleId;
-            $scope.attachedVehicles = data.data[0].campaign;
+            // $scope.vehicleList = data.data[0].campaign[0].vehicleId;
+            // $scope.attachedVehicles = data.data[0].campaign;
         })
     }
     $scope.listCampaign();
@@ -27,9 +29,10 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
         $scope.loader = false;
         $scope.vehicleListForLink = data.data;
     })
-    apiService.vehicleListByCampaign($scope.id).then(function (data) {
-        $scope.linkedVehicleList = data.data[0];
-        console.log(data.data[0])
+    apiService.vehicleListByCampaign('58e8da1a5d3c76287f011d10').then(function (data) {
+        $scope.linkedVehicleList = data.data[0].campaign;
+        console.log($scope.linkedVehicleList)
+        $scope.loaderVehicle = false;
     })
 
 
@@ -73,8 +76,19 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     }
 
     $scope.dateFormat = function (data) {
-        console.log(data +"---------"+moment(data).format());
         return moment(data).format();
     }
+    $scope.feedsPayload = {};
+    $scope.feedsPayload.startDate = moment().format();
+    $scope.feedsPayload.endDate = moment().format();
+    $scope.getFeeds = function () {
+        apiService.feeds($scope.feedsPayload).then(function (data) {
+            console.log(data.data)
+            $scope.feeds = data.data;
+            $scope.loaderFeed = false;
+        })
+
+    }
+    $scope.getFeeds()
 });
 

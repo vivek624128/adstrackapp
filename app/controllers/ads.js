@@ -32,19 +32,19 @@ router.post('/newCampaign', function (req, res) {
     })
 })
 router.get('/listCampaign', function (req, res) {
-    campaign.find({}).populate([{path: 'projectId'}, {path: 'campaignType'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+    campaign.find({},{'campaign':0}).populate([{path: 'projectId'}, {path: 'campaignType'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
         res.jsonp(data)
     })
 })
 router.get('/listCampaignById/:id', function (req, res) {
     console.log(req.params)
-    campaign.find({_id: req.params.id}).populate([{path: 'projectId'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+    campaign.find({_id: req.params.id},{'campaign':0}).populate([{path: 'projectId'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
         res.jsonp(data)
     })
 })
 
 router.get('/listVehicleByCampaignId/:id', function (req, res) {
-    campaign.find({_id: req.params.id},{vehicleId:1, user:1}).populate([{path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+    campaign.find({_id: req.params.id},{'campaign.vehicleId':1, 'campaign.user':1}).populate([{path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
         res.jsonp(data)
     })
 })
@@ -88,7 +88,7 @@ router.post('/addCampaignFeeds', function (req, res) {
                 headers:{'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 body:JSON.stringify(postData)
             },function(err,response,body){
-                data.updates.updateStatus = body;
+                data.updates.updateStatus = 'http://mahaboudhilocation.com/trackapp/'+body;
                 var updatedData = data.updates;
                 campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
                     res.jsonp(updatedData);

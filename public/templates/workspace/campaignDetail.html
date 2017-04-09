@@ -66,6 +66,12 @@
                     >
                 </div>
             </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Date To : </span>
+                    <input type="text" ng-model="feedPayload.endDate" placeholder="" class="midBlock datePicker" b-datepicker>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="dataTable campaignTable full subNormal  borderBtm">
@@ -79,15 +85,19 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="vehicle in attachedVehicles | filter : searchFeed">
-            <ul class="rowCont" ng-repeat="updates in vehicle.updates">
-                <li  class="">{{vehicle.vehicleId[0].vehicleNo}}</li>
-                <li  class="">{{dateFormat(updates.updatedOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
-                <li  class="">{{updates.location[0].latitude}}</li>
-                <li  class="">{{updates.location[0].longitude}}</li>
-                <li  class="showFeedImage" ng-click="showImage(updates.updateStatus, updates.location[0].address)"><img ng-src="{{updates.updateStatus}}" height="50px" width="100px"></li>
+        <div class="dataRow noBack" ng-repeat="feed in feeds | filter : searchFeed">
+            <ul class="rowCont">
+                <li  class="">{{feed._id.vehicleId}}</li>
+                <li  class="">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
+                <li  class="">{{feed._id.locationData.latitude}}</li>
+                <li  class="">{{feed._id.locationData.longitude}}</li>
+                <li  class="showFeedImage" ng-click="showImage(feed._id.updateStatus, feed._id.locationData.address)"><img ng-src="{{feed._id.updateStatus}}" height="50px" width="100px"></li>
                 <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
             </ul>
+        </div>
+        <div class="loader centerTxt" ng-show="loaderFeed">
+            <p>Loading</p>
+            <img src="images/spinner.gif">
         </div>
     </div>
 </div>
@@ -117,7 +127,7 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="item in campaignList.campaign | filter : searchVehicle">
+        <div class="dataRow noBack" ng-repeat="item in linkedVehicleList | filter : searchVehicle">
                 <ul class="rowCont">
                     <li  class="">{{item.vehicleId[0].vehicleNo}}</li>
                     <li  class="">{{item.vehicleId[0].registrationNo}}</li>
@@ -128,12 +138,13 @@
                 </ul>
             </div>
         </div>
+    <div class="loader centerTxt" ng-show="loaderVehicle">
+        <p>Loading</p>
+        <img src="images/spinner.gif">
+    </div>
     </div>
 </div>
-<div class="loader centerTxt" ng-show="loader">
-    <p>Loading</p>
-    <img src="images/spinner.gif">
-</div>
+
 
 <div class="popup linkVehicle ">
     <div class="x close paddingLR">x</div>
