@@ -1860,6 +1860,10 @@ a[href^="https://maps.google.com/maps"] {
     position: absolute;
     top: 0;
 }
+.popup.fixed {
+    position: fixed;
+    top: 100px;
+}
 .popup .x {
     /*color: #cd0000;*/
     color: #000000;

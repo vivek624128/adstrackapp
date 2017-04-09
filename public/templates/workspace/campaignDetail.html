@@ -55,6 +55,19 @@
 </div>
 
 <div ng-show="page == 1">
+
+    <div class="floatLeft searchBar paddingLR">
+
+        <ul class="form flow">
+            <li class="noMargin">
+                <div class="input-group fullWidth">
+                    <span class="inputLabel midBlock">Search : </span>
+                    <input type="text" ng-model="searchFeed" placeholder="" class="midBlock fullWidth"
+                    >
+                </div>
+            </li>
+        </ul>
+    </div>
     <div class="dataTable campaignTable full subNormal  borderBtm">
         <div class="dataRow header">
             <ul class="rowCont">
@@ -66,10 +79,10 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="vehicle in attachedVehicles">
+        <div class="dataRow noBack" ng-repeat="vehicle in attachedVehicles | filter : searchFeed">
             <ul class="rowCont" ng-repeat="updates in vehicle.updates">
                 <li  class="">{{vehicle.vehicleId[0].vehicleNo}}</li>
-                <li  class="">{{updates.updatedOn}}</li>
+                <li  class="">{{dateFormat(updates.updatedOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
                 <li  class="">{{updates.location[0].latitude}}</li>
                 <li  class="">{{updates.location[0].longitude}}</li>
                 <li  class="showFeedImage" ng-click="showImage(updates.updateStatus, updates.location[0].address)"><img ng-src="{{updates.updateStatus}}" height="50px" width="100px"></li>
@@ -79,6 +92,20 @@
     </div>
 </div>
 <div ng-show="page == 2">
+
+
+    <div class="floatLeft searchBar paddingLR">
+
+        <ul class="form flow">
+            <li class="noMargin">
+                <div class="input-group fullWidth">
+                    <span class="inputLabel midBlock">Search : </span>
+                    <input type="text" ng-model="searchVehicle" placeholder="" class="midBlock fullWidth"
+                    >
+                </div>
+            </li>
+        </ul>
+    </div>
     <div class="dataTable campaignTable full subNormal  borderBtm">
         <div class="dataRow header">
             <ul class="rowCont">
@@ -90,7 +117,7 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="item in campaignList.campaign">
+        <div class="dataRow noBack" ng-repeat="item in campaignList.campaign | filter : searchVehicle">
                 <ul class="rowCont">
                     <li  class="">{{item.vehicleId[0].vehicleNo}}</li>
                     <li  class="">{{item.vehicleId[0].registrationNo}}</li>
@@ -153,7 +180,7 @@
 
 
 </div>
-<div class="popup feedImage " style="width: 400px;">
+<div class="popup feedImage fixed " style="width: 400px;">
     <div class="x close paddingLR">x</div>
     <div class=" paddingBtmSml">
         <img ng-src="{{selectedImage}}" width="340px" height="400px">
