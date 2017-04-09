@@ -1,23 +1,21 @@
 <div class="paddingLR paddingTBSrt borderBtm">
-    <div class="dropDown midBlock norm trans floatRight subNormal helvLight">
-        <div class="head" data-init="0">
-            <div class="headTitle">Last Month</div>
-        </div>
-        <ul class="list">
-            <li>Last Month</li>
-            <li>Last 3 Months</li>
-            <li>Last 6 Months</li>
-        </ul>
+    <ul class="form flow small paddingTop">
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Date From : </span>
+                <input type="text" ng-model="dashboardPayload.startDate" placeholder="" class="midBlock datePicker" b-datepicker>
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Date To : </span>
+                <input type="text" ng-model="dashboardPayload.endDate" placeholder="" class="midBlock datePicker" b-datepicker>
+            </div>
+        </li>
+    </ul>
+    <div class="">
+        <button class="btn"> SEARCH</button>
     </div>
-    <div class="dropDown midBlock norm trans floatLeft subNormal helvLight">
-        <div class="head" data-init="0">
-            <div class="headTitle">Select Campaign</div>
-        </div>
-        <ul class="list">
-            <li ng-repeat="item in campaign" ng-click="selectedCampaign = item._id">{{item.campaignName}}</li>
-        </ul>
-    </div>
-    <span class="clear"></span>
 </div>
 
 

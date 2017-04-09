@@ -37,3 +37,9 @@ router.get('/vehicleDetail/:id', function (req, res) {
         res.jsonp(data)
     })
 })
+router.get('/vehicleNoById/:id', function (req, res) {
+    console.log(req.params.id)
+    vehicles.find({_id:req.params.id},{vehicleNo:1},function (err, data) {
+        res.jsonp(data)
+    })
+})

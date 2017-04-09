@@ -68,8 +68,8 @@
             </li>
             <li>
                 <div class="input-group">
-                    <span class="inputLabel midBlock">Date To : </span>
-                    <input type="text" ng-model="feedPayload.endDate" placeholder="" class="midBlock datePicker" b-datepicker>
+                    <span class="inputLabel midBlock">Select Date : </span>
+                    <input type="text" ng-model="date" placeholder="" class="midBlock datePicker" b-datepicker>
                 </div>
             </li>
         </ul>
@@ -85,9 +85,9 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="feed in feeds | filter : searchFeed">
+        <div class="dataRow noBack" ng-repeat="feed in feeds | filter : searchFeed | orderBy : '-_id.updateOn'">
             <ul class="rowCont">
-                <li  class="">{{feed._id.vehicleId}}</li>
+                <li  class="">{{feed.vehicleNo}}</li>
                 <li  class="">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
                 <li  class="">{{feed._id.locationData.latitude}}</li>
                 <li  class="">{{feed._id.locationData.longitude}}</li>

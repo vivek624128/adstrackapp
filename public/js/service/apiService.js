@@ -42,6 +42,9 @@ NEC.service('apiService', function ($http, apiPath) {
         vehicleDetailById : function (id) {
             return $http.jsonp(apiPath.baseUrl+'vehicleDetail/'+id+'?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
+        vehicleNoById : function (id) {
+            return $http.jsonp(apiPath.baseUrl+'vehicleNoById/'+id+'?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
         addProject : function (data) {
             return $http.post(apiPath.baseUrl+'newProject', data)
         },

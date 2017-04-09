@@ -9,12 +9,11 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     $scope.newLink.data = {};
     $scope.loader = true;
     $scope.loaderVehicle = true;
-    $scope.loaderFeed = true;
 
-    $scope.searchVehicle='';
-    $scope.searchFeed='';
+    $scope.searchVehicle = '';
+    $scope.searchFeed = '';
 
-    $scope.selectedImage='';
+    $scope.selectedImage = '';
     $scope.listCampaign = function () {
         apiService.campaignListById($scope.id).then(function (data) {
             $scope.loader = false;
@@ -29,9 +28,8 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
         $scope.loader = false;
         $scope.vehicleListForLink = data.data;
     })
-    apiService.vehicleListByCampaign('58e8da1a5d3c76287f011d10').then(function (data) {
+    apiService.vehicleListByCampaign($scope.id).then(function (data) {
         $scope.linkedVehicleList = data.data[0].campaign;
-        console.log($scope.linkedVehicleList)
         $scope.loaderVehicle = false;
     })
 
@@ -39,25 +37,22 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     $scope.selectVehicle = function (id) {
         $scope.newLink.data.vehicleId = id;
         apiService.vehicleDetailById(id).then(function (data) {
-
             $scope.vehicleDriver = data.data[0].driverId[0].fullName;
-            console.log("Vehicle Detail=============")
-            console.log(data.data[0])
             $scope.newLink.data.user = data.data[0].driverId[0]._id;
         })
     }
 
     $scope.linkVehicle = function () {
 
-        $scope.newLink.campaignId=$scope.id;
+        $scope.newLink.campaignId = $scope.id;
         $scope.newLink.data.assignDate = moment().format();
 
         apiService.linkVehicle($scope.newLink).then(function (data) {
             $scope.listCampaign();
             $scope.closePopup();
 
-            $scope.newLink.data.vehicleId ='';
-            $scope.newLink.data.user ='';
+            $scope.newLink.data.vehicleId = '';
+            $scope.newLink.data.user = '';
             $scope.vehicleDriver = '';
 
         })
@@ -79,16 +74,48 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
         return moment(data).format();
     }
     $scope.feedsPayload = {};
-    $scope.feedsPayload.startDate = moment().format();
-    $scope.feedsPayload.endDate = moment().format();
+    $scope.date = moment().format('YYYY-MM-DD')
+
+    $scope.feedsPayload.startDate = $scope.date;
+    ;
+    $scope.feedsPayload.endDate = $scope.date;
     $scope.getFeeds = function () {
+
+        $scope.loaderFeed = true;
         apiService.feeds($scope.feedsPayload).then(function (data) {
-            console.log(data.data)
             $scope.feeds = data.data;
             $scope.loaderFeed = false;
+            for (var i = 0; i < $scope.feeds.length; i++) {
+                for (var j = 0; j < $scope.linkedVehicleList.length; j++) {
+                    if ($scope.feeds[i]._id.vehicleId == $scope.linkedVehicleList[j].vehicleId[0]._id) {
+                        $scope.feeds[i].vehicleNo = $scope.linkedVehicleList[j].vehicleId[0].vehicleNo;
+                    }
+                }
+            }
+            console.log($scope.feeds)
         })
 
     }
     $scope.getFeeds()
+
+    $scope.$watch(
+        "date",
+        function handleFooChange(newValue, oldValue) {
+            $scope.feedsPayload.endDate = newValue;
+            $scope.feedsPayload.startDate = newValue;
+            console.log($scope.feedsPayload.endDate)
+            $scope.getFeeds()
+        }
+    );
+
+
+    $scope.fetchVehicleNo = function (id) {
+        var vehicles = $scope.linkedVehicleList;
+        for (var i = 0; i < vehicles.length; i++) {
+            if (id == vehicles[i].vehicleId[0]._id) {
+                return vehicles[i].vehicleId[0].vehicleNo;
+            }
+        }
+    }
 });
 

@@ -38,7 +38,7 @@ router.get('/listCampaign', function (req, res) {
 })
 router.get('/listCampaignById/:id', function (req, res) {
     console.log(req.params)
-    campaign.find({_id: req.params.id},{'campaign':0}).populate([{path: 'projectId'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+    campaign.find({_id: req.params.id},{'campaign':0}).populate([{path: 'projectId'}, {path: 'campaignType'}, {path: 'campaign.user'}]).exec(function (err, data) {
         res.jsonp(data)
     })
 })
