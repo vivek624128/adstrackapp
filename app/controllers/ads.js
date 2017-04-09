@@ -76,30 +76,35 @@ router.post('/addCampaignFeeds', function (req, res) {
     var data = req.body;
     var image =data.updates.updateStatus;
     console.log(image)
-    if(image.indexOf("data:image/png;base64,")==0){
-        var url ='http://mahaboudhilocation.com/trackapp/saveImage.php';
-        var postData={
-            imageData : image
-        };
-        var imagePath ={};
-        require('request').post({
-            uri:url,
-            headers:{'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-            body:JSON.stringify(postData)
-        },function(err,response,body){
-            data.updates.updateStatus = body;
+    if(image){
+        if(image.indexOf("data:image/png;base64,")==0){
+            var url ='http://mahaboudhilocation.com/trackapp/saveImage.php';
+            var postData={
+                imageData : image
+            };
+            var imagePath ={};
+            require('request').post({
+                uri:url,
+                headers:{'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                body:JSON.stringify(postData)
+            },function(err,response,body){
+                data.updates.updateStatus = body;
+                var updatedData = data.updates;
+                campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
+                    res.jsonp(updatedData);
+                })
+            });
+        }
+        else{
+
             var updatedData = data.updates;
             campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
-             res.jsonp(updatedData);
-             })
-        });
+                res.jsonp(updatedData);
+            })
+        }
     }
     else{
-
-        var updatedData = data.updates;
-        campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
-            res.jsonp(updatedData);
-        })
+        res.send('Image file not submitted')
     }
 
 
