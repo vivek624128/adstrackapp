@@ -74,12 +74,36 @@ router.post('/linkVehicle', function (req, res) {
 
 router.post('/addCampaignFeeds', function (req, res) {
     var data = req.body;
-    console.log(data);
-    data.updates.updatedOn = moment().utcOffset("+05:30").format();
-    console.log("Updated On ----------- "+data.updates.updatedOn)
-    campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
-        res.jsonp(data)
-    })
+    var image =data.updates.updateStatus;
+    console.log(image)
+    if(image.indexOf("data:image/png;base64,")==0){
+        var url ='http://mahaboudhilocation.com/trackapp/saveImage.php';
+        var postData={
+            imageData : image
+        };
+        var imagePath ={};
+        require('request').post({
+            uri:url,
+            headers:{'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+            body:JSON.stringify(postData)
+        },function(err,response,body){
+            data.updates.updateStatus = body;
+            var updatedData = data.updates;
+            campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
+             res.jsonp(updatedData);
+             })
+        });
+    }
+    else{
+
+        var updatedData = data.updates;
+        campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
+            res.jsonp(updatedData);
+        })
+    }
+
+
+
 })
 router.post('/newAdsCategory', function (req, res) {
     var newAdsCategory = new adsCategory(req.body);
@@ -127,25 +151,9 @@ router.post('/feeds', function (req, res) {
 })
 
 
-router.post('/saveImage', function (req, res) {
-var url ='http://mahaboudhilocation.com/trackapp/saveImage.php';
-    var postData={
-        a:1,
-        b:2
-    };
-    require('request').post({
-        uri:url,
-        headers:{'content-type': 'application/json'},
-        body:JSON.stringify(postData)
-    },function(err,response,body){
-        console.log(body);
-        res.send(body);
-        console.log(response.statusCode);
-    });
-})
+function saveImageAtPath (image) {
 
-function saveFeedsImage(imageData) {
-
+    return imagePath;
 }
 
 
