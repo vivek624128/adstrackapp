@@ -57,6 +57,9 @@ NEC.service('apiService', function ($http, apiPath) {
         campaignListById : function (id) {
             return $http.jsonp(apiPath.baseUrl+'listCampaignById/'+id+'?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
+        vehicleListByCampaign : function (id) {
+            return $http.jsonp(apiPath.baseUrl+'listVehicleByCampaignId/'+id+'?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
         linkVehicle : function (data) {
             return $http.post(apiPath.baseUrl+'linkVehicle', data)
         },
@@ -90,6 +93,7 @@ NEC.provider('apiPath', function () {
         $get: function () {
             return {
                 // baseUrl: 'http://localhost:8080/'
+                // baseUrl: 'http://localhost/mahaboudhApi/'
 
                baseUrl: 'http://newsapp-myflash.rhcloud.com/'
             }
