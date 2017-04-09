@@ -43,6 +43,12 @@ router.get('/listCampaignById/:id', function (req, res) {
     })
 })
 
+router.get('/listVehicleByCampaignId/:id', function (req, res) {
+    campaign.find({_id: req.params.id},{vehicleId:1, user:1}).populate([{path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+        res.jsonp(data)
+    })
+})
+
 router.get('/removeCampaign/:id', function (req, res) {
     console.log(req.params)
     campaign.remove({_id: req.params.id}, function (err, data) {
@@ -69,6 +75,7 @@ router.post('/linkVehicle', function (req, res) {
 router.post('/addCampaignFeeds', function (req, res) {
     var data = req.body;
     console.log(data);
+    data.updates.updateOn = moment().utcOffset("+05:30").format();
     campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
         res.jsonp(data)
     })
@@ -107,7 +114,8 @@ router.post('/feeds', function (req, res) {
                             'latitude':'$campaign.updates.location.latitude',
                             'longitude':'$campaign.updates.location.longitude',
                             'address':'$campaign.updates.location.address'
-                        }
+                        },
+                        'updateStatus':'$campaign.updates.updateStatus'
                     }
                 }
             }
