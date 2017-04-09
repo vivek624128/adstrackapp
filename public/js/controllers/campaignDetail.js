@@ -12,7 +12,7 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
 
     $scope.searchVehicle = '';
     $scope.searchFeed = '';
-
+    $scope.print=false;
     $scope.selectedImage = '';
     $scope.listCampaign = function () {
         apiService.campaignListById($scope.id).then(function (data) {
@@ -116,6 +116,16 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
                 return vehicles[i].vehicleId[0].vehicleNo;
             }
         }
+    }
+
+
+    $scope.printDiv = function(divName) {
+        $scope.print=true;
+        var printContents = document.getElementById(divName).innerHTML;
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        popupWin.document.write('<html><head><link href="css/uiStyle.css" rel="stylesheet"><link href="css/preStyles.css" rel="stylesheet"><link href="css/fonts.css" rel="stylesheet"></head><body onload="window.print()">' + printContents + '</body></html>');
+        popupWin.document.close();
     }
 });
 

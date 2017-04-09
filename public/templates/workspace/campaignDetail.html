@@ -38,7 +38,7 @@
                     <li class="startDate">{{campaignList.creationDate | date : 'MMM dd, yyyy'}}</li>
                     <li class="startDate">{{campaignList.startDate | date : 'MMM dd, yyyy'}}</li>
                     <li class="">{{campaignList.status}}</li>
-                    <li class=""><a href="" class="btnLink">View Feeds</a> </li>
+                    <li class=""><a href="" class="btnLink">View Feeds</a></li>
                 </ul>
             </div>
         </div>
@@ -55,50 +55,65 @@
 </div>
 
 <div ng-show="page == 1">
+    <div class="midBlock">
+        <div class="floatLeft searchBar paddingLR">
+            <ul class="form flow flo">
+                <li class="noMargin">
+                    <div class="input-group fullWidth">
+                        <span class="inputLabel midBlock">Search : </span>
+                        <input type="text" ng-model="searchFeed" placeholder="" class="midBlock fullWidth"
+                        >
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <span class="inputLabel midBlock">Select Date : </span>
+                        <input type="text" ng-model="date" placeholder="" class="midBlock datePicker" b-datepicker>
+                    </div>
+                </li>
+            </ul>
 
-    <div class="floatLeft searchBar paddingLR">
-
-        <ul class="form flow">
-            <li class="noMargin">
-                <div class="input-group fullWidth">
-                    <span class="inputLabel midBlock">Search : </span>
-                    <input type="text" ng-model="searchFeed" placeholder="" class="midBlock fullWidth"
-                    >
-                </div>
-            </li>
-            <li>
-                <div class="input-group">
-                    <span class="inputLabel midBlock">Select Date : </span>
-                    <input type="text" ng-model="date" placeholder="" class="midBlock datePicker" b-datepicker>
-                </div>
-            </li>
-        </ul>
+        </div>
+        <div class="btn floatRight" ng-click="printDiv('feeds')">Print</div>
+        <span class="clear"></span>
     </div>
-    <div class="dataTable campaignTable full subNormal  borderBtm">
-        <div class="dataRow header">
-            <ul class="rowCont">
-                <li  class="">Vehicle No</li>
-                <li  class="">Update Date</li>
-                <li  class="">Latitude</li>
-                <li  class="">Longitude</li>
-                <li  class="">Image</li>
-                <!--<li  class="smallCol"></li>-->
-            </ul>
+
+    <div id="feeds" class="paddingTB">
+
+        <div class="subTitle paddingBtm paddingLR" ng-show="">
+            <div class="floatLeft"><strong>Daily Feeds List </strong> </div>
+            <div class="floatRight"><strong>Report Date : </strong>{{feedsPayload.endDate}} </div>
+            <span class="clear"></span>
         </div>
-        <div class="dataRow noBack" ng-repeat="feed in feeds | filter : searchFeed | orderBy : '-_id.updateOn'">
-            <ul class="rowCont">
-                <li  class="">{{feed.vehicleNo}}</li>
-                <li  class="">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
-                <li  class="">{{feed._id.locationData.latitude}}</li>
-                <li  class="">{{feed._id.locationData.longitude}}</li>
-                <li  class="showFeedImage" ng-click="showImage(feed._id.updateStatus, feed._id.locationData.address)"><img ng-src="{{feed._id.updateStatus}}" height="50px" width="100px"></li>
-                <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
-            </ul>
+
+        <div  class="dataTable campaignTable full subNormal  borderBtm">
+            <div class="dataRow header">
+                <ul class="rowCont">
+                    <li class="smallCol">Vehicle No</li>
+                    <li class="startDate">Update Date</li>
+                    <li class="startDate">Latitude & Longitude</li>
+                    <li class="">Address</li>
+                    <li class="showFeedImage">Image</li>
+                    <!--<li  class="smallCol"></li>-->
+                </ul>
+            </div>
+            <div class="dataRow noBack borderBtm" ng-repeat="feed in feeds | filter : searchFeed | orderBy : '-_id.updateOn'">
+                <ul class="rowCont">
+                    <li class="smallCol">{{feed.vehicleNo}}</li>
+                    <li class="startDate">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
+                    <li class="startDate">[{{feed._id.locationData.latitude | number :5}} , {{feed._id.locationData.longitude | number :5}}]</li>
+                    <li class="">[{{feed._id.locationData.address}} </li>
+                    <li class="showFeedImage" ng-click="showImage(feed._id.updateStatus, feed._id.locationData.address)">
+                        <img ng-src="{{feed._id.updateStatus}}" height="50px" width="100px"></li>
+                    <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
+                </ul>
+            </div>
         </div>
-        <div class="loader centerTxt" ng-show="loaderFeed">
-            <p>Loading</p>
-            <img src="images/spinner.gif">
-        </div>
+    </div>
+
+    <div class="loader centerTxt" ng-show="loaderFeed">
+        <p>Loading</p>
+        <img src="images/spinner.gif">
     </div>
 </div>
 <div ng-show="page == 2">
@@ -119,30 +134,30 @@
     <div class="dataTable campaignTable full subNormal  borderBtm">
         <div class="dataRow header">
             <ul class="rowCont">
-                <li  class="">Vehicle No</li>
-                <li  class="">Registration No</li>
-                <li  class="">Vehicle Type</li>
-                <li  class="">Driver Name</li>
-                <li  class="">Contact No</li>
+                <li class="">Vehicle No</li>
+                <li class="">Registration No</li>
+                <li class="">Vehicle Type</li>
+                <li class="">Driver Name</li>
+                <li class="">Contact No</li>
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
         <div class="dataRow noBack" ng-repeat="item in linkedVehicleList | filter : searchVehicle">
-                <ul class="rowCont">
-                    <li  class="">{{item.vehicleId[0].vehicleNo}}</li>
-                    <li  class="">{{item.vehicleId[0].registrationNo}}</li>
-                    <li  class="">{{item.vehicleId[0].vehicleType}}</li>
-                    <li  class="">{{item.user[0].fullName}}</li>
-                    <li  class="">{{item.user[0].contactNo}}</li>
-                    <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
-                </ul>
-            </div>
+            <ul class="rowCont">
+                <li class="">{{item.vehicleId[0].vehicleNo}}</li>
+                <li class="">{{item.vehicleId[0].registrationNo}}</li>
+                <li class="">{{item.vehicleId[0].vehicleType}}</li>
+                <li class="">{{item.user[0].fullName}}</li>
+                <li class="">{{item.user[0].contactNo}}</li>
+                <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
+            </ul>
         </div>
+    </div>
     <div class="loader centerTxt" ng-show="loaderVehicle">
         <p>Loading</p>
         <img src="images/spinner.gif">
     </div>
-    </div>
+</div>
 </div>
 
 
@@ -197,7 +212,7 @@
         <img ng-src="{{selectedImage}}" width="340px" height="400px">
     </div>
     <div class="  paddingBtmSml">
-       <strong> Location:  </strong> {{feedAddress}}
+        <strong> Location: </strong> {{feedAddress}}
     </div>
 
 
