@@ -75,7 +75,6 @@ router.post('/linkVehicle', function (req, res) {
 router.post('/addCampaignFeeds', function (req, res) {
     var data = req.body;
     var image =data.updates.updateStatus;
-    console.log(image)
     if(image){
         if(image.indexOf("data:image/png;base64,")==0){
             var url ='http://mahaboudhilocation.com/trackapp/saveImage.php';
