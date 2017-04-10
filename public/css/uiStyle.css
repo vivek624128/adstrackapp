@@ -459,6 +459,10 @@ body {
     padding-top: 100px;
     padding-bottom: 100px;
 }
+.loaderFeed{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
 .mapOrGraph .loaderMap {
     position: absolute;
     top: 0;
