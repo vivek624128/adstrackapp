@@ -127,8 +127,8 @@ router.get('/listAdsCategory', function (req, res) {
 
 router.post('/feeds', function (req, res) {
     var data = req.body;
-    var startDate=new Date(moment(data.startDate).startOf('day').utc());
-    var endDate=new Date(moment(data.endDate).endOf('day').utc());
+    var startDate=new Date(moment(data.startDate).startOf('day'));
+    var endDate=new Date(moment(data.endDate).endOf('day'));
     console.log(startDate +" ------  "+endDate)
     campaign.aggregate(
         [
