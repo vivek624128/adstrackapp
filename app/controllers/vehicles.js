@@ -27,6 +27,14 @@ router.post('/newVehicles', function (req, res) {
     })
 })
 
+router.post('/editVehicle', function (req, res) {
+    var payload = req.body;
+    vehicles.update({_id: payload._id},{$set :{vehicleNo:payload.vehicleNo, registrationNo : payload.registrationNo, driverId: payload.driverId}}, function (err, data) {
+        res.send(data);
+    })
+
+})
+
 router.get('/listVehicles', function (req, res) {
     vehicles.find({}).populate([{path:'projectId'},{path:'driverId'}]).exec(function (err, data) {
         res.jsonp(data)

@@ -36,6 +36,9 @@ NEC.service('apiService', function ($http, apiPath) {
         addVehicle : function (data) {
             return $http.post(apiPath.baseUrl+'newVehicles', data)
         },
+        editVehicle : function (data) {
+            return $http.post(apiPath.baseUrl+'editVehicle', data)
+        },
         vehicleList : function () {
             return $http.jsonp(apiPath.baseUrl+'listVehicles?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },
@@ -91,14 +94,12 @@ NEC.service('locationService', function ($http, apiPath, $geolocation) {
     }
 })
 NEC.provider('apiPath', function () {
-
     return {
         $get: function () {
             return {
-                // baseUrl: 'http://localhost:8080/'
+                baseUrl: 'http://localhost:8080/'
                 // baseUrl: 'http://localhost/mahaboudhApi/'
-
-               baseUrl: 'http://newsapp-myflash.rhcloud.com/'
+               // baseUrl: 'http://newsapp-myflash.rhcloud.com/'
             }
         }
     }

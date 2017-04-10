@@ -97,7 +97,7 @@
                     <!--<li  class="smallCol"></li>-->
                 </ul>
             </div>
-            <div class="dataRow noBack borderBtm" ng-repeat="feed in feeds | filter : searchFeed | orderBy : '-_id.updateOn'">
+            <div class="dataRow noBack borderBtm" ng-repeat="feed in feeds | filter : {vehicleNo : searchFeed} | orderBy : '-_id.updateOn'">
                 <ul class="rowCont">
                     <li class="smallCol">{{feed.vehicleNo}}</li>
                     <li class="startDate">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
@@ -142,7 +142,7 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="item in linkedVehicleList | filter : searchVehicle">
+        <div class="dataRow noBack" ng-repeat="item in linkedVehicleList | filter :{vehicleNo : searchVehicle} ">
             <ul class="rowCont">
                 <li class="">{{item.vehicleId[0].vehicleNo}}</li>
                 <li class="">{{item.vehicleId[0].registrationNo}}</li>

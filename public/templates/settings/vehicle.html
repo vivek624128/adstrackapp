@@ -38,7 +38,7 @@
                     <li  class="smallCol">{{item.vehicleType}}</li>
                     <li  class="smallCol">{{item.driverId[0].fullName}}</li>
                     <li  class="smallCol">{{item.driverId[0].contactNo}}</li>
-                    <li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>
+                    <li class="smallCol"><a class="btnLink editVehicle" ng-click="listVehicleById(item._id)">Edit</a></li>
                 </ul>
             </div>
         </div>
@@ -135,6 +135,104 @@
         </li>
         <li>
             <div class="btn floatRight" ng-click="addVehicle()">SAVE</div>
+        </li>
+    </ul>
+
+
+</div>
+
+
+<div class="popup vehicleEdit " ng-init="pageNo=0">
+    <div class="x close paddingLR">x</div>
+
+    <div class="subTitle borderBtm paddingBtmSml">
+        New Vehicle
+    </div>
+    <ul class="form flow paddingTop">
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Project :</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{updateData.projectName}}
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="project in projectList" ng-click="updateData.projectId=project._id">
+                        {{project.projectName}}
+                    </li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Vehicle Type:</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{updateData.vehicleType}}
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-click="updateData.vehicleType='Mini Truck'">Mini Truck</li>
+                    <li ng-click="updateData.vehicleType='Auto'">Auto</li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Vehicle No : </span>
+                <input type="text" ng-model="updateData.vehicleNo" placeholder="" class="midBlock fullWidth"
+                >
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="inputLabel midBlock">Registration No : </span>
+                <input type="text" ng-model="updateData.registrationNo" placeholder="" class="midBlock fullWidth"
+                >
+            </div>
+        </li><!--
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Authorise User :</div>
+                    <div class="headTitle midBlock normalColor">
+                        Select User
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="users in userList" ng-click="vehicleData.authoriseId=users._id">
+                        {{users.fullName}}
+                    </li>
+                </ul>&lt;!&ndash; | filter : { 'cust_id': uploadData.cust_id }&ndash;&gt;
+            </div>
+        </li>-->
+        <li>
+            <div class="dropDown midBlock full subNormal">
+                <div class="head " data-init="0">
+                    <div class="midBlock inputLabel">Driver Name:</div>
+                    <div class="headTitle midBlock normalColor">
+                        {{updateData.driverName}}
+                    </div>
+                </div>
+                <ul class="list">
+                    <li ng-repeat="users in userList | filter : {'userType':'Driver'}" ng-click="updateData.driverId=users._id">
+                        {{users.fullName}}
+                    </li>
+                </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+        <li >
+            <div ng-show="msg" class="successMsg">{{msg}}</div>
+        </li>
+
+        <li>
+            <div class="btn floatLeft close" >CANCEL</div>
+        </li>
+        <li>
+            <div class="btn floatRight" ng-click="updateVehicle()">SAVE</div>
         </li>
     </ul>
 

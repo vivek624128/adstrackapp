@@ -1851,7 +1851,7 @@ a[href^="https://maps.google.com/maps"] {
     left: 50%;
     /*background: #1a1e2b;*/
     background: #ffffff;
-    position: absolute;
+    position: fixed;
     box-sizing: border-box;
     transform: translate(-50%, 0px);
 }
@@ -2296,3 +2296,7 @@ a[href^="https://maps.google.com/maps"] {
     /*opacity: 0.4;*/
     /*transition: all 200ms ease-in;*/
 /*}*/
+
+.successMsg{
+    color: #57db5b;
+}
