@@ -132,141 +132,93 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
      google.maps.event.addDomListener(window, 'load', initialize);*/
 
     var map;
+    var feedsData ='';
 
-    function initMap() {
-        var mapLatLng = {lat: 25.6066461, lng: 85.0730026};
-        var mapOptions = {
-            center: mapLatLng,
-            scrollwheel: true,
-            zoom: 8,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.LEFT_TOP
-            },
-            backgroundColor: '#ffffff',
-            mapTypeControlOptions: {
-                mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+    var map = L.map('dashboardMap').setView([25.5778579,86.264514], 8);
+    var markers = new L.FeatureGroup();
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: ''
+    }).addTo(map);
+
+    apiService.vehicleListByCampaign('58e8da1a5d3c76287f011d10').then(function (data) {
+        $scope.linkedVehicleList = data.data[0].campaign;
+    })
+    apiService.campaignList().then(function (data) {
+        $scope.campaign = data.data;
+    })
+
+    $scope.feedsPayload = {};
+    $scope.dates = moment().format('YYYY-MM-DD')
+    $scope.feedsPayload.startDate = $scope.date;
+    $scope.feedsPayload.endDate = $scope.date;
+
+    $scope.getFeeds = function () {
+        $scope.feeds = '';
+        $scope.loaderFeed = true;
+        feedsData ='';
+        apiService.feeds($scope.feedsPayload).then(function (data) {
+            $scope.feeds = data.data;
+            $scope.loaderFeed = false;
+            $scope.locations = [];
+            for (var i = 0; i < $scope.feeds.length; i++) {
+                for (var j = 0; j < $scope.linkedVehicleList.length; j++) {
+                    if ($scope.feeds[i]._id.vehicleId == $scope.linkedVehicleList[j].vehicleId[0]._id) {
+                        $scope.feeds[i].vehicleNo = $scope.linkedVehicleList[j].vehicleId[0].vehicleNo;
+                    }
+                }
+
+                var locData = {
+                    latitude: $scope.feeds[i]._id.locationData.latitude,
+                    longitude: $scope.feeds[i]._id.locationData.longitude,
+                    id: i
+                }
+                $scope.locations.push(locData);
             }
-        };
+            feedsData = $scope.feeds;
+            removeAllMarkers()
+            markers = new L.FeatureGroup();
+            map.addLayer(markers);
+            createMap(feedsData);
 
-        map = new google.maps.Map(document.getElementById('dashboardMap'), mapOptions);
+        })
+
+    }
+    $scope.getFeeds()
+
+    $scope.$watch(
+        "date",
+        function handleFooChange(newValue, oldValue) {
+            $scope.feedsPayload.endDate = newValue;
+            $scope.feedsPayload.startDate = newValue;
+            $scope.getFeeds();
+
+        }
+    );
+    function createMap(feeds) {
+        for (var i = 0; i < feeds.length; i++) {
+            var marker = L.marker([feeds[i]._id.locationData.latitude, feeds[i]._id.locationData.longitude]);
+
+            marker.bindPopup('<img src="' + feeds[i]._id.updateStatus + '" style="width:300px; height: 250px;"><br><strong>Posted By: </strong> ' + feeds[i].vehicleNo+ ' <br><div class="mapItemLocation"> <strong>Location : </strong> ' + feeds[i]._id.locationData.address + '</div>', {
+                showOnMouseOver: true
+            });
+            markers.addLayer(marker);
+        }
     }
 
-    var infowindow = new google.maps.InfoWindow();
-    initMap();
 
-    /*   var markerObj = [
-     {
-     lat: 37.502421,
-     lng: -120.957551,
-     num: 1459
-     },
-     {
-     lat: 37.518571,
-     lng: -120.914605,
-     num: 152
-     },
-     {
-     lat: 37.480209,
-     lng: -120.914605,
-     num: 252
-     },
-     {
-     lat: 37.498191,
-     lng: -120.851702,
-     num: 456
-     },
-     {
-     lat: 37.497229,
-     lng: -120.811824,
-     num: 98
-     },
-     {
-     lat: 37.486591,
-     lng: -120.773836,
-     num: 722
-     },
-     {
-     lat: 37.496976,
-     lng: -120.741914,
-     num: 290
-     }
-     ];
+    $scope.$watch(
+        "dates",
+        function handleFooChange(newValue, oldValue) {
 
-     for (i=0;i<markerObj.length;i++){
-     var marker=markerObj[i];
-     var markerSize="";
-
-     if (marker.num<200){
-     markerSize="one";
-     }
-     else if (marker.num<400){
-     markerSize="two";
-     }
-     else if (marker.num<700){
-     markerSize="three";
-     }
-     else if (marker.num<1000){
-     markerSize="four";
-     }
-     else {
-     markerSize="five";
-     }
-
-
-     $scope.addMarkers(marker.lat, marker.lng, marker.num);
-     }*/
-
-
-    apiService.campaignList().then(function (data) {
-        var marker, i;
-        $scope.campaign = data.data;
-        // $scope.randomMarkers = $scope.locations;
-    })
-    $scope.feedData = {};
-    $scope.feedData.startDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
-    $scope.feedData.endDate = moment().format('YYYY-MM-DD');
-    apiService.feeds($scope.feedData).then(function (data) {
-        var feeds = data.data;
-        $scope.locations = [];
-        for (var i = 0; i < feeds.length; i++) {
-            $scope.getVehicleDetail = function (id) {
-                apiService.vehicleDetailById(id).then(function (data) {
-                    feeds[i]._id.vehicleNo = data.data[0].vehicleNo;
-
-                    console.log("-------------------check Vehicle No--------")
-                    console.log(feeds[i]._id)
-            })
-            }
-            var locData = {
-                latitude: feeds[i]._id.locationData.latitude,
-                longitude: feeds[i]._id.locationData.longitude,
-                id: i
-            }
-            $scope.locations.push(locData);
-            var icon = {
-                url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png', // url
-                scaledSize: new google.maps.Size(30, 30), // scaled size
-                origin: new google.maps.Point(0, 0), // origin
-                anchor: new google.maps.Point(0, 0) // anchor
-            };
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(feeds[i]._id.locationData.latitude, feeds[i]._id.locationData.longitude),
-                icon: icon,
-                map: map
-            });
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    var content = '<img src="' + feeds[i]._id.updateStatus + '" style="width:300px; height: 250px;"><br><strong>Posted By: </strong> ' + feeds[i]._id.vehicleNo+ ' <br><div class="mapItemLocation"> <strong>Location : </strong> ' + feeds[i]._id.locationData.address + '</div>';
-                    infowindow.setContent(content);
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-            // $scope.addMarkers( feeds[i].updateStatus );
+            $scope.feedsPayload.endDate = newValue;
+            $scope.feedsPayload.startDate = newValue;
+            $scope.getFeeds();
         }
-    })
+    );
 
-
+    function removeAllMarkers(){
+        map.removeLayer(markers);
+    }
 
 });
 

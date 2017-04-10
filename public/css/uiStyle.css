@@ -459,6 +459,20 @@ body {
     padding-top: 100px;
     padding-bottom: 100px;
 }
+.mapOrGraph .loaderMap {
+    position: absolute;
+    top: 0;
+    left: 31px;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 500px;
+    height: 500px;
+    width: 100%;
+    /* padding-top: 100px; */
+    /* padding-bottom: 100px; */
+    background: rgba(225,225,225,0.8);
+    z-index: 10025522000;
+}
 .loader.halfWindow{
     margin-left:25%;
 }
@@ -571,3 +585,9 @@ body {
     height: 450px;
     width:100%;
 }
+
+
+#dashboardMap{
+    height: 500px;
+    z-index:1;
+ }

@@ -2,20 +2,11 @@
     <ul class="form flow small paddingTop">
         <li>
             <div class="input-group">
-                <span class="inputLabel midBlock">Date From : </span>
-                <input type="text" ng-model="dashboardPayload.startDate" placeholder="" class="midBlock datePicker" b-datepicker>
-            </div>
-        </li>
-        <li>
-            <div class="input-group">
-                <span class="inputLabel midBlock">Date To : </span>
-                <input type="text" ng-model="dashboardPayload.endDate" placeholder="" class="midBlock datePicker" b-datepicker>
+                <span class="inputLabel midBlock">Select Date : </span>
+                <input type="text" ng-model="dates" placeholder="" class="midBlock datePicker" b-datepicker>
             </div>
         </li>
     </ul>
-    <div class="">
-        <button class="btn"> SEARCH</button>
-    </div>
 </div>
 
 
@@ -24,9 +15,15 @@
         <div class="options floatRight" ng-init="mapGraphOpt='map'">
         </div>
         <span class="clear"></span>
-    </div>
+    </div><!--
     <div class="mapOrGraphCont">
         <div class="map" id="dashboardMap" ng-class="{active: mapGraphOpt=='map'}"></div>
+
+
+    </div>-->
+    <div id="dashboardMap" ></div>
+    <div class="loaderMap centerTxt" ng-show="loaderFeed">
+        <img src="images/spinner.gif">
     </div>
 </div>
 
