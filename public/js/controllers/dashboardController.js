@@ -135,6 +135,7 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
     var feedsData ='';
 
     var map = L.map('dashboardMap').setView([25.5778579,86.264514], 8);
+    map.scrollWheelZoom.disable()
     var markers = new L.FeatureGroup();
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: ''
@@ -219,6 +220,15 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
     function removeAllMarkers(){
         map.removeLayer(markers);
     }
+
+    $scope.dateFormat = function (data) {
+        return moment(data).format();
+    }
+    $scope.showImage = function (image, address) {
+        $scope.selectedImage = image;
+        $scope.feedAddress = address;
+    }
+
 
 });
 
