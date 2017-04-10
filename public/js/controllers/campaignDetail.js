@@ -80,7 +80,7 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     ;
     $scope.feedsPayload.endDate = $scope.date;
     $scope.getFeeds = function () {
-
+        $scope.feeds ='';
         $scope.loaderFeed = true;
         apiService.feeds($scope.feedsPayload).then(function (data) {
             $scope.feeds = data.data;
