@@ -89,6 +89,7 @@
         <div  class="dataTable campaignTable full subNormal  borderBtm">
             <div class="dataRow header">
                 <ul class="rowCont">
+                    <li class="smallCol">Srl No</li>
                     <li class="smallCol">Vehicle No</li>
                     <li class="startDate">Update Date</li>
                     <li class="startDate">Latitude & Longitude</li>
@@ -99,6 +100,7 @@
             </div>
             <div class="dataRow noBack borderBtm" ng-repeat="feed in feeds | filter : {vehicleNo : searchFeed} | orderBy : '-_id.updateOn'">
                 <ul class="rowCont">
+                    <li class="smallCol">{{$index+1}}</li>
                     <li class="smallCol">{{feed.vehicleNo}}</li>
                     <li class="startDate">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
                     <li class="startDate">[{{feed._id.locationData.latitude | number :5}} , {{feed._id.locationData.longitude | number :5}}]</li>
@@ -118,19 +120,6 @@
 </div>
 <div ng-show="page == 2">
 
-
-    <div class="floatLeft searchBar paddingLR">
-
-        <ul class="form flow">
-            <li class="noMargin">
-                <div class="input-group fullWidth">
-                    <span class="inputLabel midBlock">Search : </span>
-                    <input type="text" ng-model="searchVehicle" placeholder="" class="midBlock fullWidth"
-                    >
-                </div>
-            </li>
-        </ul>
-    </div>
     <div class="dataTable campaignTable full subNormal  borderBtm">
         <div class="dataRow header">
             <ul class="rowCont">
@@ -142,14 +131,14 @@
                 <!--<li  class="smallCol"></li>-->
             </ul>
         </div>
-        <div class="dataRow noBack" ng-repeat="item in linkedVehicleList | filter :{vehicleNo : searchVehicle} ">
+        <div class="dataRow noBack" ng-repeat="item in vehicleLinked">
             <ul class="rowCont">
                 <li class="">{{item.vehicleId[0].vehicleNo}}</li>
                 <li class="">{{item.vehicleId[0].registrationNo}}</li>
                 <li class="">{{item.vehicleId[0].vehicleType}}</li>
                 <li class="">{{item.user[0].fullName}}</li>
                 <li class="">{{item.user[0].contactNo}}</li>
-                <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
+                <li class="smallCol"><a class="btnLink" href="#/app/campaignDetailByVehicle/{{item.vehicleId[0]._id}}">View Feeds</a></li>
             </ul>
         </div>
     </div>

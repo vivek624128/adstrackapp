@@ -595,3 +595,38 @@ body {
     height: 500px;
     z-index:1;
  }
+
+.listFeedsForPrint{
+    padding:0;
+    margin:0;
+}
+.listFeedsForPrint li{
+    display: inline-block;
+    width:48%;
+    border:1px solid #ddd4b0;
+    text-align: center;
+    margin:.5%;
+    /*float: ;*/
+    position: relative;
+}
+.listFeedsForPrint li.deleted{
+    display: none;
+}
+.listFeedsForPrint li .delete {
+    padding: 5px;
+    background: #ddd;
+    width: 25px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+.listFeedsForPrint li .list{
+    padding:5px;
+}
+.listFeedsForPrint li .list img{
+    width:100%;
+    /*max-width: 600px;*/
+    height:300px;
+    display: block;
+}

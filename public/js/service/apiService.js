@@ -71,6 +71,9 @@ NEC.service('apiService', function ($http, apiPath) {
         },
         feeds : function (data) {
             return $http.post(apiPath.baseUrl+'feeds', data)
+        },
+        feedsByVehicleId : function (data) {
+            return $http.post(apiPath.baseUrl+'feedsByVehicleId', data)
         }
     }
 })

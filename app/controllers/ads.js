@@ -156,6 +156,38 @@ router.post('/feeds', function (req, res) {
 })
 
 
+
+router.post('/feedsByVehicleId', function (req, res) {
+    var data = req.body;
+    var startDate=new Date(moment(data.startDate).startOf('day'));
+    var endDate=new Date(moment(data.endDate).endOf('day'));
+    console.log(startDate +" ------  "+endDate)
+    campaign.aggregate(
+        [
+            {$unwind: "$campaign"},{$unwind: "$campaign.updates"},{$unwind: "$campaign.updates.location"},
+            {$match: {'campaign.vehicleId':data.vehicleId,'campaign.updates.updatedOn':{$gte : startDate, $lt: endDate}}},
+            {
+                $group: {
+                    _id: {
+                        'campaignId': "$campaign._id",
+                        'vehicleId': '$campaign.vehicleId',
+                        'updateOn':'$campaign.updates.updatedOn',
+                        'locationData':{
+                            'latitude':'$campaign.updates.location.latitude',
+                            'longitude':'$campaign.updates.location.longitude',
+                            'address':'$campaign.updates.location.address'
+                        },
+                        'updateStatus':'$campaign.updates.updateStatus'
+                    }
+                }
+            }
+        ]).exec( function (err, orders) {
+            res.send(orders)
+        })
+
+})
+
+
 function saveImageAtPath (image) {
 
     return imagePath;

@@ -1,0 +1,87 @@
+<div class="paddingLR paddingTBSml borderBtm">
+    <div class="floatLeft searchBar">
+
+        <ul class="form flow">
+
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Select Date : </span>
+                    <input type="text" ng-model="date" placeholder="" class="midBlock datePicker" b-datepicker>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="btn floatRight" ng-click="printDiv('feeds')">Print</div>
+    <span class="clear"></span>
+</div>
+
+
+<div id="feeds" class="paddingTB">
+    <div class="galleryContent">
+        <div class="">
+            <div class="dataTable campaignTable full subNormal  borderBtm">
+                <div class="dataRow header">
+                    <ul class="rowCont">
+                        <li class="">Vehicle No</li>
+                        <li class="">Registration No</li>
+                        <li class="">Driver Name</li>
+                        <li class="startDate">Contact No</li>
+                        <li class="startDate">Vehicle Type</li>
+                    </ul>
+                </div>
+                <div class="dataRow ">
+                    <ul class="rowCont">
+                        <li class="">{{vehicleDetail.vehicleNo}}</li>
+                        <li class="">{{vehicleDetail.registrationNo}}</li>
+                        <li class="">{{vehicleDetail.driverId[0].fullName}}</li>
+                        <li class="startDate">{{vehicleDetail.driverId[0].contactNo}}</li>
+                        <li class="startDate">{{vehicleDetail.vehicleType}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="paddingTB">
+        <div class="tabs smallTabs bold borderBtm" ng-init="page=1">
+            <a href="" ng-click="page=1" ng-class="{active : page ==1}">Feeds</a>
+            <span class="clear"></span>
+        </div>
+    </div>
+
+    <ul class="listFeedsForPrint">
+        <li ng-repeat="feed in feeds | orderBy : '-_id.updateOn'" class="midBlock" ng-class="{deleted : feed.status == false}">
+            <div class="list">
+                <div class="feedsImage">
+                    <img ng-src="{{feed._id.updateStatus}}">
+                </div>
+                <div class="data">
+                    <span><strong>Location : </strong> {{feed._id.locationData.address}}</span><br/>
+                    <span><strong>[Latitude, Longitude] : </strong> [{{feed._id.locationData.latitude | number :5}} , {{feed._id.locationData.longitude | number :5}}]</span><br/>
+                    <span><strong>Updated Time : </strong> {{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</span>
+                </div>
+            </div>
+            <div class="delete" ng-click="feed.status=false">
+                X
+            </div>
+        </li>
+    </ul>
+
+</div>
+<div class="loader centerTxt" ng-if="loaderVehicle">
+    <p>Loading</p>
+    <img src="images/spinner.gif">
+</div>
+<div class="popup feedImage fixed " style="width: 400px;">
+    <div class="x close paddingLR">x</div>
+    <div class=" paddingBtmSml">
+        <img ng-src="{{selectedImage}}" width="340px" height="400px">
+    </div>
+    <div class="  paddingBtmSml">
+        <strong> Location: </strong> {{feedAddress}}
+    </div>
+
+
+</div>

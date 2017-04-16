@@ -141,9 +141,7 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
         attribution: ''
     }).addTo(map);
 
-    apiService.vehicleListByCampaign('58e8da1a5d3c76287f011d10').then(function (data) {
-        $scope.linkedVehicleList = data.data[0].campaign;
-    })
+
     apiService.campaignList().then(function (data) {
         $scope.campaign = data.data;
     })
@@ -161,20 +159,25 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
             $scope.feeds = data.data;
             $scope.loaderFeed = false;
             $scope.locations = [];
-            for (var i = 0; i < $scope.feeds.length; i++) {
-                for (var j = 0; j < $scope.linkedVehicleList.length; j++) {
-                    if ($scope.feeds[i]._id.vehicleId == $scope.linkedVehicleList[j].vehicleId[0]._id) {
-                        $scope.feeds[i].vehicleNo = $scope.linkedVehicleList[j].vehicleId[0].vehicleNo;
+            apiService.vehicleListByCampaign('58e8da1a5d3c76287f011d10').then(function (data) {
+                $scope.linkedVehicleList = data.data[0].campaign;
+
+                for (var i = 0; i < $scope.feeds.length; i++) {
+                    for (var j = 0; j < $scope.linkedVehicleList.length; j++) {
+                        if ($scope.feeds[i]._id.vehicleId == $scope.linkedVehicleList[j].vehicleId[0]._id) {
+                            $scope.feeds[i].vehicleNo = $scope.linkedVehicleList[j].vehicleId[0].vehicleNo;
+                        }
                     }
+
+                    var locData = {
+                        latitude: $scope.feeds[i]._id.locationData.latitude,
+                        longitude: $scope.feeds[i]._id.locationData.longitude,
+                        id: i
+                    }
+                    $scope.locations.push(locData);
                 }
 
-                var locData = {
-                    latitude: $scope.feeds[i]._id.locationData.latitude,
-                    longitude: $scope.feeds[i]._id.locationData.longitude,
-                    id: i
-                }
-                $scope.locations.push(locData);
-            }
+            })
             feedsData = $scope.feeds;
             removeAllMarkers()
             markers = new L.FeatureGroup();

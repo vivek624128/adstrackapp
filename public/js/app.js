@@ -59,6 +59,11 @@ NEC.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/workspace/campaignDetail.html',
             controller: 'campaignDetailCtrl'
         })
+        .state('app.campaignDetailByVehicle', {
+            url: "/campaignDetailByVehicle/:id",
+            templateUrl: 'templates/workspace/campaignDetailByVehicle.html',
+            controller: 'campaignDetailByVehicleCtrl'
+        })
         .state('app.newTransaction', {
             url: "/transaction/newTransaction",
             templateUrl: 'templates/workspace/newTransaction.html',
