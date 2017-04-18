@@ -1070,8 +1070,9 @@ ul {
     max-width: 20%;
     width: 100px;
 }
-.input-group span.input-group-addon .btn{
-    height: 48px;
+.input-group span.input-group-addon .btn
+{
+    /*height: 48px;*/
 }
 
 .form li .input-group.disabled{
@@ -1149,6 +1150,23 @@ ul {
 
 .form li label {
     cursor: pointer;
+}
+.form li.border {
+    border:1px solid #e0e3e9;
+}
+.border {
+    border:1px solid #000;
+}
+.noBorderBtm {
+    border-bottom:none;
+}
+
+.form li span.badges {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #e0e3e9;
+    margin: 5px;
+    display: inline-block;
 }
 
 .upload{
@@ -1314,11 +1332,24 @@ ul {
     padding: 0 30px;
     font-weight: bold;
 }
+.dataTable.medium {
+    width:100%;
+}
+.dataTable.medium .dataRow.header {
+    background: #f5f7fa none repeat scroll 0 0;
+    border-bottom: 1px solid #9dabba;
+    margin: 0;
+    padding: 0 30px;
+    font-weight: bold;
+}
 .dataTable.full .dataRow.header .rowCont li{
     /*color: #939fc0;*/
 }
 .dataTable.full .dataRow {
     margin: 0 30px;
+}
+.dataTable.medium .dataRow {
+    margin: 0;
 }
 .dataTable .dataRow > a {
     display: block;
@@ -1352,8 +1383,15 @@ ul {
     /*border-right: 1px solid #b5b5b5;*/
 }
 
+.dataTable .rowCont > li.borderLfts {
+    border-left: 2px solid #000000;
+}
+
 .dataTable .rowCont > li.smallCol{
     width:10%;
+}
+.dataTable .rowCont > li.srlNo{
+    width:60px;
 }
 .dataTable .rowCont > li.mediumCol{
     width:30%;

@@ -12,8 +12,16 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
 
     $scope.searchVehicle = '';
     $scope.searchFeed = '';
-    $scope.print=false;
+    $scope.print = false;
     $scope.selectedImage = '';
+
+    $scope.billData = {};
+    $scope.billData.bills = {};
+    $scope.billData.bills.eventLocations = [];
+    $scope.billData.bills.enclosedDoc = [];
+    $scope.eventLocations = '';
+    $scope.documentAttached = '';
+    $scope.selectedBillDetail={};
 
 
     apiService.vehicleList().then(function (data) {
@@ -24,20 +32,16 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
 
     $scope.selectVehicle = function (id) {
         $scope.newLink.data.vehicleId = id;
+        $scope.id=id;
         apiService.vehicleDetailById(id).then(function (data) {
             $scope.vehicleDetail = data.data[0];
-            console.log($scope.vehicleDetail)
+            $scope.billData.vehicleId = $scope.vehicleDetail._id;
+            $scope.vehicleNo = data.data[0].vehicleNo;
         })
     }
     $scope.selectVehicle($scope.id);
 
 
-    $scope.closePopup = function () {
-        setTimeout(function () {
-            $('.popup.linkVehicle').fadeOut(100)
-            $('.background').fadeOut(100)
-        }, 100)
-    }
 
     $scope.showImage = function (image, address) {
         $scope.selectedImage = image;
@@ -51,17 +55,20 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
     $scope.date = moment().format('YYYY-MM-DD')
 
     $scope.feedsPayload.startDate = $scope.date;
-    ;
-    $scope.feedsPayload.endDate = $scope.date;
-    $scope.feedsPayload.vehicleId = $scope.id;
+
     $scope.getFeeds = function () {
-        $scope.feeds ='';
+
+        $scope.feedsPayload.endDate = $scope.date;
+        $scope.feedsPayload.vehicleId = $scope.id;
+        $scope.feeds = '';
         $scope.loaderFeed = true;
+        $scope.locations = [];
         apiService.feedsByVehicleId($scope.feedsPayload).then(function (data) {
             $scope.feeds = data.data;
             $scope.loaderFeed = false;
-            console.log($scope.feeds)
-
+            for (var i = 0; i < $scope.feeds.length; i++) {
+                $scope.locations.push(new L.LatLng($scope.feeds[i]._id.locationData.latitude, $scope.feeds[i]._id.locationData.longitude));
+            }
         })
 
     }
@@ -72,8 +79,22 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
         function handleFooChange(newValue, oldValue) {
             $scope.feedsPayload.endDate = newValue;
             $scope.feedsPayload.startDate = newValue;
-            console.log($scope.feedsPayload.endDate)
-            $scope.getFeeds()
+            $scope.selectedBillDetail={};
+            $scope.getFeeds();
+            $scope.viewBill();
+        }
+    );
+
+    $scope.$watch(
+        "id",
+        function handleFooChange(newValue, oldValue) {
+            console.log(newValue)
+            $scope.feedsPayload.endDate = newValue;
+            $scope.feedsPayload.startDate = newValue;
+            $scope.selectedBillDetail={};
+            $scope.selectVehicle($scope.id);
+            $scope.getFeeds();
+            $scope.viewBill();
         }
     );
 
@@ -92,13 +113,70 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
     }
 
 
-    $scope.printDiv = function(divName) {
-        $scope.print=true;
+    $scope.printDiv = function (divName) {
+        $scope.print = true;
         var printContents = document.getElementById(divName).innerHTML;
-        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        var popupWin = window.open('', '_blank', 'width=1280,height=800');
         popupWin.document.open();
         popupWin.document.write('<html><head><link href="css/uiStyle.css" rel="stylesheet"><link href="css/preStyles.css" rel="stylesheet"><link href="css/fonts.css" rel="stylesheet"></head><body onload="window.print()">' + printContents + '</body></html>');
         popupWin.document.close();
     }
+
+    $scope.addEventLocation = function () {
+        if ($scope.eventLocations != '') {
+            var loc = {
+                "location": $scope.eventLocations
+            }
+            $scope.billData.bills.eventLocations.push(loc);
+            $scope.eventLocations = '';
+        }
+    }
+    $scope.addDocument = function () {
+        if ($scope.documentAttached != '') {
+            var loc = {
+                "docDetail": $scope.documentAttached
+            }
+            $scope.billData.bills.enclosedDoc.push(loc);
+            $scope.documentAttached = '';
+        }
+    }
+
+    $scope.cancelAction = function () {
+        $scope.billData.bills = {};
+        $scope.vehicleNo = $scope.vehicleDetail.vehicleNo;
+        $scope.billData.bills.eventLocations = [];
+        $scope.billData.bills.enclosedDoc = [];
+        $scope.eventLocations = '';
+        $scope.documentAttached = '';
+    }
+
+    $scope.saveBill = function () {
+        $scope.billData.bills.billDate = moment().utc().format();
+        console.log($scope.billData);
+        apiService.addNewVehicleBill($scope.billData).then(function (data) {
+            $scope.closePopup('.popup.bill');
+            $scope.viewBill();
+            $scope.printDiv('printBill');
+        })
+    }
+
+    $scope.viewBill = function () {
+        apiService.vehicleBillByID($scope.id,$scope.date).then(function (data) {
+            console.log(data.data)
+            if(data.data.length>0){
+                $scope.selectedBillDetail = data.data[0]._id;
+            }
+
+        })
+    }
+    $scope.viewBill();
+
+    $scope.closePopup = function (div) {
+        setTimeout(function () {
+            $(div).fadeOut(100)
+            $('.background').fadeOut(100)
+        }, 100)
+    }
+
 });
 

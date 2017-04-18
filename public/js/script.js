@@ -401,4 +401,5 @@ $(document).ready(function () {
     fun.popup('.btnLink.editUser','.popup.userEdit');
     fun.popup('.btn.addNewLInk','.popup.linkVehicle');
     fun.popup('a.openEditCustomer','.popup.editCustomer');
+    fun.popup('.btn.newBill','.popup.bill');
 });

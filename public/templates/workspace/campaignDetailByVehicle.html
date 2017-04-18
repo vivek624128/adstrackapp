@@ -2,7 +2,22 @@
     <div class="floatLeft searchBar">
 
         <ul class="form flow">
+<li>
 
+    <div class="dropDown midBlock full subNormal">
+        <div class="head " data-init="0">
+            <div class="midBlock inputLabel">Vehicle No :</div>
+            <div class="headTitle midBlock normalColor">
+                ------Select Vehicle---------
+            </div>
+        </div>
+        <ul class="list">
+            <li ng-repeat="vehicle in vehicleListForLink" ng-click="selectVehicle(vehicle._id)">
+                {{vehicle.vehicleNo}}
+            </li>
+        </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+    </div>
+</li>
             <li>
                 <div class="input-group">
                     <span class="inputLabel midBlock">Select Date : </span>
@@ -12,6 +27,7 @@
         </ul>
     </div>
 
+    <div class="btn floatRight newBill marginLeft" ng-show="!selectedBillDetail.vehicleId">New Bill</div>
     <div class="btn floatRight" ng-click="printDiv('feeds')">Print</div>
     <span class="clear"></span>
 </div>
@@ -44,15 +60,17 @@
         </div>
     </div>
 
-    <div class="paddingTB">
+    <div class="paddingTBSml">
         <div class="tabs smallTabs bold borderBtm" ng-init="page=1">
             <a href="" ng-click="page=1" ng-class="{active : page ==1}">Feeds</a>
+            <a href="" ng-click="page=2" ng-class="{active : page ==2}">Bill</a>
             <span class="clear"></span>
         </div>
     </div>
 
-    <ul class="listFeedsForPrint">
-        <li ng-repeat="feed in feeds | orderBy : '-_id.updateOn'" class="midBlock" ng-class="{deleted : feed.status == false}">
+    <ul class="listFeedsForPrint" ng-if="page==1">
+        <li ng-repeat="feed in feeds | orderBy : '-_id.updateOn'" class="midBlock"
+            ng-class="{deleted : feed.status == false}">
             <div class="list">
                 <div class="feedsImage">
                     <img ng-src="{{feed._id.updateStatus}}">
@@ -69,6 +87,100 @@
         </li>
     </ul>
 
+    <div class="galleryContent" ng-if="selectedBillDetail.vehicleId && page==2">
+        <div class="paddingLR marginBtm">
+            <div class="btn floatRight" ng-click="printDiv('printBill')">Print</div>
+            <span class="clear"></span>
+        </div>
+        <div class=" small paddingFull marginTop"  id="printBill">
+            <div class="dataTable campaignTable medium subNormal  noPadding noMargin">
+                <div class="dataRow centerTxt bold border noMargin">
+                    <ul class="rowCont borderBtm">
+                        <li class="">BILL FOR GANDHI RATH</li>
+                    </ul>
+                    <ul class="rowCont borderBtm">
+                        <li class="">Mahaboudh Jan Swasthya Evam Sarvangin Vikas Kendra</li>
+                    </ul>
+                </div>
+                <div class="dataRow noBack small noMargin">
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR">VEHICLE REGISTRATION NO:- {{vehicleDetail.vehicleNo}}</li>
+                        <li class="paddingLR smallCol borderLft">DISTRICT:- {{selectedBillDetail.district}}</li>
+                    </ul>
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR">DRIVER NAME:- {{vehicleDetail.driverId[0].fullName}}</li>
+                    </ul>
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR">CONTACT NO:- {{vehicleDetail.driverId[0].contactNo}}</li>
+                    </ul>
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR">TECHNICIAN NAME:- {{selectedBillDetail.technicianName}}</li>
+                    </ul>
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR"> &nbsp;</li>
+                    </ul>
+                    <ul class="rowCont border noPadding bold">
+                        <li class="paddingLR srlNo centerTxt">SRL. NO.</li>
+                        <li class="paddingLR borderLfts name">EVENT LOCATION</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">DATE</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">TIME</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">TOTAL VEHICLE RUN</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">RATE @ {{selectedBillDetail.vehicleRatePerKM}} PER KM</li>
+                        <li class="paddingLR srlNo centerTxt borderLfts"></li>
+                    </ul>
+                    <ul class="rowCont border noPadding" ng-repeat="location in selectedBillDetail.eventLocations">
+                        <li class="paddingLR srlNo centerTxt">{{$index+1}}</li>
+                        <li class="paddingLR borderLfts name">{{location.location}}</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.billDate | date : 'MMM dd, yyyy'}}</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">NOT SHOW</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">0</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.vehicleRatePerKM}}</li>
+                        <li class="paddingLR srlNo centerTxt borderLfts">0</li>
+                    </ul>
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR srlNo centerTxt"></li>
+                        <li class="paddingLR borderLfts name"></li>
+                        <li class="paddingLR startDate "></li>
+                        <li class="paddingLR startDate"></li>
+                        <li class="paddingLR startDate"></li>
+                        <li class="paddingLR startDate borderLfts">TOTAL:-</li>
+                        <li class="paddingLR srlNo centerTxt borderLfts">0</li>
+                    </ul>
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR address bold">Rate for the Gandhi Rath Per day ( small vehicle)</li>
+                        <li class="paddingLR startDate">&nbsp;</li>
+                        <li class="paddingLR showFeedImage">&nbsp;</li>
+                        <li class="paddingLR startDate borderLfts">{{selectedBillDetail.totalBillAmount}} @ Per Day</li>
+                        <li class="paddingLR srlNo centerTxt borderLfts">{{selectedBillDetail.totalBillAmount}}</li>
+                    </ul>
+                    <ul class="rowCont border noPadding">
+                        <li class="paddingLR address"></li>
+                        <li class="paddingLR startDate">&nbsp;</li>
+                        <li class="paddingLR showFeedImage">&nbsp;</li>
+                        <li class="paddingLR startDate borderLfts bold">GRAND TOTAL</li>
+                        <li class="paddingLR srlNo centerTxt borderLfts bold">{{selectedBillDetail.totalBillAmount}}</li>
+                    </ul>
+                    <ul class="rowCont paddingTBSml ">
+                        <li class="bold "></li>
+                    </ul>
+                    <ul class="rowCont paddingTB noPadding ">
+                        <li class="bold ">Note: {{selectedBillDetail.remarks}}</li>
+                    </ul>
+                    <ul class="rowCont paddingTBSml ">
+                        <li class="bold "></li>
+                    </ul>
+                    <ul class="rowCont noPadding">
+                        <li class="bold">Enclosed detailed reports for verification</li>
+                    </ul>
+                    <ul class="rowCont noPadding" ng-repeat="docs in selectedBillDetail.enclosedDoc">
+                        <li class="bold">({{$index+1}})&nbsp; {{docs.docDetail}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 <div class="loader centerTxt" ng-if="loaderFeed">
     <p>Loading</p>
@@ -82,6 +194,105 @@
     <div class="  paddingBtmSml">
         <strong> Location: </strong> {{feedAddress}}
     </div>
+
+
+</div>
+
+
+<div class="popup bill absolute">
+    <div class="x close paddingLR" ng-click="cancelAction()">x</div>
+    <div class="page1">
+        <div class="subTitle borderBtm paddingBtmSml">
+            New Bill
+        </div>
+        <ul class="form paddingTop flow">
+            <li>
+
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Vehicle No : </span>
+                    <input type="text" ng-model="vehicleNo" placeholder="" class="midBlock">
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Driver Name : </span>
+                    <input type="text" ng-model="vehicleDetail.driverId[0].fullName" placeholder="" class="midBlock">
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">District : </span>
+                    <input type="text" ng-model="billData.bills.district" placeholder="" class="midBlock">
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Rate Per KM : </span>
+                    <input type="text" ng-model="billData.bills.vehicleRatePerKM" placeholder="" class="midBlock">
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Technician Name: </span>
+                    <input type="text" ng-model="billData.bills.technicianName" placeholder="" class="midBlock">
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Total Bill Amount: </span>
+                    <input type="text" ng-model="billData.bills.totalBillAmount" placeholder="" class="midBlock">
+                </div>
+            </li>
+
+        </ul>
+        <ul class="form">
+            <li>
+                <div class="input-group noPadding">
+                    <span class="inputLabel midBlock">Event Location : </span>
+                    <input type="text" ng-model="eventLocations" placeholder="" class="midBlock">
+                    <span class="input-group-addon">
+                        <button class="btn" ng-click="addEventLocation()">Add</button>
+                    </span>
+                </div>
+            </li>
+            <li ng-if="billData.bills.eventLocations.length>0" class="border">
+                <span class="badges" ng-repeat="location in billData.bills.eventLocations">{{location.location}} </span>
+            </li>
+            <li>
+                <div class="input-group noPadding">
+                    <span class="inputLabel midBlock">Document Attached : </span>
+                    <input type="text" ng-model="documentAttached" placeholder="" class="midBlock">
+                    <span class="input-group-addon">
+                        <button class="btn" ng-click="addDocument()">Add</button>
+                    </span>
+                </div>
+            </li>
+            <li ng-if="billData.bills.enclosedDoc.length>0" class="border">
+                <span class="badges" ng-repeat="docs in billData.bills.enclosedDoc">{{docs.docDetail}} </span>
+            </li>
+
+            <li>
+                <div class="input-group">
+
+                    <span class="inputLabel midBlock">Remarks: </span>
+                    <input type="text" ng-model="billData.bills.remarks" placeholder="" class="midBlock">
+                </div>
+            </li>
+        </ul>
+        <ul class="form  flow">
+            <li>
+                <div class="btn floatLeft close" ng-click="cancelAction()">CANCEL</div>
+            </li>
+            <li>
+                <div class="btn floatRight" ng-click="saveBill()">SAVE</div>
+            </li>
+        </ul>
+    </div>
+    <ul class="form ">
+        <li>
+            <span class="error" ng-show="msg">{{msg}}</span>
+        </li>
+    </ul>
 
 
 </div>
