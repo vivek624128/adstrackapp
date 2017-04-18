@@ -52,12 +52,12 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
         return moment(data).format();
     }
     $scope.feedsPayload = {};
-    $scope.date = moment().format('YYYY-MM-DD')
 
-    $scope.feedsPayload.startDate = $scope.date;
+    $scope.date = moment().format('YYYY-MM-DD');
 
     $scope.getFeeds = function () {
 
+        $scope.feedsPayload.startDate = $scope.date;
         $scope.feedsPayload.endDate = $scope.date;
         $scope.feedsPayload.vehicleId = $scope.id;
         $scope.feeds = '';
@@ -89,8 +89,8 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
         "id",
         function handleFooChange(newValue, oldValue) {
             console.log(newValue)
-            $scope.feedsPayload.endDate = newValue;
-            $scope.feedsPayload.startDate = newValue;
+            $scope.feedsPayload.endDate = $scope.date;
+            $scope.feedsPayload.startDate = $scope.date;
             $scope.selectedBillDetail={};
             $scope.selectVehicle($scope.id);
             $scope.getFeeds();
