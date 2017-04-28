@@ -1,0 +1,101 @@
+<div class="paddingLR paddingTBSrt">
+</div>
+
+<div class="mapOrGraph paddingLR">
+    <div class="optionsMain helvLight">
+        <div class="options floatRight" ng-init="mapGraphOpt='map'">
+        </div>
+        <span class="clear"></span>
+    </div><!--
+    <div class="mapOrGraphCont">
+        <div class="map" id="dashboardMap" ng-class="{active: mapGraphOpt=='map'}"></div>
+
+
+    </div>-->
+    <div id="dashboardMap" class="feeds"></div>
+    <div class="btn mapButton" ng-click="addSensor()">Add Marker</div>
+
+    <from class="addFeeds">
+        <ul class="form paddingSml">
+            <div class="subTitle borderBtm paddingBtmSml">
+                New Feeds
+            </div>
+            <li>
+                <div class="dropDown midBlock full subNormal">
+                    <div class="head " data-init="0">
+                        <div class="midBlock inputLabel">Vehicle No :</div>
+                        <div class="headTitle midBlock normalColor">
+                            ------Select Vehicle---------
+                        </div>
+                    </div>
+                    <ul class="list">
+                        <li ng-repeat="vehicle in vehicleListForLink" ng-click="statusData.userId=vehicle.driverId[0]._id">
+                            {{vehicle.vehicleNo}}
+                        </li>
+                    </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Latitude : </span>
+                    <input type="text" ng-model="statusData.updates.location.latitude" placeholder=""
+                           class="midBlock fullWidth"
+                    >
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">longitude : </span>
+                    <input type="text" ng-model="statusData.updates.location.longitude" placeholder=""
+                           class="midBlock fullWidth"
+                    >
+                </div>
+            </li>
+            <li>
+                <span class="inputLabel midBlock">Address : </span>
+            </li>
+            <li>
+                <textarea ng-model="statusData.updates.location.address" class="midBlock fullWidth small"
+                          rows="3"></textarea>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="inputLabel midBlock">Date Time: </span>
+                    <input type="datetime" ng-model="statusData.updates.updatedOn" placeholder="" class="midBlock">
+                </div>
+            </li>
+            <li>
+                <div class="upload">
+                    <div>
+                        <input id="inputImage" type="file" accept="image/*" image="myImages" ng-model="myImages" resize-max-height="450" resize-max-width="600" resize-quality="0.7" resize-type="image/png" ng-image-compress />
+                        <!--<input type="file"  base-sixty-four-input>-->
+
+                    </div>
+                    <div class="mask">
+                        <div ng-show="!statusData.updates.updateStatus">
+                            Add Photo
+                        </div>
+                        <img ng-src="{{statusData.updates.updateStatus}}" ng-show="statusData.updates.updateStatus">
+
+                    </div>
+
+                </div>
+            </li>
+            <li>
+               <div class="error" ng-show="errmsg">{{errmsg}}</div>
+               <div class="successMsg" ng-show="msg">{{msg}}</div>
+            </li>
+            <li>
+                <div class="btn" ng-click="saveFeed()">Save</div>
+                <div class="btn" ng-click="cancel()">Cancel</div>
+            </li>
+        </ul>
+    </from>
+
+    <div class="loaderFeedsUpload " ng-show="loader">
+        <div class="loading">
+            <p>Loading</p>
+            <img src="images/spinner.gif">
+        </div>
+    </div>
+</div>

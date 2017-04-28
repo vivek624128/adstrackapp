@@ -94,6 +94,11 @@ NEC.config(function ($stateProvider, $urlRouterProvider) {
             url: "/userType",
             templateUrl: 'templates/settings/userType.html',
             controller:'userTypeCtrl'
+        })
+        .state('app.setting.addFeedsManually', {
+            url: "/addFeedsManually",
+            templateUrl: 'templates/settings/addFeedsManually.html',
+            controller:'addFeedsManuallyController'
         });
 
     $urlRouterProvider.otherwise("/admin/signIn");

@@ -49,6 +49,12 @@ router.get('/listVehicleByCampaignId/:id', function (req, res) {
     })
 })
 
+router.get('/listVehicleByCampaignIdTest/:id', function (req, res) {
+    campaign.find({_id: req.params.id},{'campaign._id':1,'campaign.vehicleId':1, 'campaign.user':1}).populate([{path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+        res.jsonp(data)
+    })
+})
+
 router.get('/removeCampaign/:id', function (req, res) {
     console.log(req.params)
     campaign.remove({_id: req.params.id}, function (err, data) {
@@ -74,6 +80,7 @@ router.post('/linkVehicle', function (req, res) {
 
 router.post('/addCampaignFeeds', function (req, res) {
     var data = req.body;
+    console.log(data)
     var image =data.updates.updateStatus;
     if(image){
         if(image.indexOf("data:image/png;base64,")==0){
@@ -98,7 +105,7 @@ router.post('/addCampaignFeeds', function (req, res) {
 
             var updatedData = data.updates;
             campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
-                res.jsonp(updatedData);
+                res.jsonp(data);
             })
         }
     }

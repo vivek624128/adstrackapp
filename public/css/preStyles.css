@@ -1032,6 +1032,7 @@ ul {
 .form li input[type="password"],
 .form li input[type="number"],
 .form li input[type="date"],
+.form li input[type="datetime"],
 .form li textarea {
     display: inline-block;
     width: 100%;
@@ -1044,6 +1045,10 @@ ul {
     background: rgb(224, 227, 233);
     /*border-bottom: 2px solid #6a6a6a;*/
     font-size: 16px;
+}
+.form li textarea.small {
+    padding: 5px 20px;
+    height:100px;
 }
 .form li input.lightBack{
     background: #f4f7fd;
@@ -1058,6 +1063,7 @@ ul {
 }
 
 .form li .input-group input[type="text"],
+.form li .input-group input[type="datetime"],
 .form li .input-group input[type="password"],
 .form li .input-group input[type="number"]{
     padding:0 40px 0 5px;
@@ -1170,25 +1176,32 @@ ul {
 }
 
 .upload{
-    height: 46px;
+    height: 100px;
+    width:100%;
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
 }
+.upload .mask img{
+    height: 100px;
+    width:auto;
+    display: block;
+
+}
 .upload input[type="file"]{
     width: 100%;
     display: block;
-    height: 46px;
+    height: 100px;
     position: relative;
     z-index: 2;
     opacity: 0;
 }
 .upload .mask{
-    background: #3c445b;
+    background: rgb(224, 227, 233);
     box-sizing: border-box;
-    color: #ffffff;
+    color: #656a78;
     left: 0;
-    line-height: 50px;
+    line-height:100px;
     overflow: hidden;
     padding: 0 5px;
     position: absolute;

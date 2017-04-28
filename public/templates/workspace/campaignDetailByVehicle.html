@@ -2,22 +2,22 @@
     <div class="floatLeft searchBar">
 
         <ul class="form flow">
-<li>
+            <li>
 
-    <div class="dropDown midBlock full subNormal">
-        <div class="head " data-init="0">
-            <div class="midBlock inputLabel">Vehicle No :</div>
-            <div class="headTitle midBlock normalColor">
-                ------Select Vehicle---------
-            </div>
-        </div>
-        <ul class="list">
-            <li ng-repeat="vehicle in vehicleListForLink" ng-click="selectVehicle(vehicle._id)">
-                {{vehicle.vehicleNo}}
+                <div class="dropDown midBlock full subNormal">
+                    <div class="head " data-init="0">
+                        <div class="midBlock inputLabel">Vehicle No :</div>
+                        <div class="headTitle midBlock normalColor">
+                            ------Select Vehicle---------
+                        </div>
+                    </div>
+                    <ul class="list">
+                        <li ng-repeat="vehicle in vehicleListForLink" ng-click="selectVehicle(vehicle._id)">
+                            {{vehicle.vehicleNo}}
+                        </li>
+                    </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
+                </div>
             </li>
-        </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
-    </div>
-</li>
             <li>
                 <div class="input-group">
                     <span class="inputLabel midBlock">Select Date : </span>
@@ -92,7 +92,7 @@
             <div class="btn floatRight" ng-click="printDiv('printBill')">Print</div>
             <span class="clear"></span>
         </div>
-        <div class=" small paddingFull marginTop"  id="printBill">
+        <div class=" small paddingFull marginTop" id="printBill">
             <div class="dataTable campaignTable medium subNormal  noPadding noMargin">
                 <div class="dataRow centerTxt bold border noMargin">
                     <ul class="rowCont borderBtm">
@@ -125,16 +125,21 @@
                         <li class="paddingLR startDate centerTxt borderLfts">DATE</li>
                         <li class="paddingLR startDate centerTxt borderLfts">TIME</li>
                         <li class="paddingLR startDate centerTxt borderLfts">TOTAL VEHICLE RUN</li>
-                        <li class="paddingLR startDate centerTxt borderLfts">RATE @ {{selectedBillDetail.vehicleRatePerKM}} PER KM</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">RATE @
+                            {{selectedBillDetail.vehicleRatePerKM}} PER KM
+                        </li>
                         <li class="paddingLR srlNo centerTxt borderLfts"></li>
                     </ul>
                     <ul class="rowCont border noPadding" ng-repeat="location in selectedBillDetail.eventLocations">
                         <li class="paddingLR srlNo centerTxt">{{$index+1}}</li>
                         <li class="paddingLR borderLfts name">{{location.location}}</li>
-                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.billDate | date : 'MMM dd, yyyy'}}</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.billDate | date : 'MMM
+                            dd, yyyy'}}
+                        </li>
                         <li class="paddingLR startDate centerTxt borderLfts">NOT SHOW</li>
                         <li class="paddingLR startDate centerTxt borderLfts">0</li>
-                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.vehicleRatePerKM}}</li>
+                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.vehicleRatePerKM}}
+                        </li>
                         <li class="paddingLR srlNo centerTxt borderLfts">0</li>
                     </ul>
                     <ul class="rowCont border noPadding">
@@ -158,7 +163,8 @@
                         <li class="paddingLR startDate">&nbsp;</li>
                         <li class="paddingLR showFeedImage">&nbsp;</li>
                         <li class="paddingLR startDate borderLfts bold">GRAND TOTAL</li>
-                        <li class="paddingLR srlNo centerTxt borderLfts bold">{{selectedBillDetail.totalBillAmount}}</li>
+                        <li class="paddingLR srlNo centerTxt borderLfts bold">{{selectedBillDetail.totalBillAmount}}
+                        </li>
                     </ul>
                     <ul class="rowCont paddingTBSml ">
                         <li class="bold "></li>

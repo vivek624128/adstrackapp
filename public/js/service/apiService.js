@@ -80,6 +80,9 @@ NEC.service('apiService', function ($http, apiPath) {
         },
         vehicleBillByID : function (id,date) {
             return $http.jsonp(apiPath.baseUrl+'vehicleBill/'+id+'/'+date+'?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
+        },
+        updateStatus: function (data) {
+            return $http.post(apiPath.baseUrl + 'addCampaignFeeds', data)
         }
     }
 })
