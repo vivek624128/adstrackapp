@@ -29,6 +29,7 @@
 <div  class="dataTable campaignTable full subNormal  borderBtm">
     <div class="dataRow header">
         <ul class="rowCont">
+            <li class="smallCol">Srl No</li>
             <li class="smallCol">Vehicle No</li>
             <li class="startDate">Update Date</li>
             <li class="startDate">Latitude & Longitude</li>
@@ -39,6 +40,7 @@
     </div>
     <div class="dataRow noBack borderBtm" ng-repeat="feed in feeds | filter : searchFeed | orderBy : '-_id.updateOn'">
         <ul class="rowCont">
+            <li class="smallCol">{{$index+1}}</li>
             <li class="smallCol">{{feed.vehicleNo}}</li>
             <li class="startDate">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
             <li class="startDate">[{{feed._id.locationData.latitude | number :5}} , {{feed._id.locationData.longitude | number :5}}]</li>

@@ -12,7 +12,7 @@
         </ul>
     </div>
     <div class="floatRight">
-        <div class="btn small marginTopSrt addNewLInk">ADD VEHICLE</div>
+        <div class="btn small marginTopSrt addNewLInk" ng-if="permission!='Department'">ADD VEHICLE</div>
     </div>
     <span class="clear"></span>
 </div>
@@ -128,7 +128,7 @@
                 <li class="">Vehicle Type</li>
                 <li class="">Driver Name</li>
                 <li class="">Contact No</li>
-                <!--<li  class="smallCol"></li>-->
+                <li  class="smallCol"></li>
             </ul>
         </div>
         <div class="dataRow noBack" ng-repeat="item in vehicleLinked">
@@ -138,7 +138,7 @@
                 <li class="">{{item.vehicleId[0].vehicleType}}</li>
                 <li class="">{{item.user[0].fullName}}</li>
                 <li class="">{{item.user[0].contactNo}}</li>
-                <li class="smallCol"><a class="btnLink" href="#/app/campaignDetailByVehicle/{{item.vehicleId[0]._id}}">View Feeds</a></li>
+                <li class="smallCol"><a class="btnLink" href="#/app/campaignDetailByVehicle/{{item.vehicleId[0]._id}}" ng-if="permission!='Department'">View Feeds</a></li>
             </ul>
         </div>
     </div>

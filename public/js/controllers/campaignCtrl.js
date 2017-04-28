@@ -5,7 +5,7 @@ NEC.controller('campaignCtrl', function ($scope, $rootScope, $http, $window, $lo
     $scope.campaignData = {};
     $scope.campaignData.status = 'Active';
     $scope.campaignData.creationDate = moment().format();
-
+    $scope.permission = localStorage.getItem('permission');
     apiService.adsCategory().then(function (data) {
         $scope.adsCategory = data.data;
     })

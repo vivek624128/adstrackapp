@@ -87,7 +87,7 @@ router.get('/sendMail', function (req, res) {
 router.post('/login/authenticate', function (req, res) {
     console.log(req.body)
     var permission =req.body.permission;
-    users.find({username:req.body.userId, password:md5(req.body.password)},{_id:1,username:1, permission:1, campaign:1, fullName:1, emailId:1}, function (err, data) {
+    users.find({username:req.body.userId, password:md5(req.body.password)},{_id:1,username:1, permission:1, campaign:1, fullName:1, emailId:1, userType:1}).exec(function (err, data) {
         if (err) throw err;
         console.log(data)
         if(data.length>0){

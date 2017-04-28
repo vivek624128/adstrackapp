@@ -18,12 +18,13 @@ NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $locati
             $scope.welcome = '';
             $scope.loginLoader = false;
         }
-*/
+        */
         apiService.authenticate($scope.user).then(function (data) {
-            console.log(data.data)
+            console.log(data.data[0].Description[0].userType[0]);
             var result = data.data[0];
             if(result.statusCode == 200){
                 $scope.loginLoader = false;
+                localStorage.setItem('permission',data.data[0].Description[0].userType[0])
                 $state.go('app.campaign');
             }
             else{
@@ -39,7 +40,7 @@ NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $locati
         console.log($window.sessionStorage.token);
         $state.go('/login')
     };
-    $scope.signUp = function (user) {
+    /*$scope.signUp = function (user) {
         console.log("_____inside login_____________");
         console.log(user);
         $http
@@ -52,7 +53,7 @@ NEC.controller('loginCtrl', function ($scope,$rootScope, $http, $window, $locati
             .error(function (data, status, headers, config) {
                 $scope.error = data;
             });
-    };
+    };*/
 
     $scope.enterToLogin = function (event) {
         if(event.keyCode == 13) {

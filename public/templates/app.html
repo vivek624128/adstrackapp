@@ -31,19 +31,19 @@
                     <div class="name">Campaign</div>
                 </a>
             </li>
-            <li ng-class="{active: currentRout('app/projects')}" class="rippleEle">
+            <li ng-class="{active: currentRout('app/projects')}" class="rippleEle" ng-if="permission!='Department'">
                 <a href="#/app/projects">
                     <img src="images/ad.png" alt="" class="icon">
                     <div class="name">Projects</div>
                 </a>
             </li>
-            <li ng-class="{active: currentRout('app/user')}" class="rippleEle">
+            <li ng-class="{active: currentRout('app/user')}" class="rippleEle" ng-if="permission!='Department'">
                 <a href="#/app/user">
                     <img src="images/customer.png" alt="" class="icon">
                     <div class="name">Users</div>
                 </a>
             </li>
-            <li class="rippleEle"  ng-class="{active: currentRout('app/setting')}" ng-click="logout()">
+            <li class="rippleEle"  ng-class="{active: currentRout('app/setting')}" ng-if="permission!='Department'">
                 <a href="#/app/setting/vehicle"><!-- -->
                     <img src="images/setting.png" alt="" class="icon">
                     <div class="name">Setting</div>

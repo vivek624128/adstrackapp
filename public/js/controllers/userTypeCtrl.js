@@ -8,6 +8,7 @@ NEC.controller('userTypeCtrl', function ($scope, $rootScope, $http, apiService) 
         if($scope.uploadData.userType!=''){
             apiService.newUserType($scope.uploadData).then(function (data) {
                 console.log(data.data);
+                $scope.uploadData.userType = '';
                 $scope.listUserType();
             })
         }
