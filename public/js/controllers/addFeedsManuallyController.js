@@ -37,7 +37,7 @@ NEC.controller('addFeedsManuallyController', function ($scope, apiService, $http
         var input = document.getElementById("searchBox");
         var searchBox = new google.maps.places.SearchBox(input);
         searchBox.addListener('places_changed', function () {
-            map.removeLayer(marker);
+            // map.removeLayer(marker);
             var places = searchBox.getPlaces();
             if (places.length == 0) {
                 return;
