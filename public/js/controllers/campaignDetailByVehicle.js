@@ -22,7 +22,7 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
     $scope.eventLocations = '';
     $scope.documentAttached = '';
     $scope.selectedBillDetail={};
-
+    $scope.permission = localStorage.getItem('permission');
 
     apiService.vehicleList().then(function (data) {
         $scope.loader = false;

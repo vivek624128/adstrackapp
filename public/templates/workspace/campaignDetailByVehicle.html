@@ -27,7 +27,7 @@
         </ul>
     </div>
 
-    <div class="btn floatRight newBill marginLeft" ng-show="!selectedBillDetail.vehicleId">New Bill</div>
+    <div class="btn floatRight newBill marginLeft" ng-show="!selectedBillDetail.vehicleId"  ng-if="permission!='Department'">New Bill</div>
     <div class="btn floatRight" ng-click="printDiv('feeds')">Print</div>
     <span class="clear"></span>
 </div>
@@ -63,7 +63,7 @@
     <div class="paddingTBSml">
         <div class="tabs smallTabs bold borderBtm" ng-init="page=1">
             <a href="" ng-click="page=1" ng-class="{active : page ==1}">Feeds</a>
-            <a href="" ng-click="page=2" ng-class="{active : page ==2}">Bill</a>
+            <a href="" ng-click="page=2" ng-class="{active : page ==2}"  ng-if="permission!='Department'">Bill</a>
             <span class="clear"></span>
         </div>
     </div>
@@ -81,13 +81,13 @@
                     <span><strong>Updated Time : </strong> {{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</span>
                 </div>
             </div>
-            <div class="delete" ng-click="feed.status=false">
+            <div class="delete" ng-click="feed.status=false" ng-if="permission!='Department'">
                 X
             </div>
         </li>
     </ul>
 
-    <div class="galleryContent" ng-if="selectedBillDetail.vehicleId && page==2">
+    <div class="galleryContent" ng-if="selectedBillDetail.vehicleId && page==2" ng-if="permission!='Department'">
         <div class="paddingLR marginBtm">
             <div class="btn floatRight" ng-click="printDiv('printBill')">Print</div>
             <span class="clear"></span>
@@ -133,8 +133,7 @@
                     <ul class="rowCont border noPadding" ng-repeat="location in selectedBillDetail.eventLocations">
                         <li class="paddingLR srlNo centerTxt">{{$index+1}}</li>
                         <li class="paddingLR borderLfts name">{{location.location}}</li>
-                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.billDate | date : 'MMM
-                            dd, yyyy'}}
+                        <li class="paddingLR startDate centerTxt borderLfts">{{selectedBillDetail.billDate | date : 'MMM dd, yyyy'}}
                         </li>
                         <li class="paddingLR startDate centerTxt borderLfts">NOT SHOW</li>
                         <li class="paddingLR startDate centerTxt borderLfts">0</li>
