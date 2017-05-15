@@ -17,7 +17,8 @@ var campaignSchema = new schema({
                 location: [{
                     latitude: String,
                     longitude: String,
-                    address: String
+                    address: String,
+                    caption: String
                 }],
                 updatedOn: Date,
                 updateStatus: String
