@@ -394,6 +394,7 @@ $(document).ready(function () {
     fun.popup('.btn.addCustomer','.popup.customer');
     fun.popup('.btn.addProject','.popup.project');
     fun.popup('.btn.addUser','.popup.user');
+    fun.popup('.updateUser','.popup.user.update');
     fun.popup('.btn.addVehicle','.popup.vehicle');
     fun.popup('.btn.addCampaign','.popup.campaign');
     fun.popup('.showFeedImage','.popup.feedImage');

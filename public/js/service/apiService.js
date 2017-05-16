@@ -12,6 +12,9 @@ NEC.service('apiService', function ($http, apiPath) {
         saveUser : function (data) {
             return $http.post(apiPath.baseUrl+'newUser', data)
         },
+        editUser : function (data) {
+            return $http.put(apiPath.baseUrl+'editUser', data)
+        },
         userListFull : function () {
             return $http.jsonp(apiPath.baseUrl+'userList?callback=JSON_CALLBACK', {jsonpCallbackParam: 'callback'})
         },

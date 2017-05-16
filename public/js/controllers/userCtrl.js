@@ -23,6 +23,14 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
 
         })
     }
+    $scope.updateUser = function () {
+        apiService.editUser($scope.uploadData).then(function (data) {
+            console.log(data)
+            $scope.getUserList();
+            $scope.closePopup();
+
+        })
+    }
 
     $scope.loader=true;
     $scope.getUserList = function () {
@@ -46,6 +54,10 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
         apiService.deleteUser(id).then(function (data) {
             $scope.getUserList();
         })
+    }
+
+    $scope.userData = function (userData) {
+        $scope.uploadData =userData;
     }
 });
 

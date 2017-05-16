@@ -41,6 +41,17 @@ router.get('/userList', function (req, res) {
         res.jsonp(data)
     })
 })
+router.put('/editUser', function (req, res) {
+    var data = req.body;
+    users.update({_id:data._id},{$set : {fullName:data.fullName, contactNo:data.contactNo,emailId:data.emailId,Address:data.Address,state:data.state,district:data.district,block:data.block,postalCode:data.postalCode,aadharNo:data.aadharNo,panNo:data.panNo}}, function (err, data) {
+        res.send(data)
+    })
+})
+router.get('/userList', function (req, res) {
+    users.find({}, function (err, data) {
+        res.jsonp(data)
+    })
+})
 
 router.get('/removeUser/:id', function (req, res) {
     users.remove({_id: req.params.id}, function (err, data) {
