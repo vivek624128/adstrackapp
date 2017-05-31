@@ -193,7 +193,6 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
         }
     );
     function createMap(feeds) {
-        console.log(feeds)
         for (var i = 0; i < feeds.length; i++) {
             var marker = L.marker([feeds[i]._id.locationData.latitude, feeds[i]._id.locationData.longitude], {
                 icon: new L.DivIcon({
