@@ -168,22 +168,16 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
                             $scope.feeds[i].vehicleNo = $scope.linkedVehicleList[j].vehicleId[0].vehicleNo;
                         }
                     }
-
-                    var locData = {
-                        latitude: $scope.feeds[i]._id.locationData.latitude,
-                        longitude: $scope.feeds[i]._id.locationData.longitude,
-                        id: i
+                    if(i==$scope.feeds.length-1){
+                        feedsData = $scope.feeds;
+                        removeAllMarkers()
+                        markers = new L.FeatureGroup();
+                        map.addLayer(markers);
+                        createMap($scope.feeds);
                     }
-                    $scope.locations.push(locData);
                 }
 
             })
-            feedsData = $scope.feeds;
-            removeAllMarkers()
-            markers = new L.FeatureGroup();
-            map.addLayer(markers);
-            createMap(feedsData);
-
         })
 
     }
@@ -199,9 +193,15 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
         }
     );
     function createMap(feeds) {
+        console.log(feeds)
         for (var i = 0; i < feeds.length; i++) {
-            var marker = L.marker([feeds[i]._id.locationData.latitude, feeds[i]._id.locationData.longitude]);
-
+            var marker = L.marker([feeds[i]._id.locationData.latitude, feeds[i]._id.locationData.longitude], {
+                icon: new L.DivIcon({
+                    className: 'my-div-icon',
+                    html: '<img class="my-div-image" src="images/markerIcon.png"/>' +
+                    '<div class="marker-info"><span class="my-div-span">'+feeds[i].vehicleNo+'</span></div> '
+                })
+            })
             marker.bindPopup('<img src="' + feeds[i]._id.updateStatus + '" style="width:300px; height: 250px;"><br><strong>Posted By: </strong> ' + feeds[i].vehicleNo+ ' <br><div class="mapItemLocation"> <strong>Location : </strong> ' + feeds[i]._id.locationData.address + '</div>', {
                 showOnMouseOver: true
             });

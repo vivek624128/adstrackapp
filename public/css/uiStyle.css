@@ -342,7 +342,7 @@ body {
     flex-wrap: wrap;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
-    width:300px;
+    width:100%;
     overflow: visible;
 }
 /*......... campaign .........*/
@@ -666,15 +666,36 @@ body {
 
 .leaflet-popup-content{
     height: auto;
-    min-height:60px;
-    width: 250px;
-    margin:5px;
+    min-height: 60px;
+    width: 300px !important;
+    margin: 5px !important;
     padding: 5px;
+    font-size: 10px;
+}
+.leaflet-popup-content img{
+    height: auto;
+    width: 100% !important;
+    display: block;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 10px;
 }
 .leaflet-popup-content-wrapper{
     -webkit-border-radius:0;
     -moz-border-radius:0;
     border-radius:0;
+}
+.leaflet-marker-icon.my-div-icon img {
+    width: 23px;
+}
+.leaflet-marker-icon.my-div-icon .marker-info {
+    width: 88px;
+    background: #3c8dbc;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 3px 4px;
+    font-size: 8px;
 }
 
 .mapOrGraph .addFeeds {

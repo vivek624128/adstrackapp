@@ -47,6 +47,29 @@ router.put('/editUser', function (req, res) {
         res.send(data)
     })
 })
+router.put('/changePassword', function (req, res) {
+    var data = req.body;
+    // var oldPassword = md5(data.oldPassword);
+    var newPassword = md5(data.newPassword);
+
+    console.log(data)
+
+    // console.log(oldPassword +' ----------- '+ newPassword)
+    users.find({username:data.username}, function (err, response) {
+        if(response!=''){
+            users.update({username :data.username},{$set : {password:newPassword}}, function (err, data) {
+
+
+                console.log(data)
+
+                res.send("New Password Successfully changed !!...")
+            })
+        }
+        else{
+            res.send("User Id / Old Password Not matched")
+        }
+    })
+})
 router.get('/userList', function (req, res) {
     users.find({}, function (err, data) {
         res.jsonp(data)
