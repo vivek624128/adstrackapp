@@ -95,9 +95,11 @@ router.post('/addCampaignFeeds', function (req, res) {
             },function(err,response,body){
                 data.updates.updateStatus = 'http://mahaboudhilocation.com/trackapp/'+body;
                 var updatedData = data.updates;
+
+                console.log(updatedData);
                 campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
                     res.jsonp(updatedData);
-                    console.log(updatedData);
+                    console.log(data);
                     if(err) console.log(err);
                 })
             });
