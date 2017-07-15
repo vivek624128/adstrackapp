@@ -80,7 +80,6 @@ router.post('/linkVehicle', function (req, res) {
 
 router.post('/addCampaignFeeds', function (req, res) {
     var data = req.body;
-    console.log(data)
     var image =data.updates.updateStatus;
     if(image){
         if(image.indexOf("data:image/png;base64,")==0){
@@ -98,6 +97,8 @@ router.post('/addCampaignFeeds', function (req, res) {
                 var updatedData = data.updates;
                 campaign.update({_id: data.campId, 'campaign.user':data.userId}, {$push: {'campaign.$.updates': data.updates}}, function (err, data) {
                     res.jsonp(updatedData);
+                    console.log(updatedData);
+                    if(err) console.log(err);
                 })
             });
         }
