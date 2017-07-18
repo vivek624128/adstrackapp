@@ -189,58 +189,38 @@ router.post('/feedsByVehicleId', function (req, res) {
     var data = req.body;
     var startDate=new Date(moment(data.startDate).startOf('day'));
     var endDate=new Date(moment(data.endDate).endOf('day'));
-    console.log(startDate +" ------  "+endDate)
-    var date = moment("2017-07-15")
-    var now = moment();
+    console.log(startDate +" ------  "+endDate);
 
-    if (now > date) {
-        campaign.aggregate(
-            [
-                {$unwind: "$campaign"},{$unwind: "$campaign.updates"},{$unwind: "$campaign.updates.location"},
-                {$match: {'campaign.vehicleId':data.vehicleId,'campaign.updates.updatedOn':{$gte : startDate, $lt: endDate}}},
-                {
-                    $group: {
-                        _id: {
-                            'campaignId': "$campaign._id",
-                            'vehicleId': '$campaign.vehicleId',
-                            'updateOn':'$campaign.updates.updatedOn',
-                            'locationData':{
-                                'latitude':'$campaign.updates.location.latitude',
-                                'longitude':'$campaign.updates.location.longitude',
-                                'address':'$campaign.updates.location.address'
-                            },
-                            'updateStatus':'$campaign.updates.updateStatus'
-                        }
-                    }
-                }
-            ]).exec( function (err, orders) {
-            res.send(orders)
-        })
-    } else {
-        console.log("Hello")
-        campaignsTill15July.aggregate(
-            [
-                {$unwind: "$campaign"},{$unwind: "$campaign.updates"},{$unwind: "$campaign.updates.location"},
-                {$match: {'campaign.vehicleId':data.vehicleId,'campaign.updates.updatedOn':{$gte : startDate, $lt: endDate}}},
-                {
-                    $group: {
-                        _id: {
-                            'campaignId': "$campaign._id",
-                            'vehicleId': '$campaign.vehicleId',
-                            'updateOn':'$campaign.updates.updatedOn',
-                            'locationData':{
-                                'latitude':'$campaign.updates.location.latitude',
-                                'longitude':'$campaign.updates.location.longitude',
-                                'address':'$campaign.updates.location.address'
-                            },
-                            'updateStatus':'$campaign.updates.updateStatus'
-                        }
-                    }
-                }
-            ]).exec( function (err, orders) {
-            res.send(orders)
-        })
+    var table = 'campaign';
+    var date = moment("2017-07-15")
+    if (date.diff(startDate, 'days') <= 0) {
+        table = campaign;
     }
+    else{
+        table = campaignsTill15July;
+    }
+    table.aggregate(
+            [
+                {$unwind: "$campaign"},{$unwind: "$campaign.updates"},{$unwind: "$campaign.updates.location"},
+                {$match: {'campaign.vehicleId':data.vehicleId,'campaign.updates.updatedOn':{$gte : startDate, $lt: endDate}}},
+                {
+                    $group: {
+                        _id: {
+                            'campaignId': "$campaign._id",
+                            'vehicleId': '$campaign.vehicleId',
+                            'updateOn':'$campaign.updates.updatedOn',
+                            'locationData':{
+                                'latitude':'$campaign.updates.location.latitude',
+                                'longitude':'$campaign.updates.location.longitude',
+                                'address':'$campaign.updates.location.address'
+                            },
+                            'updateStatus':'$campaign.updates.updateStatus'
+                        }
+                    }
+                }
+            ]).exec( function (err, orders) {
+            res.send(orders)
+        })
 
 })
 
