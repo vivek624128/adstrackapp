@@ -127,7 +127,7 @@ router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
     connection.query("SELECT * FROM `campaignFeeds` WHERE `updatedOn` BETWEEN '" + startDate + "' AND '" + endDate + "' ORDER BY `updatedOn` DESC", function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
-        res.send(result);
+        res.jsonp(result);
     });
 
 })
@@ -135,11 +135,11 @@ router.get('/feedsByVehicleId/:startDate/:endDate/:vehicleId', function (req, re
     var data = req.params;
     var startDate = moment(data.startDate).startOf('day').format();
     var endDate = moment(data.endDate).endOf('day').format();
+    var vehicleId = data.vehicleId;
     console.log(startDate + ' ------- ' + endDate)
     connection.query("SELECT * FROM `campaignFeeds` WHERE vehicleId = '"+vehicleId+"' AND `updatedOn` BETWEEN '" + startDate + "' AND '" + endDate + "' ORDER BY `updatedOn` DESC", function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
-        res.send(result);
+        res.jsonp(result);
     });
 })
 // connection.end();
