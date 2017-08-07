@@ -37,6 +37,29 @@ var userSchema = ['userType VARCHAR(255)',
     'driverLicenseDoc  VARCHAR(255)',
     'permission  VARCHAR(255)']
 
+var userKey = [
+    'userId',
+    'userType',
+    'username',
+    'password',
+    'dateTime',
+    'fullName',
+    'contactNo',
+    'emailId',
+    'Address',
+    'state',
+    'district',
+    'block',
+    'postalCode',
+    'aadharNo',
+    'panNo',
+    'profilePic',
+    'aadharCopy',
+    'advertiseId',
+    'driverLicense',
+    'driverLicenseDoc',
+    'permission']
+
 
 router.get('/userTable', function (req, res) {
     connection.connect(function (err) {
@@ -81,7 +104,7 @@ router.post('/saveUser', function (req, res) {
                 connection.connect(function (err) {
                     if (err) throw err;
                     console.log("Connected!");
-                    var sql = "INSERT INTO users (" + userSchema + ") VALUES ?";
+                    var sql = "INSERT INTO users (" + userKey + ") VALUES ?";
                     connection.query(sql, [usersList], function (err, result) {
                         if (err) throw err;
                         console.log("Number of records inserted: " + result.affectedRows);
