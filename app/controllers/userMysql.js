@@ -1,6 +1,7 @@
 var mysql = require('mysql'),
     express = require('express'),
     router = express.Router(),
+    cors = require('cors'),
     moment = require('moment');
 var connection = mysql.createConnection({
     host: 'mahaboudhilocation.com',
