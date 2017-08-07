@@ -53,7 +53,6 @@ router.get('/userTable', function (req, res) {
             res.send("Table created")
         });
     });
-    connection.end();
 })
 
 router.post('/saveUser', function (req, res) {
@@ -105,6 +104,6 @@ router.post('/saveUser', function (req, res) {
 
         res.send(data.length)
     })
-    connection.end();
 
 })
+connection.end();
