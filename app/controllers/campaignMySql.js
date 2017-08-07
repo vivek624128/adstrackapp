@@ -45,7 +45,7 @@ router.get('/createCampaignTable', function (req, res) {
             if (err) throw err;
             console.log("Table created");
             res.send("Table created");
-            connection.end();
+            // connection.end();
         });
     });
 })

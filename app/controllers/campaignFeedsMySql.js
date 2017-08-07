@@ -129,7 +129,7 @@ router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
         // console.log(result);
         res.send(result);
         if(result){
-            connection.end();
+            // connection.end();
         }
 
     });
