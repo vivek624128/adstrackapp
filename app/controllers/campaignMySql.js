@@ -30,10 +30,17 @@ var campaignSchema = {
 
 
 router.get('/createCampaignTable', function (req, res) {
+
+    var campaignTabFiled = [];
+    for(keys in campaignSchema){
+        console.log(keys)
+        campaignTabFiled.push(keys +' '+campaignSchema[keys]);
+    }
+
     connection.connect(function (err) {
         if (err) throw err;
         console.log("Connected!");
-        var sql = "CREATE TABLE campaign (" + campaignSchema + ")";
+        var sql = "CREATE TABLE campaign (" + campaignTabFiled + ")";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             console.log("Table created");

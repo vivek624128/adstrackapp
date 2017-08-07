@@ -31,10 +31,17 @@ var campaignFeedsSchema = {
 
 
 router.get('/createCampaignFeedsTable', function (req, res) {
+
+
+    var campaignFeedFiled = [];
+    for(keys in campaignFeedsSchema){
+        console.log(keys)
+        campaignFeedFiled.push(keys +' '+campaignFeedsSchema[keys]);
+    }
     connection.connect(function (err) {
         if (err) throw err;
         console.log("Connected!");
-        var sql = "CREATE TABLE campaignFeeds (" + campaignFeedsSchema + ")";
+        var sql = "CREATE TABLE campaignFeeds (" + campaignFeedFiled + ")";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             console.log("Table created");
