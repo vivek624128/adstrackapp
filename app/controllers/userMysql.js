@@ -98,7 +98,8 @@ router.post('/saveUser', function (req, res) {
                 data[i].aadharCopy != null ?data[i].aadharCopy : '',
                 data[i].advertiseId != null ?data[i].advertiseId : '',
                 data[i].driverLicense != null ?data[i].driverLicense : '',
-                data[i].driverLicenseDoc != null ?data[i].driverLicenseDoc : ''];
+                data[i].driverLicenseDoc != null ?data[i].driverLicenseDoc : '',
+                data[i].permission != null ?data[i].permission : ''];
             usersList.push(userData);
             if(i == data.length - 1){
                 connection.connect(function (err) {
