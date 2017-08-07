@@ -37,6 +37,7 @@ var campaignFeedFiled = [];
 for (keys in campaignFeedsSchema) {
     campaignFeedFiled.push(keys + ' ' + campaignFeedsSchema[keys]);
 }
+/*
 
 
 router.get('/createCampaignFeedsTable', function (req, res) {
@@ -116,6 +117,7 @@ router.post('/fetchCampaign', function (req, res) {
                 }
     })
 })
+*/
 
 router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
     var data = req.params;
@@ -126,7 +128,10 @@ router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
         if (err) throw err;
         // console.log(result);
         res.send(result);
-        connection.end();
+        if(result){
+            connection.end();
+        }
+
     });
 
 })
