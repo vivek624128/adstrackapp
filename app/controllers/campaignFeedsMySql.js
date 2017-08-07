@@ -109,7 +109,7 @@ router.post('/fetchCampaign', function (req, res) {
                         data[i]._id.updateStatus != null ? data[i]._id.updateStatus : ''];
 
                     campaignFeeds.push(campaignFeed);
-                    if(i == data.length){
+                    if(i == data.length-1){
                         var sql = "INSERT INTO campaignFeeds (" + campaignFields + ") VALUES ?";
                         connection.query(sql, [campaignFeeds], function (err, result) {
                             if (err) throw err;
