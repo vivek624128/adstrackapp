@@ -125,7 +125,7 @@ router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
     console.log(startDate + ' ------- ' + endDate)
     connection.connect(function(err) {
         if (err) throw err;
-        connection.query("SELECT * FROM `campaignFeeds` WHERE `updatedOn` BETWEEN "+startDate+" AND "+endDate+" ORDER BY `address` ASC", function (err, result, fields) {
+        connection.query("SELECT * FROM `campaignFeeds` WHERE `updatedOn` BETWEEN '"+startDate+"' AND '"+endDate+"' ORDER BY `updatedOn` DESC", function (err, result, fields) {
             if (err) throw err;
             // console.log(result);
             res.send(result);
