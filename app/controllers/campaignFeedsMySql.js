@@ -37,8 +37,6 @@ for (keys in campaignFeedsSchema) {
 
 
 router.get('/createCampaignFeedsTable', function (req, res) {
-
-
     connection.connect(function (err) {
         if (err) throw err;
         console.log("Connected!");
@@ -125,14 +123,12 @@ router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
     var startDate = moment(data.startDate).startOf('day').format();
     var endDate = moment(data.endDate).endOf('day').format();
     console.log(startDate + ' ------- ' + endDate)
-    connection.connect(function(err) {
+    connection.connect(function (err) {});
+    connection.query("SELECT * FROM `campaignFeeds` WHERE `updatedOn` BETWEEN '" + startDate + "' AND '" + endDate + "' ORDER BY `updatedOn` DESC", function (err, result, fields) {
         if (err) throw err;
-        connection.query("SELECT * FROM `campaignFeeds` WHERE `updatedOn` BETWEEN '"+startDate+"' AND '"+endDate+"' ORDER BY `updatedOn` DESC", function (err, result, fields) {
-            if (err) throw err;
-            // console.log(result);
-            res.send(result);
-            connection.end();
-        });
+        // console.log(result);
+        res.send(result);
+        connection.end();
     });
 
 })
