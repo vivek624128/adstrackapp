@@ -13,6 +13,9 @@ var connection = mysql.createConnection({
     password: 'Kinley@pure90',
     database: 'mahaboud_db'
 });
+
+connection.connect(function (err) {});
+
 module.exports = function (app) {
     app.use('/', router);
     app.use(cors());
@@ -37,9 +40,6 @@ for (keys in campaignFeedsSchema) {
 
 
 router.get('/createCampaignFeedsTable', function (req, res) {
-    connection.connect(function (err) {
-        if (err) throw err;
-        console.log("Connected!");
         var sql = "CREATE TABLE campaignFeeds (" + campaignFeedFiled + ")";
         connection.query(sql, function (err, result) {
             if (err) throw err;
@@ -47,7 +47,6 @@ router.get('/createCampaignFeedsTable', function (req, res) {
             res.send("Table created");
             connection.end();
         });
-    });
 })
 router.post('/fetchCampaign', function (req, res) {
     var campaignFields = [];
@@ -123,7 +122,6 @@ router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
     var startDate = moment(data.startDate).startOf('day').format();
     var endDate = moment(data.endDate).endOf('day').format();
     console.log(startDate + ' ------- ' + endDate)
-    connection.connect(function (err) {});
     connection.query("SELECT * FROM `campaignFeeds` WHERE `updatedOn` BETWEEN '" + startDate + "' AND '" + endDate + "' ORDER BY `updatedOn` DESC", function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
