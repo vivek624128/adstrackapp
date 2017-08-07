@@ -15,7 +15,7 @@ connection.connect(function(err) {
         return;
     }
 
-    console.log('connected as id ' + connection.threadId);
+    console.log('connected as id = ' + connection.threadId);
 });
 
 mongoose.connect(config.db);
