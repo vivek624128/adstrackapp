@@ -2,7 +2,9 @@ var mysql = require('mysql'),
     express = require('express'),
     router = express.Router(),
     cors = require('cors'),
-    moment = require('moment');
+    moment = require('moment')
+    mongoose = require('mongoose'),
+    users = mongoose.model('users');
 var connection = mysql.createConnection({
     host: 'mahaboudhilocation.com',
     user: 'mahaboud_vivek',
@@ -24,7 +26,7 @@ var userSchema = ['userType VARCHAR(255)',
     'Address  VARCHAR(255)',
     'state  VARCHAR(255)',
     'district  VARCHAR(255)',
-   'block  VARCHAR(255)',
+    'block  VARCHAR(255)',
     'postalCode  VARCHAR(255)',
     'aadharNo  VARCHAR(255)',
     'panNo  VARCHAR(255)',
@@ -36,16 +38,59 @@ var userSchema = ['userType VARCHAR(255)',
     'permission  VARCHAR(255)']
 
 
-
 router.get('/userTable', function (req, res) {
     connection.connect(function (err) {
         if (err) throw err;
         console.log("Connected!");
-        var sql = "CREATE TABLE customers ("+userSchema+")";
+        var sql = "CREATE TABLE customers (" + userSchema + ")";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             console.log("Table created");
             res.send("Table created")
         });
     });
+})
+
+router.post('/saveUser', function (req, res) {
+    var usersList = [];
+    users.find({}, function (err, data) {
+        for(var i = 0; i< data.length; i++){
+            console.log(data[i]);
+            var userData = [data[i]._id != null ?data[i]._id : '',
+                data[i].userType[0] != null ?data[i].userType[0] : '',
+                data[i].username != null ?data[i].username : '',
+                data[i].password != null ?data[i].password : '',
+                data[i].dateTime != null ?data[i].dateTime : '',
+                data[i].fullName != null ?data[i].fullName : '',
+                data[i].contactNo != null ?data[i].contactNo : '',
+                data[i].emailId != null ?data[i].emailId : '',
+                data[i].Address != null ?data[i].Address : '',
+                data[i].state != null ?data[i].state : '',
+                data[i].district != null ?data[i].district : '',
+                data[i].block != null ?data[i].block : '',
+                data[i].postalCode != null ?data[i].postalCode : '',
+                data[i].aadharNo != null ?data[i].aadharNo : '',
+                data[i].panNo != null ?data[i].panNo : '',
+                data[i].profilePic != null ?data[i].profilePic : '',
+                data[i].aadharCopy != null ?data[i].aadharCopy : '',
+                data[i].advertiseId != null ?data[i].advertiseId : '',
+                data[i].driverLicense != null ?data[i].driverLicense : '',
+                data[i].driverLicenseDoc != null ?data[i].driverLicenseDoc : ''];
+            usersList.push(userData);
+            if(i == data.length - 1){
+                connection.connect(function (err) {
+                    if (err) throw err;
+                    console.log("Connected!");
+                    var sql = "INSERT INTO users (" + userSchema + ") VALUES ?";
+                    con.query(sql, [usersList], function (err, result) {
+                        if (err) throw err;
+                        console.log("Number of records inserted: " + result.affectedRows);
+                    });
+                });
+            }
+        }
+
+        res.send(usersList)
+    })
+
 })
