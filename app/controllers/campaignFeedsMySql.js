@@ -117,3 +117,19 @@ router.post('/fetchCampaign', function (req, res) {
                 }
     })
 })
+
+router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
+    var data = req.params;
+    var startDate = new Date(moment(data.startDate).startOf('day'));
+    var endDate = new Date(moment(data.endDate).endOf('day'));
+    connection.connect(function(err) {
+        if (err) throw err;
+        connection.query("SELECT * FROM `campaignFeeds` WHERE `updatedOn` BETWEEN "+startDate+" AND "+endDate+" ORDER BY `address` ASC", function (err, result, fields) {
+            if (err) throw err;
+            // console.log(result);
+            res.send(result);
+        });
+    });
+})
+
+
