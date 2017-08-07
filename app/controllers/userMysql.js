@@ -82,7 +82,7 @@ router.post('/saveUser', function (req, res) {
                     if (err) throw err;
                     console.log("Connected!");
                     var sql = "INSERT INTO users (" + userSchema + ") VALUES ?";
-                    con.query(sql, [usersList], function (err, result) {
+                    connection.query(sql, [usersList], function (err, result) {
                         if (err) throw err;
                         console.log("Number of records inserted: " + result.affectedRows);
                     });
