@@ -17,14 +17,14 @@ module.exports = function (app) {
 };
 
 var campaignSchema = {
-    campaignId: 'VARCHAR(255) PRIMARY',
-    campaignName: 'VARCHAR(255) DEFAULT NULL',
-    startDate: 'DATETIME DEFAULT NULL',
-    endDate: 'DATETIME DEFAULT NULL',
-    projectId: 'VARCHAR(255) DEFAULT NULL',
-    campaignType: 'VARCHAR(255) DEFAULT NULL',
-    creationDate: 'DATETIME DEFAULT NULL',
-    status: 'VARCHAR(255) DEFAULT NULL'
+    campaignId: 'VARCHAR(255)',
+    campaignName: 'VARCHAR(255)',
+    startDate: 'DATETIME',
+    endDate: 'DATETIME',
+    projectId: 'VARCHAR(255)',
+    campaignType: 'VARCHAR(255)',
+    creationDate: 'DATETIME',
+    status: 'VARCHAR(255)'
 }
 
 

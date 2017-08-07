@@ -17,15 +17,15 @@ module.exports = function (app) {
 };
 
 var campaignFeedsSchema = {
-    feedsId: 'VARCHAR(255) DEFAULT NULL',
-    userId: 'VARCHAR(255) DEFAULT NULL',
-    vehicleId: 'VARCHAR(255) DEFAULT NULL',
-    latitude: 'VARCHAR(255) DEFAULT NULL',
-    longitude: 'VARCHAR(255) DEFAULT NULL',
-    address: 'VARCHAR(255) DEFAULT NULL',
-    caption: 'VARCHAR(255) DEFAULT NULL',
-    updatedOn: 'DATETIME DEFAULT NULL',
-    updateStatus: 'VARCHAR(255) DEFAULT NULL'
+    feedsId: 'VARCHAR(255)',
+    userId: 'VARCHAR(255)',
+    vehicleId: 'VARCHAR(255)',
+    latitude: 'VARCHAR(255)',
+    longitude: 'VARCHAR(255)',
+    address: 'VARCHAR(255)',
+    caption: 'VARCHAR(255)',
+    updatedOn: 'DATETIME',
+    updateStatus: 'VARCHAR(255)'
 }
 
 
