@@ -120,8 +120,8 @@ router.post('/fetchCampaign', function (req, res) {
 
 router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
     var data = req.params;
-    var startDate = moment(data.startDate).startOf('day');
-    var endDate = moment(data.endDate).endOf('day');
+    var startDate = moment(data.startDate).startOf('day').format();
+    var endDate = moment(data.endDate).endOf('day').format();
     console.log(startDate + ' ------- ' + endDate)
     connection.connect(function(err) {
         if (err) throw err;
