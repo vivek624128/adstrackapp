@@ -70,7 +70,7 @@ router.post('/copyCampaign', function (req, res) {
                 data[i].campaignType[0]._id != null ?data[i].campaignType : '',
                 data[i].creationDate != null ?data[i].creationDate : '',
                 data[i].status != null ?data[i].status : ''];
-            campaignData.push(userData);
+            campaignData.push(campaignData);
             if(i == data.length - 1){
                 connection.connect(function (err) {
                     if (err) throw err;
