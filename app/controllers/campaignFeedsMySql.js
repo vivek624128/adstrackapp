@@ -4,6 +4,8 @@ var mysql = require('mysql'),
     cors = require('cors'),
     moment = require('moment')
     mongoose = require('mongoose'),
+    campaign = mongoose.model('campaign'),
+    campaignsTill15July = mongoose.model('campaigns1')
     users = mongoose.model('users');
 var connection = mysql.createConnection({
     host: 'mahaboudhilocation.com',
@@ -19,6 +21,7 @@ module.exports = function (app) {
 var campaignFeedsSchema = {
     feedsId: 'VARCHAR(255)',
     userId: 'VARCHAR(255)',
+    campaignId: 'VARCHAR(255)',
     vehicleId: 'VARCHAR(255)',
     latitude: 'VARCHAR(255)',
     longitude: 'VARCHAR(255)',
@@ -27,17 +30,16 @@ var campaignFeedsSchema = {
     updatedOn: 'DATETIME',
     updateStatus: 'VARCHAR(255)'
 }
-
+var campaignFeedFiled = [];
+for (keys in campaignFeedsSchema) {
+    console.log(keys)
+    campaignFeedFiled.push(keys + ' ' + campaignFeedsSchema[keys]);
+}
 
 
 router.get('/createCampaignFeedsTable', function (req, res) {
 
 
-    var campaignFeedFiled = [];
-    for(keys in campaignFeedsSchema){
-        console.log(keys)
-        campaignFeedFiled.push(keys +' '+campaignFeedsSchema[keys]);
-    }
     connection.connect(function (err) {
         if (err) throw err;
         console.log("Connected!");
@@ -49,55 +51,116 @@ router.get('/createCampaignFeedsTable', function (req, res) {
         });
     });
 })
-/*
-router.post('/saveUser', function (req, res) {
-    var usersList = [];
-    var counter = 0;
-    for(keys in usersSchema){
+router.post('/fetchCampaign', function (req, res) {
+    var campaignFields = [];
+    for (keys in campaignFeedsSchema) {
         console.log(keys)
-        usersList.push(usersSchema[keys]);
+        campaignFields.push(keys);
     }
-    res.send(usersList)
+    var campaignFeeds = [];
 
-   users.find({}, function (err, data) {/!*
-        for(var i = 0; i< data.length; i++){
-            console.log(data[i]);
-            var userData = [data[i]._id != null ?data[i]._id : '',
-                data[i].userType[0] != null ?data[i].userType[0] : '',
-                data[i].username != null ?data[i].username : '',
-                data[i].password != null ?data[i].password : '',
-                data[i].dateTime != null ?data[i].dateTime : '',
-                data[i].fullName != null ?data[i].fullName : '',
-                data[i].contactNo != null ?data[i].contactNo : '',
-                data[i].emailId != null ?data[i].emailId : '',
-                data[i].Address != null ?data[i].Address : '',
-                data[i].state != null ?data[i].state : '',
-                data[i].district != null ?data[i].district : '',
-                data[i].block != null ?data[i].block : '',
-                data[i].postalCode != null ?data[i].postalCode : '',
-                data[i].aadharNo != null ?data[i].aadharNo : '',
-                data[i].panNo != null ?data[i].panNo : '',
-                data[i].profilePic != null ?data[i].profilePic : '',
-                data[i].aadharCopy != null ?data[i].aadharCopy : '',
-                data[i].advertiseId != null ?data[i].advertiseId : '',
-                data[i].driverLicense != null ?data[i].driverLicense : '',
-                data[i].driverLicenseDoc != null ?data[i].driverLicenseDoc : '',
-                data[i].permission != null ?data[i].permission : ''];
-            usersList.push(userData);
-            if(i == data.length - 1){
-                connection.connect(function (err) {
-                    if (err) throw err;
-                    console.log("Connected!");
-                    var sql = "INSERT INTO users (" + userKey + ") VALUES ?";
-                    connection.query(sql, [usersList], function (err, result) {
-                        if (err) throw err;
-                        console.log("Number of records inserted: " + result.affectedRows);
-                    });
-                });
+    var data = req.body;
+    var startDate = new Date(moment(data.startDate).startOf('day'));
+    var endDate = new Date(moment(data.endDate).endOf('day'));
+    console.log(startDate + " ------  " + endDate);
+    var table = 'campaign';
+    var date = moment("2017-07-15")
+    var now = moment();
+    if (date.diff(startDate, 'days') <= 0) {
+        table = campaign;
+    }
+    else {
+        table = campaignsTill15July;
+    }
+    table.aggregate(
+        [
+            {$unwind: "$campaign"}, {$unwind: "$campaign.updates"}, {$unwind: "$campaign.updates.location"},
+            {$match: {'campaign.updates.updatedOn': {$gte: startDate, $lt: endDate}}},
+            {
+                $group: {
+                    _id: {
+                        'feedsId': '$campaign.updates._id',
+                        'userId': '$campaign.user',
+                        'campaignId': "$campaign._id",
+                        'vehicleId': '$campaign.vehicleId',
+                        'latitude': '$campaign.updates.location.latitude',
+                        'longitude': '$campaign.updates.location.longitude',
+                        'address': '$campaign.updates.location.address',
+                        'caption': '$campaign.updates.location.caption',
+                        'updateOn': '$campaign.updates.updatedOn',
+                        'updateStatus': '$campaign.updates.updateStatus'
+                    }
+                }
             }
-        }
-*!/
-        res.send(data.length)
+        ]).exec(function (err, data) {
+            var counter =0;
+                for(var i = 0; i< data.length; i++) {
+                    console.log(data[i])
+                    var campaignFeed = [
+                        data[i]._id.feedsId != null ? data[i]._id.feedsId : '',
+                        data[i]._id.userId[0] != null ? data[i]._id.userId[0] : '',
+                        data[i]._id.campaignId != null ? data[i]._id.campaignId : '',
+                        data[i]._id.vehicleId[0] != null ? data[i]._id.vehicleId[0] : '',
+                        data[i]._id.latitude != null ? data[i]._id.latitude : '',
+                        data[i]._id.longitude != null ? data[i]._id.longitude : '',
+                        data[i]._id.address != null ? data[i]._id.address : '',
+                        data[i]._id.caption != null ? data[i]._id.caption : '',
+                        data[i]._id.updateOn != null ? data[i]._id.updateOn : '',
+                        data[i]._id.updateStatus != null ? data[i]._id.updateStatus : ''];
+
+                    campaignFeeds.push(campaignFeed);
+                    if(i == data.length){
+                        var sql = "INSERT INTO campaignFeeds (" + campaignFields + ") VALUES ?";
+                        connection.query(sql, [campaignFeeds], function (err, result) {
+                            if (err) throw err;
+                            res.send("Number of records inserted: " + result.affectedRows)
+                            console.log("Number of records inserted: " + result.affectedRows);
+                        });
+                    }
+                }
+
+
     })
 
-})*/
+ /*   users.find({}, function (err, data) {/!*
+     for(var i = 0; i< data.length; i++){
+     console.log(data[i]);
+     var userData = [data[i]._id != null ?data[i]._id : '',
+     data[i].userType[0] != null ?data[i].userType[0] : '',
+     data[i].username != null ?data[i].username : '',
+     data[i].password != null ?data[i].password : '',
+     data[i].dateTime != null ?data[i].dateTime : '',
+     data[i].fullName != null ?data[i].fullName : '',
+     data[i].contactNo != null ?data[i].contactNo : '',
+     data[i].emailId != null ?data[i].emailId : '',
+     data[i].Address != null ?data[i].Address : '',
+     data[i].state != null ?data[i].state : '',
+     data[i].district != null ?data[i].district : '',
+     data[i].block != null ?data[i].block : '',
+     data[i].postalCode != null ?data[i].postalCode : '',
+     data[i].aadharNo != null ?data[i].aadharNo : '',
+     data[i].panNo != null ?data[i].panNo : '',
+     data[i].profilePic != null ?data[i].profilePic : '',
+     data[i].aadharCopy != null ?data[i].aadharCopy : '',
+     data[i].advertiseId != null ?data[i].advertiseId : '',
+     data[i].driverLicense != null ?data[i].driverLicense : '',
+     data[i].driverLicenseDoc != null ?data[i].driverLicenseDoc : '',
+     data[i].permission != null ?data[i].permission : ''];
+     usersList.push(userData);
+     if(i == data.length - 1){
+     connection.connect(function (err) {
+     if (err) throw err;
+     console.log("Connected!");
+     var sql = "INSERT INTO users (" + userKey + ") VALUES ?";
+     connection.query(sql, [usersList], function (err, result) {
+     if (err) throw err;
+     console.log("Number of records inserted: " + result.affectedRows);
+     });
+     });
+     }
+     }
+     *!/
+        res.send(data.length)
+    })*/
+
+})
