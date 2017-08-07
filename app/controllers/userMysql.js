@@ -16,49 +16,30 @@ module.exports = function (app) {
     app.use(cors());
 };
 
-var userSchema = ['userType VARCHAR(255)',
-    'username  VARCHAR(255)',
-    'password  VARCHAR(255)',
-    'dateTime  VARCHAR(255)',
-    'fullName  VARCHAR(255)',
-    'contactNo  VARCHAR(255)',
-    'emailId  VARCHAR(255)',
-    'Address  VARCHAR(255)',
-    'state  VARCHAR(255)',
-    'district  VARCHAR(255)',
-    'block  VARCHAR(255)',
-    'postalCode  VARCHAR(255)',
-    'aadharNo  VARCHAR(255)',
-    'panNo  VARCHAR(255)',
-    'profilePic  VARCHAR(255)',
-    'aadharCopy  VARCHAR(255)',
-    'advertiseId  VARCHAR(255)',
-    'driverLicense  VARCHAR(255)',
-    'driverLicenseDoc  VARCHAR(255)',
-    'permission  VARCHAR(255)']
+var usersSchema = {
+    userId : 'VARCHAR(255) DEFAULT NULL',
+    userType : 'VARCHAR(255) DEFAULT NULL',
+    username : 'VARCHAR(255) DEFAULT NULL',
+    password : 'VARCHAR(255) DEFAULT NULL',
+    dateTime : 'date DEFAULT NULL',
+    fullName : 'VARCHAR(255) DEFAULT NULL',
+    contactNo : 'VARCHAR(255) DEFAULT NULL',
+    emailId : 'VARCHAR(255) DEFAULT NULL',
+    Address : 'VARCHAR(255) DEFAULT NULL',
+    state : 'VARCHAR(255) DEFAULT NULL',
+    district : 'VARCHAR(255) DEFAULT NULL',
+    block : 'VARCHAR(255) DEFAULT NULL',
+    postalCode : 'VARCHAR(255) DEFAULT NULL',
+    aadharNo : 'VARCHAR(255) DEFAULT NULL',
+    panNo : 'VARCHAR(255) DEFAULT NULL',
+    profilePic : 'VARCHAR(255) DEFAULT NULL',
+    aadharCopy : 'VARCHAR(255) DEFAULT NULL',
+    advertiseId : 'VARCHAR(255) DEFAULT NULL',
+    driverLicense : 'VARCHAR(255) DEFAULT NULL',
+    driverLicenseDoc : 'VARCHAR(255) DEFAULT NULL',
+    permission: 'VARCHAR(255) DEFAULT NULL'
+}
 
-var userKey = [
-    'userId',
-    'userType',
-    'username',
-    'password',
-    'dateTime',
-    'fullName',
-    'contactNo',
-    'emailId',
-    'Address',
-    'state',
-    'district',
-    'block',
-    'postalCode',
-    'aadharNo',
-    'panNo',
-    'profilePic',
-    'aadharCopy',
-    'advertiseId',
-    'driverLicense',
-    'driverLicenseDoc',
-    'permission']
 
 
 router.get('/userTable', function (req, res) {
@@ -72,10 +53,18 @@ router.get('/userTable', function (req, res) {
             res.send("Table created")
         });
     });
+    connection.end();
 })
 
 router.post('/saveUser', function (req, res) {
     var usersList = [];
+    var counter = 0;
+    for(keys in usersSchema){
+        console.log(keys)
+        usersList.push(usersSchema[keys]);
+    }
+    res.send(usersList)
+
     users.find({}, function (err, data) {
         for(var i = 0; i< data.length; i++){
             console.log(data[i]);
@@ -114,7 +103,8 @@ router.post('/saveUser', function (req, res) {
             }
         }
 
-        res.send(usersList)
+        res.send(data.length)
     })
+    connection.end();
 
 })

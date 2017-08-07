@@ -49,6 +49,7 @@ router.get('/createCampaignFeedsTable', function (req, res) {
             res.send("Table created")
         });
     });
+    connection.end();
 })
 router.post('/fetchCampaign', function (req, res) {
     var campaignFields = [];
@@ -116,6 +117,7 @@ router.post('/fetchCampaign', function (req, res) {
                     }
                 }
     })
+    connection.end();
 })
 
 router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
@@ -131,6 +133,8 @@ router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
             res.send(result);
         });
     });
+
+    connection.end();
 })
 
 

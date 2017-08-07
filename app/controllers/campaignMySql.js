@@ -47,6 +47,7 @@ router.get('/createCampaignTable', function (req, res) {
             res.send("Table created")
         });
     });
+    connection.end();
 })
 /*
 router.post('/saveUser', function (req, res) {
