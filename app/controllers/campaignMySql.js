@@ -44,11 +44,12 @@ router.get('/createCampaignTable', function (req, res) {
         connection.query(sql, function (err, result) {
             if (err) throw err;
             console.log("Table created");
-            res.send("Table created")
+            res.send("Table created");
+            connection.end();
         });
     });
 })
-connection.end();
+// connection.end();
 
 /*
 router.post('/saveUser', function (req, res) {

@@ -50,7 +50,8 @@ router.get('/userTable', function (req, res) {
         connection.query(sql, function (err, result) {
             if (err) throw err;
             console.log("Table created");
-            res.send("Table created")
+            res.send("Table created");
+            connection.end();
         });
     });
 })
@@ -97,6 +98,7 @@ router.post('/saveUser', function (req, res) {
                     connection.query(sql, [usersList], function (err, result) {
                         if (err) throw err;
                         console.log("Number of records inserted: " + result.affectedRows);
+                        connection.end();
                     });
                 });
             }
@@ -106,4 +108,3 @@ router.post('/saveUser', function (req, res) {
     })
 
 })
-connection.end();
