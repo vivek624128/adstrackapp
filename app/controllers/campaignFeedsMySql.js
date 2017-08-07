@@ -49,6 +49,8 @@ router.get('/createCampaignFeedsTable', function (req, res) {
             connection.end();
         });
 })
+
+ */
 router.post('/fetchCampaign', function (req, res) {
     var campaignFields = [];
     for (keys in campaignFeedsSchema) {
@@ -117,7 +119,6 @@ router.post('/fetchCampaign', function (req, res) {
                 }
     })
 })
-*/
 
 router.get('/campaignFeeds/:startDate/:endDate', function (req, res) {
     var data = req.params;
