@@ -3,6 +3,20 @@ var express = require('express'),
     glob = require('glob'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host     : 'mahaboudhilocation.com',
+    user     : 'mahaboud_vivek',
+    password : 'Kinley@pure90'
+});
+connection.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    }
+
+    console.log('connected as id ' + connection.threadId);
+});
 
 mongoose.connect(config.db);
 var db = mongoose.connection;
