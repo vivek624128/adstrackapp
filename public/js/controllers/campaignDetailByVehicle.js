@@ -64,14 +64,17 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
         $scope.loaderFeed = true;
         $scope.locations = [];
         apiService.feedsByVehicleId($scope.feedsPayload).then(function (data) {
-            $scope.feeds = [];
+            $scope.tempFeed = [];
             _.forEach(data.data,function (value) {
-                value._id.updateOn = moment(value._id.updateOn).format('YYYY-MM-DD HH:mm');
-                $scope.feeds.push(value);
+                value.time = parseInt(moment(value._id.updateOn).format('YYYYMMDDHHmm'));
+                if(!_.find($scope.tempFeed,['time', value.time])){
+                    $scope.tempFeed.push(value);
+                }
+
             })
-            $scope.feeds = _.groupBy(data.data, '_id.updateOn');
-            // console.log(data.data)
-            // console.log($scope.feeds)
+            $scope.feeds = $scope.tempFeed;
+            console.log("Actual Feeds Count = "+ data.data.length)
+            console.log("Filtered Feeds Count = "+ $scope.feeds.length)
             $scope.loaderFeed = false;
            /* for (var i = 0; i < $scope.feeds.length; i++) {
                 $scope.locations.push(new L.LatLng($scope.feeds[i]._id.locationData.latitude, $scope.feeds[i]._id.locationData.longitude));
