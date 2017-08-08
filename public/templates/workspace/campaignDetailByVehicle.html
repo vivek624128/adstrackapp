@@ -69,16 +69,16 @@
     </div>
 
     <ul class="listFeedsForPrint" ng-if="page==1">
-        <li ng-repeat="feed in feeds | orderBy : '-_id.updateOn'" class="midBlock"
+        <li ng-repeat="(key, feed) in feeds | orderBy : '-_id.updateOn'" class="midBlock"
             ng-class="{deleted : feed.status == false}">
             <div class="list">
                 <div class="feedsImage">
-                    <img ng-src="{{feed._id.updateStatus}}">
+                    <img ng-src="{{feed[0]._id.updateStatus}}">
                 </div>
                 <div class="data">
-                    <span><strong>Location : </strong> {{feed._id.locationData.address}}</span><br/>
-                    <span><strong>[Latitude, Longitude] : </strong> [{{feed._id.locationData.latitude | number :5}} , {{feed._id.locationData.longitude | number :5}}]</span><br/>
-                    <span><strong>Updated Time : </strong> {{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</span>
+                    <span><strong>Location : </strong> {{feed[0]._id.address}}</span><br/>
+                    <span><strong>[Latitude, Longitude] : </strong> [{{feed[0]._id.latitude | number :5}} , {{feed[0]._id.longitude | number :5}}]</span><br/>
+                    <span><strong>Updated Time : </strong> {{dateFormat(feed[0]._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</span>
                 </div>
             </div>
             <div class="delete" ng-click="feed.status=false" ng-if="permission!='Department'">

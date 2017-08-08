@@ -64,11 +64,20 @@ NEC.controller('campaignDetailByVehicleCtrl', function ($scope, $rootScope, $htt
         $scope.loaderFeed = true;
         $scope.locations = [];
         apiService.feedsByVehicleId($scope.feedsPayload).then(function (data) {
-            $scope.feeds = data.data;
+            $scope.feeds = [];
+            _.forEach(data.data,function (value) {
+                value._id.updateOn = moment(value._id.updateOn).format('YYYY-MM-DD HH:mm');
+                $scope.feeds.push(value);
+            })
+
+
+            $scope.feeds = _.groupBy(data.data, '_id.updateOn');
+            console.log(data.data)
+            console.log($scope.feeds)
             $scope.loaderFeed = false;
-            for (var i = 0; i < $scope.feeds.length; i++) {
+           /* for (var i = 0; i < $scope.feeds.length; i++) {
                 $scope.locations.push(new L.LatLng($scope.feeds[i]._id.locationData.latitude, $scope.feeds[i]._id.locationData.longitude));
-            }
+            }*/
         })
 
     }

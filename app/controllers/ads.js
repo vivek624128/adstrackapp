@@ -208,12 +208,10 @@ router.post('/feedsByVehicleId', function (req, res) {
                         _id: {
                             'campaignId': "$campaign._id",
                             'vehicleId': '$campaign.vehicleId',
-                            'updateOn':'$campaign.updates.updatedOn',
-                            'locationData':{
-                                'latitude':'$campaign.updates.location.latitude',
-                                'longitude':'$campaign.updates.location.longitude',
-                                'address':'$campaign.updates.location.address'
-                            },
+                            'updateOn': "$campaign.updates.updatedOn",
+                            'latitude': '$campaign.updates.location.latitude',
+                            'longitude': '$campaign.updates.location.longitude',
+                            'address': '$campaign.updates.location.address',
                             'updateStatus':'$campaign.updates.updateStatus'
                         }
                     }
