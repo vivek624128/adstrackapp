@@ -14,7 +14,9 @@ var connection = mysql.createConnection({
     database: 'mahaboud_db'
 });
 
-connection.connect(function (err) {});
+connection.connect(function (err) {
+    console.log(err)
+});
 
 module.exports = function (app) {
     app.use('/', router);
