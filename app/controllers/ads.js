@@ -93,7 +93,7 @@ router.post('/addCampaignFeeds', function (req, res) {
     var image =data.updates.updateStatus;
     if(image){
         if(image.indexOf("data:image/png;base64,")==0){
-            var url ='http://mahaboudhilocation.com/trackapp/saveImage.php';
+            var url ='http://mahaboudhilocation.in/trackapp/saveImage.php';
             var postData={
                 imageData : image
             };

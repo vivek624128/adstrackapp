@@ -93,7 +93,7 @@
                     <li class="smallCol">Vehicle No</li>
                     <li class="startDate">Update Date</li>
                     <li class="startDate">Latitude & Longitude</li>
-                    <li class="">Address</li>
+                    <li class="">Caption / Address</li>
                     <li class="showFeedImage">Image</li>
                     <!--<li  class="smallCol"></li>-->
                 </ul>
@@ -104,7 +104,7 @@
                     <li class="smallCol">{{feed.vehicleNo}}</li>
                     <li class="startDate">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</li>
                     <li class="startDate">[{{feed._id.locationData.latitude | number :5}} , {{feed._id.locationData.longitude | number :5}}]</li>
-                    <li class="">{{feed._id.locationData.address}} </li>
+                    <li class="">{{feed._id.locationData.caption}} {{feed._id.locationData.address}} </li>
                     <li class="showFeedImage" ng-click="showImage(feed._id.updateStatus, feed._id.locationData.address)">
                         <img ng-src="{{feed._id.updateStatus}}" height="50px" width="100px"></li>
                     <!--<li class="smallCol"><a class="btnLink" ng-click="removeCategory(item._id)">Delete</a></li>-->
