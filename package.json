@@ -36,11 +36,9 @@
     "push-notification": "^0.1.8",
     "random-number": "0.0.7",
     "random-password": "^0.1.2",
-    "sendmail": "^1.1.1",
     "serve-favicon": "^2.3.0",
     "shelljs": "^0.7.0",
     "simple-encryptor": "^1.1.0",
-    "smpt-mail": "^1.0.0",
     "socket.io": "^1.7.3",
     "unirest": "^0.5.0"
   },
