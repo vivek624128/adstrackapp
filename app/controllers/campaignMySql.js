@@ -28,7 +28,6 @@ var campaignSchema = {
 }
 
 
-
 router.get('/createCampaignTable', function (req, res) {
 
     var campaignTabFiled = [];
