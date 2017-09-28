@@ -10,7 +10,6 @@ var express = require('express'),
     md5 = require('md5'),
     fs = require('fs'),
     responseMsg = require('../helper/responseLibrary'),
-    sendMail = require('../helper/sendMail'),
     smaHelper = require('../helper/smsHelper'),
     cors = require('cors'),
     config = require('../../config/config.js'),
@@ -47,27 +46,18 @@ router.put('/editUser', function (req, res) {
         res.send(data)
     })
 })
-router.put('/changePassword', function (req, res) {
-    var data = req.body;
+router.get('/changePassword', function (req, res) {
     // var oldPassword = md5(data.oldPassword);
-    var newPassword = md5(data.newPassword);
+    var newPassword = md5('123');
 
-    console.log(data)
-
+    // console.log(data)
+    // var userList = [];
     // console.log(oldPassword +' ----------- '+ newPassword)
-    users.find({username:data.username}, function (err, response) {
-        if(response!=''){
-            users.update({username :data.username},{$set : {password:newPassword}}, function (err, data) {
-
-
-                console.log(data)
-
-                res.send("New Password Successfully changed !!...")
-            })
-        }
-        else{
-            res.send("User Id / Old Password Not matched")
-        }
+    users.update({permission :"App"},{$set : {password:newPassword}}, {w:1, multi: true}, function (err, data) {
+        console.log(data)
+    })
+    users.find({},{username:1, password:1}, function (err, result) {
+        res.send(result)
     })
 })
 router.get('/userList', function (req, res) {
