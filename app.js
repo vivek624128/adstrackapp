@@ -3,21 +3,6 @@ var express = require('express'),
     glob = require('glob'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host     : 'mahaboudhilocation.com',
-    user     : 'mahaboud_vivek',
-    password : 'Kinley@pure90'
-});
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-
-    console.log('connected as id = ' + connection.threadId);
-});
-
 mongoose.connect(config.db);
 var db = mongoose.connection;
 db.on('error', function () {
@@ -36,8 +21,8 @@ models.forEach(function (model) {
 });
 
 
-app.listen(config.port, config.server_ip_address, function () {
-    console.log( "Listening on " + config.server_ip_address + ", server_port " + config.port )
+app.listen(config.port, function () {
+    console.log( "Listening on server_port " + config.port )
 });
 
 /*
