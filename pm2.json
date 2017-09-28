@@ -1,0 +1,31 @@
+{
+  "apps":[
+    {
+      "name": "adstrack",
+      "script": "app.js",
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "out_file": "log/node-app.stdout.log",
+      "pid_file": "pids/node-geo-api.pid",
+      // "instances": 1,
+      //or 0 => 'max'
+      "min_uptime": "15s",
+      // 200 seconds, defaults to 1000
+      "max_restarts": 5,
+      // defaults to 15
+      //"max_memory_restart": "5M", // 1 megabytes, e.g.: "2G", "10M", "100K", 1024 the default unit is byte.
+      //"cron_restart"     : "1 0 * * *",
+      "watch": ["app"],
+      //"ignore_watch"      : ["[\\/\\\\]\\./", "node_modules","log","pids","/.*CookiesJar.text/"],
+      "merge_logs": false,
+      "exec_interpreter": "node",
+      //"exec_mode": "fork",
+      "autorestart": true,
+      // enable/disable automatic restart when an app crashes or exits
+      "vizion": false,
+      // enable/disable vizion features (versioning control)
+      "env": {
+        //"NODE_ENV": "production",
+      }
+    }
+  ]
+}

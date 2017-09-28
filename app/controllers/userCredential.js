@@ -29,7 +29,6 @@ router.post('/newUser', function (req, res) {
     newUser.save(function
         (err) {
         if (err) throw err;
-        // sendMail.sendMail(newUser, password);
         smaHelper.sendOTP(newUser.contactNo, newUser.username, password);
         res.send(responseMsg.response('success', 'New User created !..'))
     })
