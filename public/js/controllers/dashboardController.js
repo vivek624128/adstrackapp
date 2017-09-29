@@ -146,6 +146,10 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
         $scope.campaign = data.data;
     })
 
+
+
+
+
     $scope.feedsPayload = {};
     $scope.dates = moment().format('YYYY-MM-DD')
     $scope.feedsPayload.startDate = $scope.date;
@@ -159,15 +163,12 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
             $scope.feeds = data.data;
             $scope.loaderFeed = false;
             $scope.locations = [];
-            apiService.vehicleListByCampaign('58e8da1a5d3c76287f011d10').then(function (data) {
-                $scope.linkedVehicleList = data.data[0].campaign;
 
+            apiService.vehicleList().then(function (data) {
+                $scope.vehicleList = data.data;
                 for (var i = 0; i < $scope.feeds.length; i++) {
-                    for (var j = 0; j < $scope.linkedVehicleList.length; j++) {
-                        if ($scope.feeds[i]._id.vehicleId == $scope.linkedVehicleList[j].vehicleId[0]._id) {
-                            $scope.feeds[i].vehicleNo = $scope.linkedVehicleList[j].vehicleId[0].vehicleNo;
-                        }
-                    }
+                    var index = _.findIndex($scope.vehicleList, ['_id',$scope.feeds[i]._id.vehicleId[0]]);
+                    $scope.feeds[i].vehicleNo = $scope.vehicleList[index].vehicleNo;
                     if(i==$scope.feeds.length-1){
                         feedsData = $scope.feeds;
                         removeAllMarkers()
@@ -176,7 +177,6 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
                         createMap($scope.feeds);
                     }
                 }
-
             })
         })
 
@@ -194,17 +194,20 @@ NEC.controller('dashboardCtrl', function ($scope, apiService) {
     );
     function createMap(feeds) {
         for (var i = 0; i < feeds.length; i++) {
-            var marker = L.marker([feeds[i]._id.locationData.latitude, feeds[i]._id.locationData.longitude], {
-                icon: new L.DivIcon({
-                    className: 'my-div-icon',
-                    html: '<img class="my-div-image" src="images/markerIcon.png"/>' +
-                    '<div class="marker-info"><span class="my-div-span">'+feeds[i].vehicleNo+'</span></div> '
+            if(feeds[i]._id.locationData.latitude){
+                var marker = L.marker([feeds[i]._id.locationData.latitude, feeds[i]._id.locationData.longitude], {
+                    icon: new L.DivIcon({
+                        className: 'my-div-icon',
+                        html: '<img class="my-div-image" src="images/markerIcon.png"/>' +
+                        '<div class="marker-info"><span class="my-div-span">'+feeds[i].vehicleNo+'</span></div> '
+                    })
                 })
-            })
-            marker.bindPopup('<img src="' + feeds[i]._id.updateStatus + '" style="width:300px; height: 250px;"><br><strong>Posted By: </strong> ' + feeds[i].vehicleNo+ ' <br><div class="mapItemLocation"> <strong>Location : </strong> ' + feeds[i]._id.locationData.address + '</div>', {
-                showOnMouseOver: true
-            });
-            markers.addLayer(marker);
+                marker.bindPopup('<img src="' + feeds[i]._id.updateStatus + '" style="width:300px; height: 250px;"><br><strong>Posted By: </strong> ' + feeds[i].vehicleNo+ ' <br><div class="mapItemLocation"> <strong>Location : </strong> ' + feeds[i]._id.locationData.address + '</div>', {
+                    showOnMouseOver: true
+                });
+                markers.addLayer(marker);
+            }
+
         }
     }
 

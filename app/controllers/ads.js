@@ -41,7 +41,8 @@ router.post('/newCampaign1', function (req, res) {
     })
 })
 router.get('/listCampaign', function (req, res) {
-    campaignsTill15July.find({},{'campaign':0}).populate([{path: 'projectId'}, {path: 'campaignType'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+    campaign.find({},{'campaign':0}).populate([{path: 'projectId'}, {path: 'campaignType'}, {path: 'campaign.vehicleId'}, {path: 'campaign.user'}]).exec(function (err, data) {
+        console.log(data)
         res.jsonp(data)
     })
 })

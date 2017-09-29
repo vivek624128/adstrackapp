@@ -25,7 +25,12 @@ router.post('/newUser', function (req, res) {
     var newUser = new users(req.body);
     newUser.dateTime =moment().format();
     var password = passwoid(6);
-    newUser.password =md5(password);
+    if(newUser.userType == 'Driver'){
+        newUser.password =md5('123');
+    }
+    else{
+        newUser.password =md5(password);
+    }
     newUser.save(function
         (err) {
         if (err) throw err;
@@ -116,6 +121,7 @@ router.post('/login/authenticate', function (req, res) {
         console.log(data)
         if(data.length>0){
             if(data[0].permission == permission){
+                data[0].campaign = data[0].campaign[data[0].campaign.length-1];
                 res.send(  responseMsg.response('200','Success', data));
             }
             else{

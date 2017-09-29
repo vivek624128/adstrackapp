@@ -11,6 +11,7 @@ NEC.controller('vehicleCtrl', function ($scope, $rootScope, $http, apiService) {
         apiService.addVehicle($scope.vehicleData).then(function (data) {
             console.log(data.data);
             $scope.listVehicle();
+            $scope.closePopup('.popup.vehicle');
         })
     }
     $scope.updateVehicle = function () {

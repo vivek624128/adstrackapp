@@ -18,7 +18,7 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
         apiService.saveUser($scope.uploadData).then(function (data) {
             console.log(data)
             $scope.getUserList();
-            $scope.closePopup();
+            $scope.closePopup('.popup.userAdd');
             $scope.uploadData ={};
 
         })
@@ -27,7 +27,7 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
         apiService.editUser($scope.uploadData).then(function (data) {
             console.log(data)
             $scope.getUserList();
-            $scope.closePopup();
+            $scope.closePopup('.popup.user');
 
         })
     }
@@ -43,11 +43,11 @@ NEC.controller('userCtrl', function ($scope, $rootScope, $http, apiPath, $locati
     $scope.getUserList();
 
 
-    $scope.closePopup =function () {
+    $scope.closePopup =function (popup) {
         setTimeout(function () {
-            $('.popup.user').fadeOut(100)
-            $('.background').fadeOut(100)
-        },100)
+            $(popup).fadeOut(250)
+            $('.background').fadeOut(250)
+        },250)
     }
 
     $scope.deleteUser = function (id) {

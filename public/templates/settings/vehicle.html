@@ -123,7 +123,7 @@
                 </div>
                 <ul class="list">
                     <li ng-repeat="users in userList | filter : {'userType':'Driver'}" ng-click="vehicleData.driverId=users._id">
-                        {{users.fullName}}
+                        {{users.fullName}} [{{users.username}}]
                     </li>
                 </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
             </div>
@@ -217,7 +217,7 @@
                 </div>
                 <ul class="list">
                     <li ng-repeat="users in userList | filter : {'userType':'Driver'}" ng-click="updateData.driverId=users._id">
-                        {{users.fullName}}
+                        {{users.fullName}} [{{users.username}}]
                     </li>
                 </ul><!-- | filter : { 'cust_id': uploadData.cust_id }-->
             </div>

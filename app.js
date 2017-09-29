@@ -4,6 +4,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
 var mysql = require('mysql');
+/*
 var connection = mysql.createConnection({
     host     : 'mahaboudhilocation.com',
     user     : 'mahaboud_vivek',
@@ -17,6 +18,7 @@ connection.connect(function(err) {
 
     console.log('connected as id ' + connection.threadId);
 });
+*/
 
 mongoose.connect(config.db);
 var db = mongoose.connection;
