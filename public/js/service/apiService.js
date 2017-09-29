@@ -112,8 +112,8 @@ NEC.provider('apiPath', function () {
     return {
         $get: function () {
             return {
-                baseUrl: 'http://localhost:8080/'
-                // baseUrl: 'http://localhost/mahaboudhApi/'
+                // baseUrl: 'http://localhost:8080/'
+                baseUrl: 'http://trackapp.mahaboudhilocation.com/'
                 // baseUrl: 'http://newsapp-myflash.rhcloud.com/'
             }
         }
