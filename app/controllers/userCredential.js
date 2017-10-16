@@ -65,6 +65,29 @@ router.get('/changePassword', function (req, res) {
         res.send(result)
     })
 })
+router.get('/changePassword/:userName', function (req, res) {
+    var data = req.body;
+    // var oldPassword = md5(data.oldPassword);
+    var newPassword = md5(data.newPassword);
+
+    console.log(data)
+
+    // console.log(oldPassword +' ----------- '+ newPassword)
+    users.find({username:data.username}, function (err, response) {
+        if(response!=''){
+            users.update({username :data.username},{$set : {password:newPassword}}, function (err, data) {
+
+
+                console.log(data)
+
+                res.send("New Password Successfully changed !!...")
+            })
+        }
+        else{
+            res.send("User Id / Old Password Not matched")
+        }
+    })
+})
 router.get('/userList', function (req, res) {
     users.find({}, function (err, data) {
         res.jsonp(data)
@@ -121,7 +144,8 @@ router.post('/login/authenticate', function (req, res) {
         console.log(data)
         if(data.length>0){
             if(data[0].permission == permission){
-                data[0].campaign = data[0].campaign[data[0].campaign.length-1];
+                // data[0].campaign = data[0].campaign[data[0].campaign.length-1];
+                data[0].campaign = '58e8da1a5d3c76287f011d10';
                 res.send(  responseMsg.response('200','Success', data));
             }
             else{

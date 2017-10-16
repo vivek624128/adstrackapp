@@ -162,12 +162,13 @@ router.post('/feeds', function (req, res) {
     }
     table.aggregate(
         [
-            {$unwind: "$campaign"}, {$unwind: "$campaign.updates"}, {$unwind: "$campaign.updates.location"},
-            {$match: {'campaign.updates.updatedOn': {$gte: startDate, $lt: endDate}}},
+            {$unwind: "$campaign"}, {$unwind: "$campaign.updates"},{$unwind: "$campaign.user"}, {$unwind: "$campaign.updates.location"},
+            {$match: {'campaign.updates.updatedOn': {$gte: startDate, $lt: endDate}}
+            },
             {
                 $group: {
                     _id: {
-                        'campaignId': "$campaign._id",
+                        'campaignId': "$_id",
                         'vehicleId': '$campaign.vehicleId',
                         'updateOn': '$campaign.updates.updatedOn',
                         'locationData': {
@@ -175,7 +176,8 @@ router.post('/feeds', function (req, res) {
                             'longitude': '$campaign.updates.location.longitude',
                             'address': '$campaign.updates.location.address'
                         },
-                        'updateStatus': '$campaign.updates.updateStatus'
+                        'updateStatus': '$campaign.updates.updateStatus',
+                        'userId':'$campaign.user'
                     }
                 }
             }
@@ -202,7 +204,7 @@ router.post('/feedsByVehicleId', function (req, res) {
     }
     table.aggregate(
             [
-                {$unwind: "$campaign"},{$unwind: "$campaign.updates"},{$unwind: "$campaign.updates.location"},
+                {$unwind: "$campaign"},{$unwind: "$campaign.updates"},{$unwind: "$campaign.user"},{$unwind: "$campaign.updates.location"},
                 {$match: {'campaign.vehicleId':data.vehicleId,'campaign.updates.updatedOn':{$gte : startDate, $lt: endDate}}},
                 {
                     $group: {
@@ -213,7 +215,8 @@ router.post('/feedsByVehicleId', function (req, res) {
                             'latitude': '$campaign.updates.location.latitude',
                             'longitude': '$campaign.updates.location.longitude',
                             'address': '$campaign.updates.location.address',
-                            'updateStatus':'$campaign.updates.updateStatus'
+                            'updateStatus':'$campaign.updates.updateStatus',
+                            'userId':'$campaign.user'
                         }
                     }
                 }

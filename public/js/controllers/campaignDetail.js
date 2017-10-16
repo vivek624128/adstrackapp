@@ -4,6 +4,7 @@
 NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $window, $location, $stateParams, apiService, $timeout) {
     $scope.campaignData = {};
     $scope.id = $stateParams.id;
+    $scope.selectedCampaign = $stateParams.id;
 
     $scope.newLink = {};
     $scope.newLink.data = {};
@@ -20,6 +21,7 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
         apiService.campaignListById($scope.id).then(function (data) {
             $scope.loader = false;
             $scope.campaignList = data.data[0];
+            console.log($scope.campaignList)
             // $scope.vehicleList = data.data[0].campaign[0].vehicleId;
             // $scope.attachedVehicles = data.data[0].campaign;
         })
@@ -75,6 +77,7 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
     $scope.date = moment().format('YYYY-MM-DD')
 
     $scope.feedsPayload.startDate = $scope.date;
+    $scope.feedsPayload.campId = $stateParams.id;
     ;
     $scope.feedsPayload.endDate = $scope.date;
     $scope.getFeeds = function () {
@@ -93,7 +96,8 @@ NEC.controller('campaignDetailCtrl', function ($scope, $rootScope, $http, $windo
                         }
                     }
                 }
-                // console.log($scope.feeds)
+
+                $scope.feeds = _.filter($scope.feeds, ['_id.campaignId', $scope.selectedCampaign ]);
             })
 
         })
