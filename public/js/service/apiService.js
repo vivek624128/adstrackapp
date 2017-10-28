@@ -113,9 +113,9 @@ NEC.provider('apiPath', function () {
         $get: function () {
             return {
                 // baseUrl: 'http://localhost:8080/'
-                baseUrl: 'https://pure-stream-91531.herokuapp.com/'
+                // baseUrl: 'https://pure-stream-91531.herokuapp.com/'
                 // baseUrl: 'http://trackapp.mahaboudhilocation.com/'
-                // baseUrl: 'http://adstrackapp-trackapp.1d35.starter-us-east-1.openshiftapps.com/'
+                baseUrl: 'http://adstrackapp-trackapp.1d35.starter-us-east-1.openshiftapps.com/'
             }
         }
     }
