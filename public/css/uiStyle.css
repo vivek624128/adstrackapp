@@ -645,6 +645,16 @@ body {
 }
 .listFeedsForPrint li .list{
     padding:5px;
+    position: relative;
+}
+.listFeedsForPrint li .feedsImage .data {
+    position: absolute;
+    bottom: 10px;
+    margin: 0 5%;
+    width: 90%;
+    display: block;
+    font-weight: bold;
+    color: #00fffd;
 }
 .listFeedsForPrint li .list img{
     width:100%;

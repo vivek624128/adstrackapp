@@ -74,12 +74,17 @@
             <div class="list">
                 <div class="feedsImage">
                     <img ng-src="{{feed._id.updateStatus}}">
+                    <div class="data">
+                        <div class="floatLeft"> [{{feed._id.latitude}} , {{feed._id.longitude}}]</div>
+                        <div class="floatRight">{{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</div>
+                        <!--<span>{{feed._id.address}}</span><br/>-->
+                    </div>
                 </div>
-                <div class="data">
+                <!--<div class="data">
                     <span><strong>Location : </strong> {{feed._id.address}}</span><br/>
                     <span><strong>[Latitude, Longitude] : </strong> [{{feed._id.latitude | number :5}} , {{feed._id.longitude | number :5}}]</span><br/>
                     <span><strong>Updated Time : </strong> {{dateFormat(feed._id.updateOn) | date : 'MMM dd , yyyy [ HH:mm ]'}}</span>
-                </div>
+                </div>-->
             </div>
             <div class="delete" ng-click="feed.status=false" ng-if="permission!='Department'">
                 X

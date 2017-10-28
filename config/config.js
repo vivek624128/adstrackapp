@@ -1,8 +1,8 @@
 var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
     env = process.env.NODE_ENV || 'development';
-var server_port = 8080;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var server_port = 5000;
+// var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 process.env.TZ = 'Asia/Kolkata';
 var config = {

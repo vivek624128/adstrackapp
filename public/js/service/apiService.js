@@ -112,9 +112,9 @@ NEC.provider('apiPath', function () {
     return {
         $get: function () {
             return {
-                // baseUrl: 'http://localhost:8080/'
+                baseUrl: 'http://localhost:8080/'
                 // baseUrl: 'http://trackapp.mahaboudhilocation.com/'
-                baseUrl: 'http://adstrackapp-trackapp.1d35.starter-us-east-1.openshiftapps.com/'
+                // baseUrl: 'http://adstrackapp-trackapp.1d35.starter-us-east-1.openshiftapps.com/'
             }
         }
     }
